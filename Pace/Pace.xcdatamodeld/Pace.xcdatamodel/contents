@@ -1,4 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+    <entity name="Card" syncable="YES">
+        <attribute name="partOfSpeech" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="partOfSpeechRaw" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="word" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Example" inverseName="words" inverseEntity="Example" syncable="YES"/>
+        <relationship name="proficiency" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Classification" inverseName="words" inverseEntity="Classification" syncable="YES"/>
+        <relationship name="roots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Root" inverseName="words" inverseEntity="Root" syncable="YES"/>
+        <relationship name="synonyms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Synonym" inverseName="words" inverseEntity="Synonym" syncable="YES"/>
+        <relationship name="themes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Theme" inverseName="words" inverseEntity="Theme" syncable="YES"/>
+    </entity>
+    <entity name="Classification" syncable="YES">
+        <attribute name="classifyType" optional="YES" transient="YES" syncable="YES"/>
+        <attribute name="classifyTypeRaw" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="proficiency" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <entity name="Example" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="paragraph" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="examples" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <entity name="Root" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="roots" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <entity name="Synonym" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="synonyms" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <entity name="Theme" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="themes" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Card" positionX="-36" positionY="-169" width="128" height="163"/>
+        <element name="Example" positionX="-225" positionY="-153" width="128" height="88"/>
+        <element name="Root" positionX="-216" positionY="-18" width="128" height="73"/>
+        <element name="Synonym" positionX="-38" positionY="30" width="128" height="73"/>
+        <element name="Theme" positionX="133" positionY="21" width="128" height="73"/>
+        <element name="Classification" positionX="133" positionY="-162" width="128" height="88"/>
+    </elements>
 </model>
