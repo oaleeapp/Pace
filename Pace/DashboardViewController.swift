@@ -14,7 +14,7 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let wordApiInst = WordsApi()
-        wordApiInst.searchWord("wind")
+        wordApiInst.getWord("wind")
         
 
         

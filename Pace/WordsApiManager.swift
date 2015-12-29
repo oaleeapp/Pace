@@ -43,7 +43,7 @@ struct WordsApi {
         static let typeOf = "typeOf"
     }
 
-    func searchWord(word: String) {
+    func getWord(word: String) {
         Alamofire.request(Method.GET, wordsApiURL + word, headers: headers)
             .responseJSON { response in
             debugPrint(response)
