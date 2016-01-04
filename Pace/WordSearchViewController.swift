@@ -19,7 +19,7 @@ class WordSearchViewController: UITableViewController, NSFetchedResultsControlle
     var managedObjectContext: NSManagedObjectContext?
     var fetchedResultsController : NSFetchedResultsController?
     var wordTextView : UITextView?
-    var fetchWordRequest = NSFetchRequest(entityNameIdentifier: .Word)
+    var fetchWordRequest = NSFetchRequest(entityName: Word.entityName())
 
     override func viewDidLoad() {
         super.viewDidLoad()

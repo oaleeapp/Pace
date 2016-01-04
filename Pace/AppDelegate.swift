@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-//           let rootVC = window?.rootViewController as! ViewController
-//            rootVC.managedObjectContext = self.managedObjectContext
+           let rootVC = window?.rootViewController as! DashboardViewController
+            rootVC.managedObjectContext = self.managedObjectContext
         return true
     }
 

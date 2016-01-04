@@ -11,7 +11,7 @@ import Alamofire
 
 
 
-
+// should has singleton
 struct WordsApi {
 
     private let wordsApiURL = "https://wordsapiv1.p.mashape.com/words/"
@@ -43,7 +43,7 @@ struct WordsApi {
         static let typeOf = "typeOf"
     }
 
-    func getWord(word: String) {
+    func getWord(word: String, completor: (result: WAWord) -> Void) {
         Alamofire.request(Method.GET, wordsApiURL + word, headers: headers)
             .responseJSON { response in
             debugPrint(response)
@@ -52,7 +52,7 @@ struct WordsApi {
                 print(json)
                 if json.count != 0 {
                     let word = self.wordFromJson(json)
-                    print(word)
+                    completor(result: word)
                 } else {
                     // have no data online
                 }
