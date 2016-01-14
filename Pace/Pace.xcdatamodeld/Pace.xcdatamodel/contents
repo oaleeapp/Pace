@@ -1,58 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
-    <entity name="Card" representedClassName=".Card" syncable="YES">
-        <attribute name="backText" attributeType="String" syncable="YES"/>
+    <entity name="MOCard" representedClassName=".MOCard" syncable="YES">
         <attribute name="checkCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="frontText" attributeType="String" syncable="YES"/>
         <attribute name="proficiency" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deck" inverseName="cards" inverseEntity="Deck" syncable="YES"/>
-        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Definition" inverseName="card" inverseEntity="Definition" syncable="YES"/>
+        <relationship name="decks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODeck" inverseName="cards" inverseEntity="MODeck" syncable="YES"/>
+        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="card" inverseEntity="MODefinition" syncable="YES"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="card" inverseEntity="MOWord" syncable="YES"/>
     </entity>
-    <entity name="Deck" representedClassName=".Deck" syncable="YES">
+    <entity name="MODeck" representedClassName=".MODeck" syncable="YES">
+        <attribute name="backgroundColor" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="deck" inverseEntity="Card" syncable="YES"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MOCard" inverseName="decks" inverseEntity="MOCard" syncable="YES"/>
     </entity>
-    <entity name="Definition" representedClassName=".Definition" syncable="YES">
+    <entity name="MODefinition" representedClassName=".MODefinition" syncable="YES">
         <attribute name="definitoin" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="derivation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="partOfSpeech" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="definition" inverseEntity="Card" syncable="YES"/>
-        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Example" inverseName="definition" inverseEntity="Example" syncable="YES"/>
-        <relationship name="hasTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HasType" inverseName="definition" inverseEntity="HasType" syncable="YES"/>
-        <relationship name="synonyms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Synonym" inverseName="definition" inverseEntity="Synonym" syncable="YES"/>
-        <relationship name="typeOf" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TypeOf" inverseName="definition" inverseEntity="TypeOf" syncable="YES"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="definitions" inverseEntity="Word" syncable="YES"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOCard" inverseName="definition" inverseEntity="MOCard" syncable="YES"/>
+        <relationship name="details" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODefinitionDetail" inverseName="definition" inverseEntity="MODefinitionDetail" syncable="YES"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="definitions" inverseEntity="MOWord" syncable="YES"/>
     </entity>
-    <entity name="Example" representedClassName=".Example" syncable="YES">
+    <entity name="MODefinitionDetail" representedClassName=".MODefinitionDetail" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Definition" inverseName="examples" inverseEntity="Definition" syncable="YES"/>
+        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="details" inverseEntity="MODefinition" syncable="YES"/>
     </entity>
-    <entity name="HasType" representedClassName=".HasType" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Definition" inverseName="hasTypes" inverseEntity="Definition" syncable="YES"/>
-    </entity>
-    <entity name="Synonym" representedClassName=".Synonym" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Definition" inverseName="synonyms" inverseEntity="Definition" syncable="YES"/>
-    </entity>
-    <entity name="TypeOf" representedClassName=".TypeOf" syncable="YES">
-        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Definition" inverseName="typeOf" inverseEntity="Definition" syncable="YES"/>
-    </entity>
-    <entity name="Word" representedClassName=".Word" syncable="YES">
+    <entity name="MOWord" representedClassName=".MOWord" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="hasDownload" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="pronunciation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="syllables" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="word" attributeType="String" syncable="YES"/>
-        <relationship name="definitions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Definition" inverseName="word" inverseEntity="Definition" syncable="YES"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOCard" inverseName="word" inverseEntity="MOCard" syncable="YES"/>
+        <relationship name="definitions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MODefinition" inverseName="word" inverseEntity="MODefinition" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="word"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Word" positionX="-29" positionY="-271" width="128" height="73"/>
-        <element name="Deck" positionX="-27" positionY="-54" width="128" height="73"/>
-        <element name="Example" positionX="331" positionY="-243" width="128" height="73"/>
-        <element name="Synonym" positionX="342" positionY="-63" width="128" height="73"/>
-        <element name="Definition" positionX="135" positionY="-244" width="128" height="178"/>
-        <element name="TypeOf" positionX="306" positionY="27" width="128" height="73"/>
-        <element name="HasType" positionX="367" positionY="-144" width="128" height="73"/>
-        <element name="Card" positionX="133" positionY="-9" width="128" height="163"/>
+        <element name="MOCard" positionX="36" positionY="-27" width="128" height="118"/>
+        <element name="MODeck" positionX="-126" positionY="62" width="128" height="88"/>
+        <element name="MODefinition" positionX="135" positionY="-244" width="128" height="118"/>
+        <element name="MODefinitionDetail" positionX="295" positionY="-205" width="128" height="88"/>
+        <element name="MOWord" positionX="-38" positionY="-250" width="128" height="163"/>
     </elements>
 </model>

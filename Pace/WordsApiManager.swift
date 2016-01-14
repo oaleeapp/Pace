@@ -78,22 +78,27 @@ struct WordsApi {
         let definitionString = json[WAKeys.definition].stringValue
         let partOfSpeech = json[WAKeys.partOfSpeech].stringValue
         var definition = WADefinition(definitoin: definitionString, partOfSpeech: partOfSpeech)
-        definition.derivation = json[WAKeys.derivation].arrayObject as? [String]
-        definition.similatTo = json[WAKeys.similarTo].arrayObject as? [String]
-        definition.synonyms = json[WAKeys.synonyms].arrayObject as? [String]
-        definition.antonyms = json[WAKeys.antonyms].arrayObject as? [String]
-        definition.examples = json[WAKeys.examples].arrayObject as? [String]
-        definition.attribute = json[WAKeys.attribute].arrayObject as? [String]
-        definition.also = json[WAKeys.also].arrayObject as? [String]
-        definition.inCategory = json[WAKeys.inCategory].arrayObject as? [String]
-        definition.hasTypes = json[WAKeys.hasTypes].arrayObject as? [String]
-        definition.typeOf = json[WAKeys.typeOf].arrayObject as? [String]
+
+        definition.details[WAKeys.derivation] = json[WAKeys.derivation].arrayObject as? [String]
+        definition.details[WAKeys.similarTo] = json[WAKeys.similarTo].arrayObject as? [String]
+        definition.details[WAKeys.synonyms] = json[WAKeys.synonyms].arrayObject as? [String]
+        definition.details[WAKeys.antonyms] = json[WAKeys.antonyms].arrayObject as? [String]
+        definition.details[WAKeys.examples] = json[WAKeys.examples].arrayObject as? [String]
+        definition.details[WAKeys.attribute] = json[WAKeys.attribute].arrayObject as? [String]
+        definition.details[WAKeys.also] = json[WAKeys.also].arrayObject as? [String]
+        definition.details[WAKeys.inCategory] = json[WAKeys.inCategory].arrayObject as? [String]
+        definition.details[WAKeys.hasTypes] = json[WAKeys.hasTypes].arrayObject as? [String]
+        definition.details[WAKeys.typeOf] = json[WAKeys.typeOf].arrayObject as? [String]
+
         return definition
     }
     func syllablesFromJson(json: JSON) -> WASyllables{
+        guard let list = json[WAKeys.syllablesList].arrayObject else {
+            return WASyllables(count: 0, list: [""])
+        }
         return WASyllables(
             count: json[WAKeys.syllablesCount].intValue,
-            list: json[WAKeys.syllablesList].arrayObject as! [String])
+            list: list as! [String])
     }
 
     func pronunciationFromJson(json: JSON) -> WAPronunciation{
@@ -155,16 +160,7 @@ struct WAPronunciation {
 struct WADefinition {
     var definition : String
     var partOfSpeech : String
-    var derivation : [String]?
-    var similatTo : [String]?
-    var synonyms : [String]?
-    var antonyms : [String]?
-    var examples : [String]?
-    var attribute : [String]?
-    var also : [String]?
-    var inCategory : [String]?
-    var hasTypes : [String]?
-    var typeOf : [String]?
+    var details : [String : [String]] = [:]
 
     init(definitoin: String, partOfSpeech: String) {
         self.definition = definitoin

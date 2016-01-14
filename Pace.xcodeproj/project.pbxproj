@@ -8,46 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		9B1BD0571C228E1C00ED10AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD0561C228E1C00ED10AE /* AppDelegate.swift */; };
-		9B1BD0591C228E1C00ED10AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD0581C228E1C00ED10AE /* ViewController.swift */; };
 		9B1BD05C1C228E1C00ED10AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B1BD05A1C228E1C00ED10AE /* Main.storyboard */; };
 		9B1BD05F1C228E1C00ED10AE /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD05D1C228E1C00ED10AE /* Pace.xcdatamodeld */; };
 		9B1BD0611C228E1C00ED10AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B1BD0601C228E1C00ED10AE /* Assets.xcassets */; };
 		9B1BD0641C228E1C00ED10AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B1BD0621C228E1C00ED10AE /* LaunchScreen.storyboard */; };
 		9B1BD06F1C228E1C00ED10AE /* PaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD06E1C228E1C00ED10AE /* PaceTests.swift */; };
 		9B1BD07A1C228E1C00ED10AE /* PaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD0791C228E1C00ED10AE /* PaceUITests.swift */; };
+		9B5343DD1C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D31C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift */; };
+		9B5343DE1C3F89EF00AEF13E /* MODefinitionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D41C3F89EF00AEF13E /* MODefinitionDetail.swift */; };
+		9B5343DF1C3F89EF00AEF13E /* MODeck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D51C3F89EF00AEF13E /* MODeck+CoreDataProperties.swift */; };
+		9B5343E01C3F89EF00AEF13E /* MODeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D61C3F89EF00AEF13E /* MODeck.swift */; };
+		9B5343E11C3F89EF00AEF13E /* MOCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D71C3F89EF00AEF13E /* MOCard+CoreDataProperties.swift */; };
+		9B5343E21C3F89EF00AEF13E /* MOCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D81C3F89EF00AEF13E /* MOCard.swift */; };
+		9B5343E31C3F89EF00AEF13E /* MODefinition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343D91C3F89EF00AEF13E /* MODefinition+CoreDataProperties.swift */; };
+		9B5343E41C3F89EF00AEF13E /* MODefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343DA1C3F89EF00AEF13E /* MODefinition.swift */; };
+		9B5343E51C3F89EF00AEF13E /* MOWord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343DB1C3F89EF00AEF13E /* MOWord+CoreDataProperties.swift */; };
+		9B5343E61C3F89EF00AEF13E /* MOWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5343DC1C3F89EF00AEF13E /* MOWord.swift */; };
+		9B5BB3741C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5BB3731C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift */; };
 		9B66E7EC1C34D02500D429BA /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E7EB1C34D02500D429BA /* WordListViewController.swift */; };
 		9B66E7F51C3903FC00D429BA /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E7F41C3903FC00D429BA /* WordViewController.swift */; };
 		9B66E7F71C39043900D429BA /* WordDefinitionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E7F61C39043900D429BA /* WordDefinitionsCollectionViewController.swift */; };
 		9B66E7FA1C3904A100D429BA /* DeckListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E7F91C3904A100D429BA /* DeckListTableViewController.swift */; };
 		9B66E7FC1C3904C900D429BA /* DeckCardsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E7FB1C3904C900D429BA /* DeckCardsTableViewController.swift */; };
+		9B66E81D1C3A264B00D429BA /* WordDefinitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E81C1C3A264B00D429BA /* WordDefinitionCell.swift */; };
+		9B66E81F1C3A52F800D429BA /* PaceTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B66E81E1C3A52F800D429BA /* PaceTabBarViewController.swift */; };
+		9B9279D21C40E9640007296C /* UIColor + PaceTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9279D11C40E9640007296C /* UIColor + PaceTheme.swift */; };
+		9B9279DA1C410E440007296C /* CardSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9279D91C410E440007296C /* CardSelectionTableViewController.swift */; };
+		9B9279DC1C44A4BF0007296C /* PaceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9279DB1C44A4BF0007296C /* PaceMainViewController.swift */; };
+		9B9279DE1C44A4E20007296C /* PaceCardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9279DD1C44A4E20007296C /* PaceCardCollectionViewController.swift */; };
+		9B9279E01C44D3590007296C /* PaceCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9279DF1C44D3590007296C /* PaceCardCollectionViewCell.swift */; };
 		9BE827EE1C338097002DB146 /* NSManagedObject + EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE827ED1C338097002DB146 /* NSManagedObject + EntityName.swift */; };
 		9BE827F61C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE827F51C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift */; };
-		9BEFF3B21C27E0BC004F3AD1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF3B11C27E0BC004F3AD1 /* HomeViewController.swift */; };
-		9BEFF3B41C27E3F9004F3AD1 /* WordSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF3B31C27E3F9004F3AD1 /* WordSearchViewController.swift */; };
-		9BEFF3B61C28F233004F3AD1 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF3B51C28F233004F3AD1 /* CardDetailViewController.swift */; };
 		9BEFF4CC1C290B68004F3AD1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BEFF4BF1C290B22004F3AD1 /* Alamofire.framework */; };
 		9BEFF4CD1C290B68004F3AD1 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9BEFF4BF1C290B22004F3AD1 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9BEFF54A1C2D0BF0004F3AD1 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5491C2D0BF0004F3AD1 /* DashboardViewController.swift */; };
 		9BEFF5501C2D2B95004F3AD1 /* WordsApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF54F1C2D2B95004F3AD1 /* WordsApiManager.swift */; };
 		9BEFF5521C30DE5F004F3AD1 /* SegueHandlerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5511C30DE5F004F3AD1 /* SegueHandlerType.swift */; };
 		9BEFF5571C31018C004F3AD1 /* DefinitionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5561C31018C004F3AD1 /* DefinitionListViewModel.swift */; };
 		9BEFF55B1C3103A9004F3AD1 /* DefinitionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF55A1C3103A9004F3AD1 /* DefinitionDetailViewModel.swift */; };
-		9BEFF56C1C31205B004F3AD1 /* Word+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF55C1C31205B004F3AD1 /* Word+CoreDataProperties.swift */; };
-		9BEFF56D1C31205B004F3AD1 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF55D1C31205B004F3AD1 /* Word.swift */; };
-		9BEFF56E1C31205B004F3AD1 /* Example+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF55E1C31205B004F3AD1 /* Example+CoreDataProperties.swift */; };
-		9BEFF56F1C31205B004F3AD1 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF55F1C31205B004F3AD1 /* Example.swift */; };
-		9BEFF5701C31205B004F3AD1 /* Synonym+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5601C31205B004F3AD1 /* Synonym+CoreDataProperties.swift */; };
-		9BEFF5711C31205B004F3AD1 /* Synonym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5611C31205B004F3AD1 /* Synonym.swift */; };
-		9BEFF5721C31205B004F3AD1 /* Definition+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5621C31205B004F3AD1 /* Definition+CoreDataProperties.swift */; };
-		9BEFF5731C31205B004F3AD1 /* Definition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5631C31205B004F3AD1 /* Definition.swift */; };
-		9BEFF5741C31205B004F3AD1 /* TypeOf+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5641C31205B004F3AD1 /* TypeOf+CoreDataProperties.swift */; };
-		9BEFF5751C31205B004F3AD1 /* TypeOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5651C31205B004F3AD1 /* TypeOf.swift */; };
-		9BEFF5761C31205B004F3AD1 /* HasType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5661C31205B004F3AD1 /* HasType+CoreDataProperties.swift */; };
-		9BEFF5771C31205B004F3AD1 /* HasType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5671C31205B004F3AD1 /* HasType.swift */; };
-		9BEFF5781C31205B004F3AD1 /* Deck+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5681C31205B004F3AD1 /* Deck+CoreDataProperties.swift */; };
-		9BEFF5791C31205B004F3AD1 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5691C31205B004F3AD1 /* Deck.swift */; };
-		9BEFF57B1C31205B004F3AD1 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF56B1C31205B004F3AD1 /* Card.swift */; };
-		9BEFF5821C31274F004F3AD1 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5811C31274F004F3AD1 /* Card+CoreDataProperties.swift */; };
 		9BEFF5861C3269F6004F3AD1 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFF5851C3269F6004F3AD1 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,7 +138,6 @@
 /* Begin PBXFileReference section */
 		9B1BD0531C228E1C00ED10AE /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B1BD0561C228E1C00ED10AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9B1BD0581C228E1C00ED10AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9B1BD05B1C228E1C00ED10AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B1BD05E1C228E1C00ED10AE /* Pace.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pace.xcdatamodel; sourceTree = "<group>"; };
 		9B1BD0601C228E1C00ED10AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,38 +149,36 @@
 		9B1BD0751C228E1C00ED10AE /* PaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B1BD0791C228E1C00ED10AE /* PaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceUITests.swift; sourceTree = "<group>"; };
 		9B1BD07B1C228E1C00ED10AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B5343D31C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MODefinitionDetail+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B5343D41C3F89EF00AEF13E /* MODefinitionDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MODefinitionDetail.swift; sourceTree = "<group>"; };
+		9B5343D51C3F89EF00AEF13E /* MODeck+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MODeck+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B5343D61C3F89EF00AEF13E /* MODeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MODeck.swift; sourceTree = "<group>"; };
+		9B5343D71C3F89EF00AEF13E /* MOCard+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MOCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B5343D81C3F89EF00AEF13E /* MOCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOCard.swift; sourceTree = "<group>"; };
+		9B5343D91C3F89EF00AEF13E /* MODefinition+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MODefinition+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B5343DA1C3F89EF00AEF13E /* MODefinition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MODefinition.swift; sourceTree = "<group>"; };
+		9B5343DB1C3F89EF00AEF13E /* MOWord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MOWord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9B5343DC1C3F89EF00AEF13E /* MOWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MOWord.swift; sourceTree = "<group>"; };
+		9B5BB3731C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterCellCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		9B66E7EB1C34D02500D429BA /* WordListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
 		9B66E7F41C3903FC00D429BA /* WordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordViewController.swift; sourceTree = "<group>"; };
 		9B66E7F61C39043900D429BA /* WordDefinitionsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDefinitionsCollectionViewController.swift; sourceTree = "<group>"; };
 		9B66E7F91C3904A100D429BA /* DeckListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckListTableViewController.swift; sourceTree = "<group>"; };
 		9B66E7FB1C3904C900D429BA /* DeckCardsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckCardsTableViewController.swift; sourceTree = "<group>"; };
+		9B66E81C1C3A264B00D429BA /* WordDefinitionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDefinitionCell.swift; sourceTree = "<group>"; };
+		9B66E81E1C3A52F800D429BA /* PaceTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceTabBarViewController.swift; sourceTree = "<group>"; };
+		9B9279D11C40E9640007296C /* UIColor + PaceTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor + PaceTheme.swift"; sourceTree = "<group>"; };
+		9B9279D91C410E440007296C /* CardSelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSelectionTableViewController.swift; sourceTree = "<group>"; };
+		9B9279DB1C44A4BF0007296C /* PaceMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceMainViewController.swift; sourceTree = "<group>"; };
+		9B9279DD1C44A4E20007296C /* PaceCardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceCardCollectionViewController.swift; sourceTree = "<group>"; };
+		9B9279DF1C44D3590007296C /* PaceCardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BE827ED1C338097002DB146 /* NSManagedObject + EntityName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject + EntityName.swift"; sourceTree = "<group>"; };
 		9BE827F51C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext + ConvenientInsert.swift"; sourceTree = "<group>"; };
-		9BEFF3B11C27E0BC004F3AD1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		9BEFF3B31C27E3F9004F3AD1 /* WordSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordSearchViewController.swift; sourceTree = "<group>"; };
-		9BEFF3B51C28F233004F3AD1 /* CardDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		9BEFF4B41C290B21004F3AD1 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		9BEFF5491C2D0BF0004F3AD1 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		9BEFF54F1C2D2B95004F3AD1 /* WordsApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsApiManager.swift; sourceTree = "<group>"; };
 		9BEFF5511C30DE5F004F3AD1 /* SegueHandlerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueHandlerType.swift; sourceTree = "<group>"; };
 		9BEFF5561C31018C004F3AD1 /* DefinitionListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefinitionListViewModel.swift; sourceTree = "<group>"; };
 		9BEFF55A1C3103A9004F3AD1 /* DefinitionDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefinitionDetailViewModel.swift; sourceTree = "<group>"; };
-		9BEFF55C1C31205B004F3AD1 /* Word+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Word+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF55D1C31205B004F3AD1 /* Word.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
-		9BEFF55E1C31205B004F3AD1 /* Example+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Example+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF55F1C31205B004F3AD1 /* Example.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
-		9BEFF5601C31205B004F3AD1 /* Synonym+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Synonym+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF5611C31205B004F3AD1 /* Synonym.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synonym.swift; sourceTree = "<group>"; };
-		9BEFF5621C31205B004F3AD1 /* Definition+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Definition+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF5631C31205B004F3AD1 /* Definition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Definition.swift; sourceTree = "<group>"; };
-		9BEFF5641C31205B004F3AD1 /* TypeOf+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TypeOf+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF5651C31205B004F3AD1 /* TypeOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeOf.swift; sourceTree = "<group>"; };
-		9BEFF5661C31205B004F3AD1 /* HasType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HasType+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF5671C31205B004F3AD1 /* HasType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasType.swift; sourceTree = "<group>"; };
-		9BEFF5681C31205B004F3AD1 /* Deck+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Deck+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9BEFF5691C31205B004F3AD1 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
-		9BEFF56B1C31205B004F3AD1 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		9BEFF5811C31274F004F3AD1 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9BEFF5851C3269F6004F3AD1 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +211,16 @@
 		9B1BD04A1C228E1C00ED10AE = {
 			isa = PBXGroup;
 			children = (
+				9B5343D31C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift */,
+				9B5343D41C3F89EF00AEF13E /* MODefinitionDetail.swift */,
+				9B5343D51C3F89EF00AEF13E /* MODeck+CoreDataProperties.swift */,
+				9B5343D61C3F89EF00AEF13E /* MODeck.swift */,
+				9B5343D71C3F89EF00AEF13E /* MOCard+CoreDataProperties.swift */,
+				9B5343D81C3F89EF00AEF13E /* MOCard.swift */,
+				9B5343D91C3F89EF00AEF13E /* MODefinition+CoreDataProperties.swift */,
+				9B5343DA1C3F89EF00AEF13E /* MODefinition.swift */,
+				9B5343DB1C3F89EF00AEF13E /* MOWord+CoreDataProperties.swift */,
+				9B5343DC1C3F89EF00AEF13E /* MOWord.swift */,
 				9BEFF3F11C290AA7004F3AD1 /* Libraries */,
 				9BEFF57C1C312068004F3AD1 /* ModelObject */,
 				9BEFF5531C30DF45004F3AD1 /* Supporter */,
@@ -276,6 +280,8 @@
 				9B66E7EB1C34D02500D429BA /* WordListViewController.swift */,
 				9B66E7F41C3903FC00D429BA /* WordViewController.swift */,
 				9B66E7F61C39043900D429BA /* WordDefinitionsCollectionViewController.swift */,
+				9B66E81C1C3A264B00D429BA /* WordDefinitionCell.swift */,
+				9B5BB3731C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift */,
 			);
 			name = Words;
 			sourceTree = "<group>";
@@ -285,6 +291,7 @@
 			children = (
 				9B66E7F91C3904A100D429BA /* DeckListTableViewController.swift */,
 				9B66E7FB1C3904C900D429BA /* DeckCardsTableViewController.swift */,
+				9B9279D91C410E440007296C /* CardSelectionTableViewController.swift */,
 			);
 			name = Decks;
 			sourceTree = "<group>";
@@ -292,9 +299,19 @@
 		9B66E7FD1C3904E900D429BA /* Pace */ = {
 			isa = PBXGroup;
 			children = (
-				9BEFF5491C2D0BF0004F3AD1 /* DashboardViewController.swift */,
+				9B9279DB1C44A4BF0007296C /* PaceMainViewController.swift */,
+				9B9279DD1C44A4E20007296C /* PaceCardCollectionViewController.swift */,
+				9B9279DF1C44D3590007296C /* PaceCardCollectionViewCell.swift */,
 			);
 			name = Pace;
+			sourceTree = "<group>";
+		};
+		9B66E8201C3A5D8200D429BA /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				9B66E81E1C3A52F800D429BA /* PaceTabBarViewController.swift */,
+			);
+			name = TabBarController;
 			sourceTree = "<group>";
 		};
 		9BEFF3F11C290AA7004F3AD1 /* Libraries */ = {
@@ -325,6 +342,7 @@
 			children = (
 				9BEFF54F1C2D2B95004F3AD1 /* WordsApiManager.swift */,
 				9BEFF5511C30DE5F004F3AD1 /* SegueHandlerType.swift */,
+				9B9279D11C40E9640007296C /* UIColor + PaceTheme.swift */,
 			);
 			name = Supporter;
 			path = Pace;
@@ -333,10 +351,7 @@
 		9BEFF5541C30DF5F004F3AD1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9B1BD0581C228E1C00ED10AE /* ViewController.swift */,
-				9BEFF3B11C27E0BC004F3AD1 /* HomeViewController.swift */,
-				9BEFF3B31C27E3F9004F3AD1 /* WordSearchViewController.swift */,
-				9BEFF3B51C28F233004F3AD1 /* CardDetailViewController.swift */,
+				9B66E8201C3A5D8200D429BA /* TabBarController */,
 				9B66E7FD1C3904E900D429BA /* Pace */,
 				9B66E7F81C39044B00D429BA /* Decks */,
 				9B66E7F31C34D03E00D429BA /* Words */,
@@ -358,22 +373,6 @@
 			children = (
 				9BE827ED1C338097002DB146 /* NSManagedObject + EntityName.swift */,
 				9BE827F51C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift */,
-				9BEFF55C1C31205B004F3AD1 /* Word+CoreDataProperties.swift */,
-				9BEFF55D1C31205B004F3AD1 /* Word.swift */,
-				9BEFF55E1C31205B004F3AD1 /* Example+CoreDataProperties.swift */,
-				9BEFF55F1C31205B004F3AD1 /* Example.swift */,
-				9BEFF5601C31205B004F3AD1 /* Synonym+CoreDataProperties.swift */,
-				9BEFF5611C31205B004F3AD1 /* Synonym.swift */,
-				9BEFF5621C31205B004F3AD1 /* Definition+CoreDataProperties.swift */,
-				9BEFF5631C31205B004F3AD1 /* Definition.swift */,
-				9BEFF5641C31205B004F3AD1 /* TypeOf+CoreDataProperties.swift */,
-				9BEFF5651C31205B004F3AD1 /* TypeOf.swift */,
-				9BEFF5661C31205B004F3AD1 /* HasType+CoreDataProperties.swift */,
-				9BEFF5671C31205B004F3AD1 /* HasType.swift */,
-				9BEFF5681C31205B004F3AD1 /* Deck+CoreDataProperties.swift */,
-				9BEFF5691C31205B004F3AD1 /* Deck.swift */,
-				9BEFF5811C31274F004F3AD1 /* Card+CoreDataProperties.swift */,
-				9BEFF56B1C31205B004F3AD1 /* Card.swift */,
 			);
 			name = ModelObject;
 			sourceTree = "<group>";
@@ -571,40 +570,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B66E7F71C39043900D429BA /* WordDefinitionsCollectionViewController.swift in Sources */,
-				9BEFF5751C31205B004F3AD1 /* TypeOf.swift in Sources */,
-				9BEFF3B21C27E0BC004F3AD1 /* HomeViewController.swift in Sources */,
+				9B5343E31C3F89EF00AEF13E /* MODefinition+CoreDataProperties.swift in Sources */,
+				9B5343DD1C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift in Sources */,
 				9B66E7FC1C3904C900D429BA /* DeckCardsTableViewController.swift in Sources */,
-				9BEFF56D1C31205B004F3AD1 /* Word.swift in Sources */,
 				9BEFF5861C3269F6004F3AD1 /* SwiftyJSON.swift in Sources */,
-				9BEFF54A1C2D0BF0004F3AD1 /* DashboardViewController.swift in Sources */,
-				9BEFF5731C31205B004F3AD1 /* Definition.swift in Sources */,
-				9BEFF5701C31205B004F3AD1 /* Synonym+CoreDataProperties.swift in Sources */,
-				9BEFF56F1C31205B004F3AD1 /* Example.swift in Sources */,
-				9BEFF5821C31274F004F3AD1 /* Card+CoreDataProperties.swift in Sources */,
-				9BEFF5761C31205B004F3AD1 /* HasType+CoreDataProperties.swift in Sources */,
-				9BEFF5721C31205B004F3AD1 /* Definition+CoreDataProperties.swift in Sources */,
-				9BEFF56E1C31205B004F3AD1 /* Example+CoreDataProperties.swift in Sources */,
-				9BEFF56C1C31205B004F3AD1 /* Word+CoreDataProperties.swift in Sources */,
+				9B5343E01C3F89EF00AEF13E /* MODeck.swift in Sources */,
+				9B66E81D1C3A264B00D429BA /* WordDefinitionCell.swift in Sources */,
+				9B5BB3741C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				9BE827F61C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift in Sources */,
+				9B9279D21C40E9640007296C /* UIColor + PaceTheme.swift in Sources */,
+				9B9279E01C44D3590007296C /* PaceCardCollectionViewCell.swift in Sources */,
 				9B66E7F51C3903FC00D429BA /* WordViewController.swift in Sources */,
 				9B66E7EC1C34D02500D429BA /* WordListViewController.swift in Sources */,
-				9BEFF3B61C28F233004F3AD1 /* CardDetailViewController.swift in Sources */,
+				9B5343DE1C3F89EF00AEF13E /* MODefinitionDetail.swift in Sources */,
+				9B5343E51C3F89EF00AEF13E /* MOWord+CoreDataProperties.swift in Sources */,
+				9B9279DA1C410E440007296C /* CardSelectionTableViewController.swift in Sources */,
 				9B66E7FA1C3904A100D429BA /* DeckListTableViewController.swift in Sources */,
 				9BEFF5571C31018C004F3AD1 /* DefinitionListViewModel.swift in Sources */,
 				9BEFF5501C2D2B95004F3AD1 /* WordsApiManager.swift in Sources */,
-				9B1BD0591C228E1C00ED10AE /* ViewController.swift in Sources */,
-				9BEFF5781C31205B004F3AD1 /* Deck+CoreDataProperties.swift in Sources */,
 				9B1BD0571C228E1C00ED10AE /* AppDelegate.swift in Sources */,
-				9BEFF5791C31205B004F3AD1 /* Deck.swift in Sources */,
 				9B1BD05F1C228E1C00ED10AE /* Pace.xcdatamodeld in Sources */,
-				9BEFF5741C31205B004F3AD1 /* TypeOf+CoreDataProperties.swift in Sources */,
-				9BEFF5771C31205B004F3AD1 /* HasType.swift in Sources */,
-				9BEFF57B1C31205B004F3AD1 /* Card.swift in Sources */,
-				9BEFF5711C31205B004F3AD1 /* Synonym.swift in Sources */,
 				9BEFF5521C30DE5F004F3AD1 /* SegueHandlerType.swift in Sources */,
-				9BEFF3B41C27E3F9004F3AD1 /* WordSearchViewController.swift in Sources */,
+				9B5343E21C3F89EF00AEF13E /* MOCard.swift in Sources */,
+				9B5343E41C3F89EF00AEF13E /* MODefinition.swift in Sources */,
 				9BEFF55B1C3103A9004F3AD1 /* DefinitionDetailViewModel.swift in Sources */,
+				9B5343DF1C3F89EF00AEF13E /* MODeck+CoreDataProperties.swift in Sources */,
+				9B5343E11C3F89EF00AEF13E /* MOCard+CoreDataProperties.swift in Sources */,
+				9B9279DC1C44A4BF0007296C /* PaceMainViewController.swift in Sources */,
 				9BE827EE1C338097002DB146 /* NSManagedObject + EntityName.swift in Sources */,
+				9B66E81F1C3A52F800D429BA /* PaceTabBarViewController.swift in Sources */,
+				9B5343E61C3F89EF00AEF13E /* MOWord.swift in Sources */,
+				9B9279DE1C44A4E20007296C /* PaceCardCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +747,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Pace/Info.plist;
@@ -766,6 +763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Pace/Info.plist;

@@ -1,82 +1,70 @@
 //
-//  DeckCardsTableViewController.swift
+//  CardSelectionTableViewController.swift
 //  Pace
 //
-//  Created by lee on 1/3/16.
+//  Created by lee on 1/9/16.
 //  Copyright © 2016 OALeeapp. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class DeckCardsTableViewController: UITableViewController {
+class CardSelectionTableViewController: UITableViewController {
 
     var managedObjectContext : NSManagedObjectContext?
     var deck : MODeck?
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
-        let wordFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
+        let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
         let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
-        wordFetchRequest.sortDescriptors = [primarySortDescriptor]
+        cardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
-        let frc = NSFetchedResultsController(fetchRequest: wordFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: cardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
 
         frc.delegate = self
 
         return frc
-        
+
     }()
 
-    func setUpManagedObjectContect(managedObjectContext: NSManagedObjectContext?, deck: MODeck?) {
-
-        self.managedObjectContext = managedObjectContext
-        self.deck = deck
-        guard let deckTitle = self.deck?.title else {
-            print("has no word managedObject exist")
-            return
-        }
-        let predicate = NSPredicate(format: "ANY decks.title == %@", deckTitle)
-        fetchedResultsController.fetchRequest.predicate = predicate
-        do {
-            try fetchedResultsController.performFetch()
-            tableView?.reloadData()
-        } catch {
-            print("\(error)")
-        }
-    }
+    let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let editBarItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editCards")
-        navigationItem.rightBarButtonItems = [editBarItem]
+        tableView.allowsMultipleSelection = true
 
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.delegate = self
+        searchController.searchBar.returnKeyType = .Done
+        searchController.searchBar.placeholder = "find a word"
 
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
         }
-
+        
     }
-
 }
 
 // MARK: Actions
-extension DeckCardsTableViewController {
+extension CardSelectionTableViewController {
 
-    func editCards() {
-        let selectVC = storyboard?.instantiateViewControllerWithIdentifier("CardSelectionTableViewController") as! CardSelectionTableViewController
-        selectVC.managedObjectContext = self.managedObjectContext
-        selectVC.deck = self.deck
+    func doneSelection() {
 
-        navigationController?.pushViewController(selectVC, animated: true)
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
 
     }
+
 }
 
-// MARK: table data source and delegate
-extension DeckCardsTableViewController {
+// MARK: - TableView DataSource Delegate
+extension CardSelectionTableViewController {
+
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return numberOfSections()
     }
@@ -93,11 +81,68 @@ extension DeckCardsTableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        didSelectedAtIndexPath(indexPath)
+
+    }
+
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+
+    }
+    
+}
+
+// MARK: searchResultsUpdater
+extension CardSelectionTableViewController : UISearchResultsUpdating {
+
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchString = searchController.searchBar.text else {
+            print("has no searchBar.Text")
+            return
+        }
+
+        if searchString.characters.count == 0 {
+            searchWordAll()
+        } else {
+            searchWord(searchString)
+        }
+
     }
 }
 
+
+// MARK: searchBar delegate 
+extension CardSelectionTableViewController : UISearchBarDelegate {
+
+}
+
+
 // MARK: - NSFetchedResultsControllerDelegate
-extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
+extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
+
+    func searchWord(word: String){
+
+        let predicate = NSPredicate(format: "word.word CONTAINS[cd] %@", word)
+        fetchedResultsController.fetchRequest.predicate = predicate
+
+        do{
+            try fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {
+            print("\(error)")
+        }
+
+    }
+
+    func searchWordAll() {
+
+        fetchedResultsController.fetchRequest.predicate = nil
+        do{
+            try fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {
+            print("\(error)")
+        }
+    }
 
     func numberOfSections() -> Int {
         guard let sectionCount = fetchedResultsController.sections?.count else {
@@ -116,8 +161,30 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
         let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
         cell.textLabel?.text = card.word?.word
-        cell.detailTextLabel?.text = card.definition?.definitoin
+        guard let inDeck = card.decks?.containsObject(self.deck!) else {
+            return cell
+        }
+
+        if inDeck {
+            cell.accessoryType = .Checkmark
+        } else {
+            cell.accessoryType = .None
+        }
+
         return cell
+    }
+
+    func didSelectedAtIndexPath(indexPath: NSIndexPath) {
+        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
+        guard let inDeck = card.decks?.containsObject(self.deck!) else {
+            return
+        }
+
+        if inDeck {
+            card.removeDeck(self.deck!)
+        } else {
+            card.addDeck(self.deck!)
+        }
     }
 
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
@@ -170,4 +237,3 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
     }
     
 }
-

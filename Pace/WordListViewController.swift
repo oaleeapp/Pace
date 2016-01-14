@@ -12,29 +12,100 @@ import CoreData
 class WordListViewController: UITableViewController {
 
     var managedObjectContext : NSManagedObjectContext?
-    var fetchWordRequest = NSFetchRequest(entityName: Word.entityName())
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
-        let wordFetchRequest = NSFetchRequest(entityName: Word.entityName())
+        let wordFetchRequest = NSFetchRequest(entityName: MOWord.entityName())
         let primarySortDescriptor = NSSortDescriptor(key: "word", ascending: true)
         wordFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let frc = NSFetchedResultsController(fetchRequest: wordFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
-
+        
         frc.delegate = self
-
+        
         return frc
 
     }()
 
+    let searchController = UISearchController(searchResultsController: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.delegate = self
+        searchController.searchBar.returnKeyType = .Done
+        searchController.searchBar.placeholder = "feed me new word"
+
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
+
+    }
+
+    @IBAction func addNewWord(sender: UIBarButtonItem){
+        searchController.searchBar.becomeFirstResponder()
     }
     
 }
+// MARK: - UISearchResultsUpdating
+extension WordListViewController : UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchString = searchController.searchBar.text else {
+            print("has no searchBar.Text")
+            return
+        }
 
-//MARK: - TableView DataSource Delegate
+        if searchString.characters.count == 0 {
+            searchWordAll()
+        } else {
+            searchWord(searchString)
+        }
+
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension WordListViewController : UISearchBarDelegate {
+
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+
+    }
+
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+
+        guard let word = searchBar.text else {
+            print("have no word to search dictionary")
+            return
+        }
+        
+        searchController.active = false
+        if word.characters.count > 0 {
+            // request word dictionary
+            let wordsapi = WordsApi()
+
+            wordsapi.getWord(word){wordResult in
+
+
+                do{
+                    let newWord = try self.managedObjectContext!.insertWord(wordResult)
+                    print("insert new word : \(newWord.word)")
+
+                } catch {
+                    
+                }
+            }
+        }
+    }
+
+}
+
+
+// MARK: - TableView DataSource Delegate
 extension WordListViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -42,7 +113,7 @@ extension WordListViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRowForSection(section)
+        return numberOfRowInSection(section)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -50,8 +121,16 @@ extension WordListViewController {
 
         return configureCell(cell, indexPath: indexPath)
     }
-}
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let wordVC = self.storyboard?.instantiateViewControllerWithIdentifier("WordViewController") as! WordViewController
+        wordVC.managedObjectContext = self.managedObjectContext
+        wordVC.word = fetchedResultsController.objectAtIndexPath(indexPath) as? MOWord
+        self.navigationController?.pushViewController(wordVC, animated: true)
+    }
+
+}
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension WordListViewController : NSFetchedResultsControllerDelegate{
@@ -70,6 +149,17 @@ extension WordListViewController : NSFetchedResultsControllerDelegate{
 
     }
 
+    func searchWordAll() {
+
+        fetchedResultsController.fetchRequest.predicate = nil
+        do{
+            try fetchedResultsController.performFetch()
+            self.tableView.reloadData()
+        } catch {
+            print("\(error)")
+        }
+    }
+
     func numberOfSections() -> Int {
         guard let sectionCount = fetchedResultsController.sections?.count else {
             return 0
@@ -77,7 +167,7 @@ extension WordListViewController : NSFetchedResultsControllerDelegate{
         return sectionCount
     }
 
-    func numberOfRowForSection(section : Int) -> Int {
+    func numberOfRowInSection(section : Int) -> Int {
         guard let sectionData = fetchedResultsController.sections?[section] else {
             return 0
         }
@@ -85,7 +175,7 @@ extension WordListViewController : NSFetchedResultsControllerDelegate{
     }
 
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
-        let word = fetchedResultsController.objectAtIndexPath(indexPath) as! Word
+        let word = fetchedResultsController.objectAtIndexPath(indexPath) as! MOWord
         cell.textLabel?.text = word.word
 
         return cell

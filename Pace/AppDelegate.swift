@@ -18,8 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-           let rootVC = window?.rootViewController as! DashboardViewController
-            rootVC.managedObjectContext = self.managedObjectContext
+            let rootVC = window?.rootViewController as! PaceTabBarViewController
+            let navPaceVC = rootVC.viewControllers![0] as! UINavigationController
+            let paceVC = navPaceVC.topViewController as! PaceMainViewController
+            let navDecksVC = rootVC.viewControllers![1] as! UINavigationController
+            let decksVC = navDecksVC.topViewController as! DeckListTableViewController
+            let navWordsVC = rootVC.viewControllers![2] as! UINavigationController
+            let wordsVC = navWordsVC.topViewController as! WordListViewController
+
+            paceVC.managedObjectContext = self.managedObjectContext
+            decksVC.managedObjectContext = self.managedObjectContext
+            wordsVC.managedObjectContext = self.managedObjectContext
         return true
     }
 
