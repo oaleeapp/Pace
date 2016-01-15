@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Deck Cards Table View Controller-->
@@ -97,6 +98,58 @@
             </objects>
             <point key="canvasLocation" x="1037" y="1032"/>
         </scene>
+        <!--Pace Proficiency Collection View Controller-->
+        <scene sceneID="YR9-78-Qsf">
+            <objects>
+                <collectionViewController storyboardIdentifier="PaceProficiencyCollectionViewController" id="wse-9B-NVs" customClass="PaceProficiencyCollectionViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Xhu-JG-7Jc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="321.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.46666666670000001" green="0.55294117649999996" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Oro-qV-n04">
+                            <size key="itemSize" width="150" height="150"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProficiencyCell" id="098-qI-Rqu" customClass="PaceProficiencyCollectionViewCell" customModule="Pace" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKs-Ed-EtW">
+                                            <rect key="frame" x="54" y="64" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.74117647060000003" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="CKs-Ed-EtW" firstAttribute="centerY" secondItem="098-qI-Rqu" secondAttribute="centerY" id="BsK-Gx-Flj"/>
+                                    <constraint firstItem="CKs-Ed-EtW" firstAttribute="centerX" secondItem="098-qI-Rqu" secondAttribute="centerX" id="nzV-0y-pcR"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="newLabel" destination="CKs-Ed-EtW" id="0dp-iR-mIu"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="wse-9B-NVs" id="JsY-3Y-aUT"/>
+                            <outlet property="delegate" destination="wse-9B-NVs" id="Osg-NV-KFX"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S2p-lh-aP9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="379"/>
+        </scene>
         <!--Pace Main View Controller-->
         <scene sceneID="DDo-kC-Lm3">
             <objects>
@@ -106,13 +159,13 @@
                         <viewControllerLayoutGuide type="bottom" id="Tft-Zc-1oF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lva-gs-RiM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pq1-4L-WAG">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="321.5"/>
                                 <connections>
-                                    <segue destination="qW9-WN-0xN" kind="embed" identifier="PaceCardsSegue" id="4dp-Vk-j2C"/>
+                                    <segue destination="wse-9B-NVs" kind="embed" identifier="PaceProficiencySegue" id="M3o-i2-np3"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -121,9 +174,16 @@
                             <constraint firstAttribute="trailing" secondItem="pq1-4L-WAG" secondAttribute="trailing" id="LCP-Wh-v2y"/>
                             <constraint firstItem="pq1-4L-WAG" firstAttribute="leading" secondItem="lva-gs-RiM" secondAttribute="leading" id="ZDk-Ab-99H"/>
                             <constraint firstItem="Tft-Zc-1oF" firstAttribute="top" secondItem="pq1-4L-WAG" secondAttribute="bottom" id="m6C-mS-Hqe"/>
+                            <constraint firstItem="pq1-4L-WAG" firstAttribute="height" secondItem="lva-gs-RiM" secondAttribute="height" multiplier="0.66" id="teP-H9-1Nu"/>
                             <constraint firstItem="pq1-4L-WAG" firstAttribute="top" secondItem="7Au-IJ-7QN" secondAttribute="bottom" id="yNr-VD-4xa"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="m6C-mS-Hqe"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="Kg7-Eg-E53"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ndQ-kA-pb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,7 +195,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="PaceCardCollectionViewController" id="qW9-WN-0xN" customClass="PaceCardCollectionViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="eBy-ac-MeC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.74117647060000003" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UBR-sv-jpC">
@@ -152,22 +212,22 @@
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8b-4n-WuI">
-                                            <rect key="frame" x="154" y="164" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pzm-6b-JWT" customClass="PaceCardView" customModule="Pace" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" red="0.8862745098" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="j8b-4n-WuI" firstAttribute="centerX" secondItem="Dc2-rt-JJR" secondAttribute="centerX" id="Ffp-n0-yaY"/>
-                                    <constraint firstItem="j8b-4n-WuI" firstAttribute="centerY" secondItem="Dc2-rt-JJR" secondAttribute="centerY" id="i3B-iO-Qsu"/>
+                                    <constraint firstItem="Pzm-6b-JWT" firstAttribute="top" secondItem="Dc2-rt-JJR" secondAttribute="top" id="N8k-gV-7dx"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pzm-6b-JWT" secondAttribute="bottom" id="XrN-uw-Bep"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pzm-6b-JWT" secondAttribute="trailing" id="rU7-TV-cH9"/>
+                                    <constraint firstItem="Pzm-6b-JWT" firstAttribute="leading" secondItem="Dc2-rt-JJR" secondAttribute="leading" id="y8o-Ko-8Z1"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="frontLabel" destination="j8b-4n-WuI" id="dBy-yj-3Z7"/>
+                                    <outlet property="cardView" destination="Pzm-6b-JWT" id="qcq-ag-leR"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

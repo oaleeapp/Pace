@@ -12,7 +12,7 @@ import CoreData
 class PaceMainViewController: UIViewController , SegueHandlerType{
 
     enum SegueIdentifier : String {
-        case CardsSegue = "PaceCardsSegue"
+        case ProficiencySegue = "PaceProficiencySegue"
     }
 
     var managedObjectContext : NSManagedObjectContext?
@@ -31,12 +31,10 @@ class PaceMainViewController: UIViewController , SegueHandlerType{
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segueIdentifierForSegue(segue){
-        case .CardsSegue :
+        case .ProficiencySegue :
 
-            let destVC = segue.destinationViewController as! PaceCardCollectionViewController
+            let destVC = segue.destinationViewController as! PaceProficiencyCollectionViewController
             destVC.managedObjectContext = self.managedObjectContext
-
-            break
         }
     }
     /*

@@ -14,8 +14,12 @@ private let reuseIdentifier = "PaceCardCell"
 class PaceCardCollectionViewController: UICollectionViewController {
 
     var managedObjectContext : NSManagedObjectContext?
+    var proficiencyFetchRequest : NSFetchRequest?
+
+
     var shouldReloadCollectionView = false
     var blockOperation : NSBlockOperation?
+
     var movingCell : UIImageView?
     var touchOriginPoint : CGPoint?
     var touchCell : UICollectionViewCell?
@@ -70,7 +74,28 @@ class PaceCardCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: UICollectionViewDataSource
+
+    func setUpFetchRequest(fetchRequest : NSFetchRequest, managedObjectContext: NSManagedObjectContext) {
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+
+        do {
+            try fetchedResultsController.performFetch()
+            collectionView?.reloadData()
+        } catch {
+            print("\(error)")
+        }
+    }
+
+
+    func centeredCell(cell : UICollectionViewCell) {
+        let indexPath = collectionView!.indexPathForCell(cell)
+        collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    }
+}
+
+// MARK: UICollectionViewDataSource
+extension PaceCardCollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -85,24 +110,24 @@ class PaceCardCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! PaceCardCollectionViewCell
-    
+
         // Configure the cell
         configureCell(cell, indexPath: indexPath)
-    
+
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-//        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-//        card.proficiency = 1
 
+        //        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
+        //        card.proficiency = 1
+
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PaceCardCollectionViewCell
+        cell.cardView.flip()
+        
     }
 
-    func centeredCell(cell : UICollectionViewCell) {
-        let indexPath = collectionView!.indexPathForCell(cell)
-        collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-    }
 }
 
 // MARK: scroll view delegate
@@ -134,10 +159,6 @@ extension PaceCardCollectionViewController {
         }
         let indexPath = collectionView!.indexPathForCell(closestCell)
         collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-    }
-
-    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-//        scrollView.setContentOffset(scrollView.contentOffset, animated: false)
     }
 
 }
@@ -182,10 +203,45 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
             print("changed")
             let deltaY = (touchOriginPoint?.y)! - locationPoint.y
             movingCell?.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! - deltaY)
+
+            if deltaY > 0 {
+
+            } else {
+                
+            }
         case .Ended :
             print("ended")
-            movingCell?.removeFromSuperview()
-            touchCell?.hidden = false
+
+            guard let indexPath = collectionView?.indexPathForCell(touchCell!) else {
+                print("this point has no indexPath")
+                break
+            }
+            let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
+
+            defer {
+                movingCell?.removeFromSuperview()
+                touchCell?.hidden = false
+            }
+            let deltaY = (touchOriginPoint?.y)! - locationPoint.y
+            if abs(deltaY) <= (touchCell?.bounds.height)!/2 {
+                // no change
+                print("no change")
+
+            } else if deltaY > 0 {
+                // up level
+                if card.proficiency < 6 {
+                    card.proficiency = card.proficiency + 1
+                }
+                print("up")
+
+            } else {
+                // down level
+                if card.proficiency > 0 {
+                    card.proficiency = card.proficiency - 1
+                }
+                print("down")
+            }
+
 
         default:
             break
@@ -238,7 +294,12 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
     func configureCell(cell: PaceCardCollectionViewCell, indexPath: NSIndexPath) -> PaceCardCollectionViewCell {
 
         let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.frontLabel.text = (card.word?.word)! + "\(card.proficiency)"
+        print("\(card.word?.word) : \(card.definition?.definitoin)")
+        cell.cardView.frontView.wordLabel.text = card.word?.word
+        cell.cardView.frontView.syllablesLabel.text = card.word?.syllables
+        cell.cardView.frontView.pronunciationLabel.text = card.word?.pronunciation
+
+        cell.cardView.backView.definitionLabel.text = card.definition?.definitoin
 
         return cell
     }
