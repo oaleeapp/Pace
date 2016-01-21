@@ -13,9 +13,13 @@ private let reuseIdentifier = "PaceCardCell"
 
 class PaceCardCollectionViewController: UICollectionViewController {
 
+
+    @IBOutlet var gotView: UIView!
+    @IBOutlet var studyView: UIView!
+
+
     var managedObjectContext : NSManagedObjectContext?
     var proficiencyFetchRequest : NSFetchRequest?
-
 
     var shouldReloadCollectionView = false
     var blockOperation : NSBlockOperation?
@@ -26,7 +30,7 @@ class PaceCardCollectionViewController: UICollectionViewController {
 
     lazy var fetchedResultsController : NSFetchedResultsController = {
         let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let proficiency = 0
@@ -128,6 +132,12 @@ extension PaceCardCollectionViewController {
         
     }
 
+    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        let cardCell = cell as! PaceCardCollectionViewCell
+        cardCell.cardView.face = .Front
+        
+    }
+
 }
 
 // MARK: scroll view delegate
@@ -161,12 +171,14 @@ extension PaceCardCollectionViewController {
         collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
     }
 
+
+
 }
 
 // MARK: Pan Gesture Handler & delegate
 extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
 
-    func handleLongPress(longPressRecognizer: UIPanGestureRecognizer){
+    func handleLongPress(longPressRecognizer: UILongPressGestureRecognizer){
         let locationPoint = longPressRecognizer.locationInView(self.collectionView)
 
         switch longPressRecognizer.state{
@@ -198,17 +210,18 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
             movingCell?.center = (cell?.center)!
             collectionView?.addSubview(movingCell!)
 
+            addGotAndStudyViewAtFrame((cell?.frame)!, belowView: movingCell!)
 
         case .Changed :
             print("changed")
             let deltaY = (touchOriginPoint?.y)! - locationPoint.y
             movingCell?.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! - deltaY)
 
-            if deltaY > 0 {
+            let threshold = (touchCell?.bounds.height)!/2
+            gotAndStudyViewMovedY(deltaY, threshold: threshold)
 
-            } else {
-                
-            }
+
+
         case .Ended :
             print("ended")
 
@@ -242,6 +255,7 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
                 print("down")
             }
 
+            removeGotAndStudyView()
 
         default:
             break
@@ -264,14 +278,40 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
         }
     }
 
-//    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        
-//        return true
-//    }
+}
+
+// MARK : Got and Study View
+extension PaceCardCollectionViewController {
+
+    func addGotAndStudyViewAtFrame(frame : CGRect, belowView: UIView) {
+        gotView.alpha = 0.0
+        studyView.alpha = 0.0
+        self.collectionView?.insertSubview(gotView, belowSubview: belowView)
+        self.collectionView?.insertSubview(studyView, belowSubview: belowView)
+        gotView.frame = frame
+        studyView.frame = frame
+    }
+
+    func gotAndStudyViewMovedY(movedY: CGFloat, threshold: CGFloat) {
+
+        if movedY >= 0 {
+            studyView.alpha = 0.0
+            gotView.alpha = threshold > movedY ? movedY / threshold : 1.0
+        } else {
+            gotView.alpha = 0.0
+            studyView.alpha = threshold > abs(movedY) ? abs(movedY) / threshold : 1.0
+        }
+    }
+
+    func removeGotAndStudyView() {
+        gotView.removeFromSuperview()
+        studyView.removeFromSuperview()
+    }
 
 }
 
-// MARK: Fetched Results Controller Delegate
+
+// MARK : Fetched Results Controller Delegate
 // FROM : https://gist.github.com/lukasreichart/0ce6b782a5428bd17904
 
 extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
@@ -294,10 +334,9 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
     func configureCell(cell: PaceCardCollectionViewCell, indexPath: NSIndexPath) -> PaceCardCollectionViewCell {
 
         let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        print("\(card.word?.word) : \(card.definition?.definitoin)")
-        cell.cardView.frontView.wordLabel.text = card.word?.word
-        cell.cardView.frontView.syllablesLabel.text = card.word?.syllables
-        cell.cardView.frontView.pronunciationLabel.text = card.word?.pronunciation
+        cell.cardView.frontView.wordLabel.text = card.definition?.word?.word
+        cell.cardView.frontView.syllablesLabel.text = card.definition?.word?.syllables
+        cell.cardView.frontView.pronunciationLabel.text = card.definition?.word?.pronunciation
 
         cell.cardView.backView.definitionLabel.text = card.definition?.definitoin
 

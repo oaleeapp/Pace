@@ -16,7 +16,7 @@ class DeckCardsTableViewController: UITableViewController {
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
         let wordFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
         wordFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let frc = NSFetchedResultsController(fetchRequest: wordFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
@@ -115,7 +115,7 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
 
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
         let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.textLabel?.text = card.word?.word
+        cell.textLabel?.text = card.definition?.word?.word
         cell.detailTextLabel?.text = card.definition?.definitoin
         return cell
     }

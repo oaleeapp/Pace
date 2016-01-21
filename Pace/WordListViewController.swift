@@ -52,6 +52,38 @@ class WordListViewController: UITableViewController {
     }
     
 }
+
+// MARK: - word CRUD func
+extension WordListViewController {
+
+    func enterNewWord(wordString: String) {
+
+        // TODO : guard only english use REX
+        guard wordString.characters.count > 0 else {
+
+            // TODO: handle no input reaction
+
+            return
+        }
+
+        let wordLowercaseString = wordString.lowercaseString
+        let newWord = managedObjectContext?.insertWordForString(wordLowercaseString)
+
+//        let definition = MODefinition(managedObjectContext: managedObjectContext!)
+//        definition.word = newWord
+
+        // request word dictionary
+        let wordsapi = WordsApi()
+        wordsapi.getWord(wordLowercaseString){wordResult in
+
+            self.managedObjectContext!.modifyWord(newWord!, withWordStruct: wordResult)
+
+        }
+    }
+
+}
+
+
 // MARK: - UISearchResultsUpdating
 extension WordListViewController : UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -84,22 +116,7 @@ extension WordListViewController : UISearchBarDelegate {
         }
         
         searchController.active = false
-        if word.characters.count > 0 {
-            // request word dictionary
-            let wordsapi = WordsApi()
-
-            wordsapi.getWord(word){wordResult in
-
-
-                do{
-                    let newWord = try self.managedObjectContext!.insertWord(wordResult)
-                    print("insert new word : \(newWord.word)")
-
-                } catch {
-                    
-                }
-            }
-        }
+        enterNewWord(word)
     }
 
 }

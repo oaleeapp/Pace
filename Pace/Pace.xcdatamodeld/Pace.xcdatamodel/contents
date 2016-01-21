@@ -5,7 +5,6 @@
         <attribute name="proficiency" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="decks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODeck" inverseName="cards" inverseEntity="MODeck" syncable="YES"/>
         <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="card" inverseEntity="MODefinition" syncable="YES"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="card" inverseEntity="MOWord" syncable="YES"/>
     </entity>
     <entity name="MODeck" representedClassName=".MODeck" syncable="YES">
         <attribute name="backgroundColor" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -17,7 +16,7 @@
         <attribute name="partOfSpeech" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOCard" inverseName="definition" inverseEntity="MOCard" syncable="YES"/>
         <relationship name="details" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODefinitionDetail" inverseName="definition" inverseEntity="MODefinitionDetail" syncable="YES"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="definitions" inverseEntity="MOWord" syncable="YES"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="definitionList" inverseEntity="MOWord" syncable="YES"/>
     </entity>
     <entity name="MODefinitionDetail" representedClassName=".MODefinitionDetail" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,8 +30,7 @@
         <attribute name="pronunciation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="syllables" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="word" attributeType="String" syncable="YES"/>
-        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOCard" inverseName="word" inverseEntity="MOCard" syncable="YES"/>
-        <relationship name="definitions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MODefinition" inverseName="word" inverseEntity="MODefinition" syncable="YES"/>
+        <relationship name="definitionList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="word" inverseEntity="MODefinition" syncable="YES"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="word"/>
@@ -40,10 +38,10 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="MOCard" positionX="36" positionY="-27" width="128" height="118"/>
+        <element name="MOCard" positionX="36" positionY="-27" width="128" height="103"/>
         <element name="MODeck" positionX="-126" positionY="62" width="128" height="88"/>
         <element name="MODefinition" positionX="135" positionY="-244" width="128" height="118"/>
         <element name="MODefinitionDetail" positionX="295" positionY="-205" width="128" height="88"/>
-        <element name="MOWord" positionX="-38" positionY="-250" width="128" height="163"/>
+        <element name="MOWord" positionX="-38" positionY="-250" width="128" height="148"/>
     </elements>
 </model>

@@ -38,7 +38,7 @@ class PaceLevelResultsController: NSFetchedResultsController {
 
 
         let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
         let predicate = NSPredicate(format: "proficiency == %d", levelInt)
         cardFetchRequest.predicate = predicate

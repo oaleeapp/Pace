@@ -18,6 +18,5 @@ extension MOCard {
     @NSManaged var proficiency: Int16
     @NSManaged var decks: NSSet?
     @NSManaged var definition: MODefinition?
-    @NSManaged var word: MOWord?
 
 }

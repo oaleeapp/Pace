@@ -237,6 +237,10 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="AjX-qB-pXZ"/>
+                    <connections>
+                        <outlet property="gotView" destination="CU0-Q4-Mig" id="906-VU-IbU"/>
+                        <outlet property="studyView" destination="vmk-3E-rwE" id="AoZ-Yb-zpW"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDB-bv-bhj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="CU0-Q4-Mig" userLabel="GotView">
@@ -411,6 +415,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FEw-Vj-GWZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1037" y="3351"/>
+        </scene>
+        <!--Pace Definition Controller-->
+        <scene sceneID="M8r-bG-bK9">
+            <objects>
+                <viewController storyboardIdentifier="PaceDefinitionController" id="5n4-fp-QPY" customClass="PaceDefinitionController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oRY-zF-P9E"/>
+                        <viewControllerLayoutGuide type="bottom" id="8NC-H9-Wh9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sls-1k-meI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter definitoin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z3r-MD-gst">
+                                <rect key="frame" x="20" y="20" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="3Tj-8J-eM9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.80000001192092896" green="0.74117648601531982" blue="0.67058825492858887" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="z3r-MD-gst" firstAttribute="leading" secondItem="Sls-1k-meI" secondAttribute="leadingMargin" id="LQb-yO-9cm"/>
+                            <constraint firstItem="z3r-MD-gst" firstAttribute="trailing" secondItem="Sls-1k-meI" secondAttribute="trailingMargin" id="aGp-Ck-174"/>
+                            <constraint firstItem="z3r-MD-gst" firstAttribute="top" secondItem="oRY-zF-P9E" secondAttribute="bottom" id="xup-II-Gin"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VWB-ZI-egL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1037" y="4084"/>
         </scene>
         <!--Word Definitions Collection View Controller-->
         <scene sceneID="nhW-4f-zHl">

@@ -12,5 +12,10 @@ class PaceCardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var cardView: PaceCardView!
 
+    override func prepareForReuse() {
+
+//        cardView.face = .Front
+
+    }
 
 }

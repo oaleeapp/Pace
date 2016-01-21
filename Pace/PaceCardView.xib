@@ -8,7 +8,6 @@
             <connections>
                 <outlet property="backView" destination="3Sc-yV-XjC" id="rp6-rl-jlU"/>
                 <outlet property="frontView" destination="pwa-O3-FWg" id="4q6-hH-k7h"/>
-                <outlet property="view" destination="iN0-l3-epB" id="ud5-Aj-gZ2"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,7 +24,6 @@
                     <color key="backgroundColor" red="0.8862745098" green="0.89019607840000003" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="3Sc-yV-XjC" secondAttribute="bottom" id="5aJ-bG-IWJ"/>
                 <constraint firstItem="pwa-O3-FWg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6kO-PB-w1r"/>

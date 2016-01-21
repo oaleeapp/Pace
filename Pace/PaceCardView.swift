@@ -13,9 +13,12 @@ import UIKit
 class PaceCardView: UIView {
 
 
-    @IBOutlet var view: UIView!
+    var view: UIView!
     @IBOutlet var backView: PaceCardBackView!
     @IBOutlet var frontView: PaceCardFrontView!
+
+
+    let nibName = "PaceCardView"
 
     enum PaceCardFace {
         case Front
@@ -35,7 +38,7 @@ class PaceCardView: UIView {
 
         super.init(coder: aDecoder)
 
-//        setup()
+        xibSetUp()
 
     }
 
@@ -43,31 +46,30 @@ class PaceCardView: UIView {
 
         super.init(frame: frame)
 
-        setup()
+        xibSetUp()
     }
 
-    func setup() {
-
-        NSBundle.mainBundle().loadNibNamed("PaceCardView", owner: self, options: nil)
-
-
-        view.frame = bounds
-
-        // Make the view stretch with containing view
+    func xibSetUp() {
+        // setup the view from .xib
+        view = loadViewFromNib()
+        view.frame = self.bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-
-        self.addSubview(self.view)
-
-
-
+        addSubview(view)
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setup()
+    func loadViewFromNib() -> UIView {
+        // grabs the appropriate bundle
+        let bundle = NSBundle(forClass: self.dynamicType)
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+
+        return view
     }
 
     override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+
+        frontView.wordLabel.text = "test"
 
     }
 
@@ -90,8 +92,6 @@ extension PaceCardView {
         // animating to flip
         if face != fromFace {
 
-
-
             switch face {
             case .Front :
 
@@ -104,7 +104,7 @@ extension PaceCardView {
                 UIView.transitionWithView(frontView, duration: 1.0, options: transitionOptions, animations: {
                     self.frontView.hidden = false
                     }, completion: nil)
-//                UIView.transitionFromView(backView, toView: frontView, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, completion: nil)
+
             case .Back :
 
                 let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromLeft, .ShowHideTransitionViews]
@@ -117,8 +117,6 @@ extension PaceCardView {
                     self.backView.hidden = false
                     }, completion: nil)
 
-//                UIView.transitionFromView(frontView, toView: backView, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromLeft, completion: nil)
-
             }
 
         }
@@ -130,8 +128,10 @@ extension PaceCardView {
         switch face {
         case .Front :
             face = .Back
+//            setFace(.Back, fromFace: .Front)
         case .Back :
             face = .Front
+//            setFace(.Front, fromFace: .Back)
         }
     }
 

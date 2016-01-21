@@ -104,6 +104,8 @@ extension PaceProficiencyCollectionViewController {
         paceCardVC.setUpFetchRequest(controller.fetchRequest, managedObjectContext: self.managedObjectContext!)
         navigationController?.pushViewController(paceCardVC, animated: true)
     }
+
+    
 }
 
 // MARK: Proficiency Delegate

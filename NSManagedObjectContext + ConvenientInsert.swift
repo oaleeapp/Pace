@@ -18,7 +18,7 @@ extension NSManagedObjectContext {
     }
 }
 
-// MARK: insert Word
+// MARK: insert Word from WordsAPI
 
 extension NSManagedObjectContext {
     enum MOWordError : ErrorType {
@@ -26,32 +26,42 @@ extension NSManagedObjectContext {
     }
 
 
-    func insertWord(word: WAWord) throws -> MOWord{
-        guard let defStructs = word.definitions else {
-            // has no definitions
+    func insertWordForString(string: String) -> MOWord {
+        let newWord = MOWord(managedObjectContext: self)
 
-            throw MOWordError.EmptyDefinitions
+        newWord.word = string
+
+        return newWord
+    }
+
+    func modifyWord(word: MOWord, withWordStruct wordStruct: WAWord) {
+
+        guard word.word?.lowercaseString == wordStruct.word.lowercaseString else {
+            // wrong word
+            print("wrong word")
+            return
+        }
+
+        guard let definitionStructs = wordStruct.definitions else {
+            // has no definitions
+            print("has no definitions")
+            return
         }
 
         var definitions : [MODefinition] = []
-        for defStruct in defStructs {
-            definitions.append(insertDefinition(defStruct))
+        for definitionStruct in definitionStructs {
+            definitions.append(insertDefinition(definitionStruct))
         }
 
-
-        let newWord = MOWord(managedObjectContext: self)
-        let newCard = insertCard(newWord)
-        newWord.word = word.word
-        newWord.syllables = word.syllables.list.joinWithSeparator("-")
-        newWord.pronunciation = "/" + (word.pronunciation?.all)! + "/"
-        newWord.frequency = word.frequency
-        newWord.definitions = NSSet(array: definitions)
-        if definitions.count != 0 {
-            newCard.definition = definitions.first
-        }
+        word.syllables = wordStruct.syllables.list.joinWithSeparator("-")
+        word.pronunciation = "/" + (wordStruct.pronunciation?.all)! + "/"
+        word.frequency = wordStruct.frequency
+        word.addDefinitions(definitions)
 
 
-        return newWord
+        let definition = definitions.first
+        definition?.addCard(MOCard(managedObjectContext: self))
+
     }
 
     func insertDefinition(definition: WADefinition) -> MODefinition {
@@ -80,11 +90,6 @@ extension NSManagedObjectContext {
         return newDetail
     }
 
-    func insertCard(word : MOWord) -> MOCard {
-        let newCard = MOCard(managedObjectContext: self)
-        newCard.word = word
-        return newCard
-    }
 }
 
 // MARK: insert Deck

@@ -16,7 +16,7 @@ class CardSelectionTableViewController: UITableViewController {
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
         let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let frc = NSFetchedResultsController(fetchRequest: cardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
@@ -121,7 +121,7 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
 
     func searchWord(word: String){
 
-        let predicate = NSPredicate(format: "word.word CONTAINS[cd] %@", word)
+        let predicate = NSPredicate(format: "definition.word.word CONTAINS[cd] %@", word)
         fetchedResultsController.fetchRequest.predicate = predicate
 
         do{
@@ -160,7 +160,7 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
 
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
         let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.textLabel?.text = card.word?.word
+        cell.textLabel?.text = card.definition?.word?.word
         guard let inDeck = card.decks?.containsObject(self.deck!) else {
             return cell
         }

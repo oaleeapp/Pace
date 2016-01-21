@@ -13,6 +13,7 @@ class WordViewController: UIViewController, SegueHandlerType {
 
     var managedObjectContext : NSManagedObjectContext?
     var word : MOWord?
+    var addAction : UIAlertAction?
 
     @IBOutlet weak var wordLabel: UILabel!
 
@@ -42,6 +43,54 @@ class WordViewController: UIViewController, SegueHandlerType {
         self.wordLabel.text = word?.word
         self.syllablesLabel.text = word?.syllables
         self.pronunciationLabel.text = word?.pronunciation
+
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNewDefinitoin:")
+
+        navigationItem.rightBarButtonItems = [addButton]
+
     }
-    
+
+
+}
+
+
+// MARK : - Actions
+
+extension WordViewController {
+
+    func addNewDefinitoin(sender: UIBarButtonItem) {
+
+        print("add new definition")
+
+        let alertController = UIAlertController(title: "New Definition", message: nil, preferredStyle: .Alert)
+
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.delegate = self //REQUIRED
+            textField.placeholder = "Enter a title for Deck"
+//            textField.addTarget(self, action: "textFieldDidChangeText:", forControlEvents: .EditingChanged)
+        }
+
+        addAction = UIAlertAction(title: "Add", style: .Default, handler: { (alertAction) -> Void in
+            let text = alertController.textFields?.first?.text
+
+            let newDefinition = MODefinition(managedObjectContext: self.managedObjectContext!)
+            newDefinition.word = self.word
+            newDefinition.definitoin = text
+
+        })
+//        addAction?.enabled = false
+        alertController.addAction(addAction!)
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+
+
+
+    }
+
+}
+
+extension WordViewController : UITextFieldDelegate {
+
+
+
 }
