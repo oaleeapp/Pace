@@ -60,24 +60,27 @@ extension NSManagedObjectContext {
 
 
         let definition = definitions.first
-        definition?.addCard(MOCard(managedObjectContext: self))
+        definition?.card?.needsShow = true
+        
+
 
     }
 
-    func insertDefinition(definition: WADefinition) -> MODefinition {
+    func insertDefinition(definitionStruct: WADefinition) -> MODefinition {
 
         var details : [MODefinitionDetail] = []
-        for key in Array(definition.details.keys) {
-            for text in definition.details[key]! {
+        for key in Array(definitionStruct.details.keys) {
+            for text in definitionStruct.details[key]! {
                 let newDetail = insertDetail(key, text: text)
                 details.append(newDetail)
             }
         }
 
         let newDefinition = MODefinition(managedObjectContext: self)
-        newDefinition.definitoin = definition.definition
-        newDefinition.partOfSpeech = definition.partOfSpeech
+        newDefinition.definitoin = definitionStruct.definition
+        newDefinition.partOfSpeech = definitionStruct.partOfSpeech
         newDefinition.details = NSSet(array: details)
+        newDefinition.colorHexString = definitionStruct.colorHexString
 
         return newDefinition
     }

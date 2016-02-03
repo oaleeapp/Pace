@@ -29,6 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             paceVC.managedObjectContext = self.managedObjectContext
             decksVC.managedObjectContext = self.managedObjectContext
             wordsVC.managedObjectContext = self.managedObjectContext
+
+            // 778DB5 blue
+            UINavigationBar.appearance().barTintColor = UIColor(hexString: "E2E3E5")
+            UINavigationBar.appearance().backgroundColor = UIColor(hexString: "BA6A6D")
+            UINavigationBar.appearance().tintColor = UIColor(hexString: "BA6A6D")
+            UISearchBar.appearance().barTintColor = UIColor(hexString: "BA6A6D")
+            UISearchBar.appearance().tintColor = UIColor(hexString: "E2E3E5")
+
+
+
+
         return true
     }
 

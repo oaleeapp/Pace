@@ -16,6 +16,7 @@ extension MODefinition {
 
     @NSManaged var definitoin: String?
     @NSManaged var partOfSpeech: String?
+    @NSManaged var colorHexString: String?
     @NSManaged var card: MOCard?
     @NSManaged var details: NSSet?
     @NSManaged var word: MOWord?

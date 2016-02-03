@@ -37,4 +37,16 @@ extension UIColor {
         case Red = "FF3B30"
 
     }
+
+    enum ThemeColor : String {
+        case TintColor = "b"
+        case CardColor = "c"
+        case CardTextColor = "d"
+        case HintTextColor = "e"
+        case DarkTextColor = "f"
+        case LightTextColor = "g"
+        case DarkBackgroundColor = "h"
+        case LightBackgroundColor = "i"
+        
+    }
 }

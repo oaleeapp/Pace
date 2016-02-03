@@ -76,8 +76,11 @@ struct WordsApi {
     }
     func definitionFromJson(json: JSON) -> WADefinition{
         let definitionString = json[WAKeys.definition].stringValue
-        let partOfSpeech = json[WAKeys.partOfSpeech].stringValue
-        var definition = WADefinition(definitoin: definitionString, partOfSpeech: partOfSpeech)
+        let partOfSpeech = WordsAPIPartOfSpeechType.init(rawValue: json[WAKeys.partOfSpeech].stringValue)
+
+        var definition = WADefinition(definitoin: definitionString,
+                                    partOfSpeech: (partOfSpeech?.abbreviation())!,
+                                colorHexString: (partOfSpeech?.colorHexString())!)
 
         definition.details[WAKeys.derivation] = json[WAKeys.derivation].arrayObject as? [String]
         definition.details[WAKeys.similarTo] = json[WAKeys.similarTo].arrayObject as? [String]
@@ -160,17 +163,115 @@ struct WAPronunciation {
 struct WADefinition {
     var definition : String
     var partOfSpeech : String
+    var colorHexString : String
     var details : [String : [String]] = [:]
 
-    init(definitoin: String, partOfSpeech: String) {
+    init(definitoin: String, partOfSpeech: String, colorHexString: String) {
         self.definition = definitoin
         self.partOfSpeech = partOfSpeech
+        self.colorHexString = colorHexString
     }
 }
 
 
+enum WordsAPIDefinitionDetailType : String{
 
+    case Example = "example"
+    case Synonyms = "synonyms"
+    case Antonyms = "antonyms"
+    case TypeOf = "typeOf"
+    case HasTypes = "hasTypes"
+    case PartOf = "partOf"
+    case HasParts = "hasParts"
+    case InstanceOf = "instanceOf"
+    case HasInstances = "hasInstances"
+    case SimilarTo = "similarTo"
+    case Also = "also"
+    case Entails = "entails"
+    case MemberOf = "memberOf"
+    case HasMembers = "hasMembers"
+    case SubstanceOf = "substanceOf"
+    case HasSubstances = "hasSubstances"
+    case InCategory = "inCategory"
+    case HasCategories = "hasCategories"
+    case UsageOf = "usageOf"
+    case HasUsages = "hasUsages"
+    case InRegion = "inRegion"
+    case RegionOf = "regionOf"
+    case PertainsTo = "pertainsTo"
 
+    var key : String {
+        get{
+            return self.rawValue
+        }
+    }
+}
+
+enum WordsAPIPartOfSpeechType : String{
+    case Noun = "noun"
+    case Pronoun = "pronoun"
+    case Adjective = "adjective"
+    case Verb = "verb"
+    case Adverb = "adverb"
+    case Preposition = "preposition" // have no this type
+    case Conjunction = "conjunction"
+    case Interjection = "interjection" // have no this type
+    case ArticleDefinite = "definite article"
+    case ArticleIndefinite = "indefinite article"
+
+    func abbreviation() -> String{
+
+        switch self{
+        case .Noun:
+            return "n."
+        case .Pronoun:
+            return "pron."
+        case .Adjective:
+            return "adj."
+        case .Verb:
+            return "v."
+        case .Adverb:
+            return "adv."
+        case .Preposition:
+            return "prep."
+        case .Conjunction:
+            return "conj."
+        case .Interjection:
+            return "int."
+        case .ArticleDefinite:
+            return "def.a."
+        case .ArticleIndefinite:
+            return "indef.a."
+        }
+
+    }
+
+    func colorHexString() -> String {
+
+        switch self{
+        case .Noun:
+            return "007AFF"
+        case .Pronoun:
+            return "34AADC"
+        case .Adjective:
+            return "FF9500"
+        case .Verb:
+            return "FF3B30"
+        case .Adverb:
+            return "FFCC00"
+        case .Preposition:
+            return "4CD964"
+        case .Conjunction:
+            return "5856D6"
+        case .Interjection:
+            return "FF2D55"
+        case .ArticleDefinite:
+            return "4A4A4A"
+        case .ArticleIndefinite:
+            return "2B2B2B"
+        }
+    }
+}
 
 
 

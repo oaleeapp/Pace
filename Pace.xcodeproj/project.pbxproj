@@ -8,7 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		9B0DBDD91C4E2D7F00A43889 /* MOWord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDD81C4E2D7F00A43889 /* MOWord+CoreDataProperties.swift */; };
-		9B0DBDDB1C4F913B00A43889 /* PaceDefinitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDDA1C4F913B00A43889 /* PaceDefinitionController.swift */; };
+		9B0DBDDD1C5079FD00A43889 /* WordDefinitionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDDC1C5079FD00A43889 /* WordDefinitionTableViewController.swift */; };
+		9B0DBDDF1C507AA300A43889 /* WordDefinitionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDDE1C507AA300A43889 /* WordDefinitionHeaderView.swift */; };
+		9B0DBDE11C509CC900A43889 /* WordDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDE01C509CC900A43889 /* WordDetailTableViewCell.swift */; };
+		9B0DBDE31C50CC4F00A43889 /* UIViewController + AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBDE21C50CC4F00A43889 /* UIViewController + AlertController.swift */; };
+		9B0DBE051C51FCC900A43889 /* PaceLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBE041C51FCC900A43889 /* PaceLevelView.swift */; };
+		9B0DBE0B1C5200A800A43889 /* PaceLevelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBE091C5200A800A43889 /* PaceLevelCollectionViewCell.swift */; };
+		9B0DBE0C1C5200A800A43889 /* PaceLevelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B0DBE0A1C5200A800A43889 /* PaceLevelCollectionViewCell.xib */; };
+		9B0DBE0E1C52093900A43889 /* PaceCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBE0D1C52093900A43889 /* PaceCardStackView.swift */; };
+		9B0DBE111C53BF6000A43889 /* DefinitionDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0DBE101C53BF6000A43889 /* DefinitionDetailHeaderView.swift */; };
+		9B0DBE131C53BF6D00A43889 /* DefinitionDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B0DBE121C53BF6D00A43889 /* DefinitionDetailHeaderView.xib */; };
 		9B1BD0571C228E1C00ED10AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD0561C228E1C00ED10AE /* AppDelegate.swift */; };
 		9B1BD05C1C228E1C00ED10AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B1BD05A1C228E1C00ED10AE /* Main.storyboard */; };
 		9B1BD05F1C228E1C00ED10AE /* Pace.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BD05D1C228E1C00ED10AE /* Pace.xcdatamodeld */; };
@@ -147,7 +156,16 @@
 
 /* Begin PBXFileReference section */
 		9B0DBDD81C4E2D7F00A43889 /* MOWord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MOWord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9B0DBDDA1C4F913B00A43889 /* PaceDefinitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceDefinitionController.swift; sourceTree = "<group>"; };
+		9B0DBDDC1C5079FD00A43889 /* WordDefinitionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDefinitionTableViewController.swift; sourceTree = "<group>"; };
+		9B0DBDDE1C507AA300A43889 /* WordDefinitionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDefinitionHeaderView.swift; sourceTree = "<group>"; };
+		9B0DBDE01C509CC900A43889 /* WordDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordDetailTableViewCell.swift; sourceTree = "<group>"; };
+		9B0DBDE21C50CC4F00A43889 /* UIViewController + AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController + AlertController.swift"; sourceTree = "<group>"; };
+		9B0DBE041C51FCC900A43889 /* PaceLevelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceLevelView.swift; sourceTree = "<group>"; };
+		9B0DBE091C5200A800A43889 /* PaceLevelCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceLevelCollectionViewCell.swift; sourceTree = "<group>"; };
+		9B0DBE0A1C5200A800A43889 /* PaceLevelCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaceLevelCollectionViewCell.xib; sourceTree = "<group>"; };
+		9B0DBE0D1C52093900A43889 /* PaceCardStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaceCardStackView.swift; sourceTree = "<group>"; };
+		9B0DBE101C53BF6000A43889 /* DefinitionDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefinitionDetailHeaderView.swift; sourceTree = "<group>"; };
+		9B0DBE121C53BF6D00A43889 /* DefinitionDetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefinitionDetailHeaderView.xib; sourceTree = "<group>"; };
 		9B1BD0531C228E1C00ED10AE /* Pace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B1BD0561C228E1C00ED10AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B1BD05B1C228E1C00ED10AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -228,6 +246,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B0DBE061C51FCCE00A43889 /* PaceLevelView */ = {
+			isa = PBXGroup;
+			children = (
+				9B0DBE041C51FCC900A43889 /* PaceLevelView.swift */,
+				9B0DBE0D1C52093900A43889 /* PaceCardStackView.swift */,
+				9B0DBE091C5200A800A43889 /* PaceLevelCollectionViewCell.swift */,
+				9B0DBE0A1C5200A800A43889 /* PaceLevelCollectionViewCell.xib */,
+			);
+			name = PaceLevelView;
+			sourceTree = "<group>";
+		};
+		9B0DBE0F1C53BF3600A43889 /* DefinitionDetailHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				9B0DBE101C53BF6000A43889 /* DefinitionDetailHeaderView.swift */,
+				9B0DBE121C53BF6D00A43889 /* DefinitionDetailHeaderView.xib */,
+			);
+			name = DefinitionDetailHeaderView;
+			sourceTree = "<group>";
+		};
 		9B1BD04A1C228E1C00ED10AE = {
 			isa = PBXGroup;
 			children = (
@@ -297,12 +335,15 @@
 		9B66E7F31C34D03E00D429BA /* Words */ = {
 			isa = PBXGroup;
 			children = (
+				9B0DBE0F1C53BF3600A43889 /* DefinitionDetailHeaderView */,
 				9B66E7EB1C34D02500D429BA /* WordListViewController.swift */,
 				9B66E7F41C3903FC00D429BA /* WordViewController.swift */,
 				9B66E7F61C39043900D429BA /* WordDefinitionsCollectionViewController.swift */,
-				9B66E81C1C3A264B00D429BA /* WordDefinitionCell.swift */,
 				9B5BB3731C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift */,
-				9B0DBDDA1C4F913B00A43889 /* PaceDefinitionController.swift */,
+				9B66E81C1C3A264B00D429BA /* WordDefinitionCell.swift */,
+				9B0DBDDC1C5079FD00A43889 /* WordDefinitionTableViewController.swift */,
+				9B0DBDE01C509CC900A43889 /* WordDetailTableViewCell.swift */,
+				9B0DBDDE1C507AA300A43889 /* WordDefinitionHeaderView.swift */,
 			);
 			name = Words;
 			sourceTree = "<group>";
@@ -320,6 +361,7 @@
 		9B66E7FD1C3904E900D429BA /* Pace */ = {
 			isa = PBXGroup;
 			children = (
+				9B0DBE061C51FCCE00A43889 /* PaceLevelView */,
 				9B9279E91C489F150007296C /* CardCell */,
 				9B9279DB1C44A4BF0007296C /* PaceMainViewController.swift */,
 				9B9279E71C47792D0007296C /* PaceProficiencyCollectionViewController.swift */,
@@ -381,6 +423,7 @@
 				9BEFF54F1C2D2B95004F3AD1 /* WordsApiManager.swift */,
 				9BEFF5511C30DE5F004F3AD1 /* SegueHandlerType.swift */,
 				9B9279D11C40E9640007296C /* UIColor + PaceTheme.swift */,
+				9B0DBDE21C50CC4F00A43889 /* UIViewController + AlertController.swift */,
 			);
 			name = Supporter;
 			path = Pace;
@@ -585,7 +628,9 @@
 				9B3A063C1C4CAF4600DA88D0 /* PaceCardFrontView.xib in Resources */,
 				9B1BD0611C228E1C00ED10AE /* Assets.xcassets in Resources */,
 				9B1BD05C1C228E1C00ED10AE /* Main.storyboard in Resources */,
+				9B0DBE0C1C5200A800A43889 /* PaceLevelCollectionViewCell.xib in Resources */,
 				9B3A063D1C4CAF4600DA88D0 /* PaceCardView.xib in Resources */,
+				9B0DBE131C53BF6D00A43889 /* DefinitionDetailHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,23 +659,29 @@
 				9B5343DD1C3F89EF00AEF13E /* MODefinitionDetail+CoreDataProperties.swift in Sources */,
 				9B66E7FC1C3904C900D429BA /* DeckCardsTableViewController.swift in Sources */,
 				9BEFF5861C3269F6004F3AD1 /* SwiftyJSON.swift in Sources */,
+				9B0DBE0B1C5200A800A43889 /* PaceLevelCollectionViewCell.swift in Sources */,
 				9B9279E81C47792D0007296C /* PaceProficiencyCollectionViewController.swift in Sources */,
+				9B0DBE051C51FCC900A43889 /* PaceLevelView.swift in Sources */,
 				9B5343E01C3F89EF00AEF13E /* MODeck.swift in Sources */,
 				9B9279F11C48B8C10007296C /* PaceCardView.swift in Sources */,
 				9B66E81D1C3A264B00D429BA /* WordDefinitionCell.swift in Sources */,
 				9B5BB3741C3ACA150075F1CD /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				9B9279E61C4770310007296C /* PaceLevelResultsController.swift in Sources */,
+				9B0DBDDF1C507AA300A43889 /* WordDefinitionHeaderView.swift in Sources */,
 				9BE827F61C3385A1002DB146 /* NSManagedObjectContext + ConvenientInsert.swift in Sources */,
+				9B0DBDE11C509CC900A43889 /* WordDetailTableViewCell.swift in Sources */,
 				9B9279D21C40E9640007296C /* UIColor + PaceTheme.swift in Sources */,
 				9B66E7F51C3903FC00D429BA /* WordViewController.swift in Sources */,
 				9B66E7EC1C34D02500D429BA /* WordListViewController.swift in Sources */,
 				9B5343DE1C3F89EF00AEF13E /* MODefinitionDetail.swift in Sources */,
-				9B0DBDDB1C4F913B00A43889 /* PaceDefinitionController.swift in Sources */,
 				9B9279FD1C48E0DD0007296C /* PaceCardCollectionViewCell.swift in Sources */,
+				9B0DBE111C53BF6000A43889 /* DefinitionDetailHeaderView.swift in Sources */,
 				9B9279DA1C410E440007296C /* CardSelectionTableViewController.swift in Sources */,
 				9B66E7FA1C3904A100D429BA /* DeckListTableViewController.swift in Sources */,
 				9BEFF5571C31018C004F3AD1 /* DefinitionListViewModel.swift in Sources */,
 				9B9279F71C48D7C60007296C /* PaceCardBackView.swift in Sources */,
+				9B0DBDDD1C5079FD00A43889 /* WordDefinitionTableViewController.swift in Sources */,
+				9B0DBE0E1C52093900A43889 /* PaceCardStackView.swift in Sources */,
 				9BEFF5501C2D2B95004F3AD1 /* WordsApiManager.swift in Sources */,
 				9B1BD0571C228E1C00ED10AE /* AppDelegate.swift in Sources */,
 				9B1BD05F1C228E1C00ED10AE /* Pace.xcdatamodeld in Sources */,
@@ -647,6 +698,7 @@
 				9B9279DC1C44A4BF0007296C /* PaceMainViewController.swift in Sources */,
 				9BE827EE1C338097002DB146 /* NSManagedObject + EntityName.swift in Sources */,
 				9B66E81F1C3A52F800D429BA /* PaceTabBarViewController.swift in Sources */,
+				9B0DBDE31C50CC4F00A43889 /* UIViewController + AlertController.swift in Sources */,
 				9B5343E61C3F89EF00AEF13E /* MOWord.swift in Sources */,
 				9B9279DE1C44A4E20007296C /* PaceCardCollectionViewController.swift in Sources */,
 			);

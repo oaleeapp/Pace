@@ -39,17 +39,22 @@ class WordListViewController: UITableViewController {
         searchController.searchBar.returnKeyType = .Done
         searchController.searchBar.placeholder = "feed me new word"
 
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
         }
 
+
+
     }
 
     @IBAction func addNewWord(sender: UIBarButtonItem){
         searchController.searchBar.becomeFirstResponder()
     }
+
+
     
 }
 
@@ -58,7 +63,7 @@ extension WordListViewController {
 
     func enterNewWord(wordString: String) {
 
-        // TODO : guard only english use REX
+        // TODO: guard only english use REX
         guard wordString.characters.count > 0 else {
 
             // TODO: handle no input reaction
@@ -68,9 +73,6 @@ extension WordListViewController {
 
         let wordLowercaseString = wordString.lowercaseString
         let newWord = managedObjectContext?.insertWordForString(wordLowercaseString)
-
-//        let definition = MODefinition(managedObjectContext: managedObjectContext!)
-//        definition.word = newWord
 
         // request word dictionary
         let wordsapi = WordsApi()
@@ -147,6 +149,22 @@ extension WordListViewController {
         self.navigationController?.pushViewController(wordVC, animated: true)
     }
 
+
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        switch editingStyle {
+        case .Delete :
+            let word = fetchedResultsController.objectAtIndexPath(indexPath) as! MOWord
+            self.managedObjectContext?.deleteObject(word)
+        default :
+            return
+
+        }
+    }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate

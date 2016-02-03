@@ -16,6 +16,7 @@ extension MOCard {
 
     @NSManaged var checkCount: Int64
     @NSManaged var proficiency: Int16
+    @NSManaged var needsShow: Bool
     @NSManaged var decks: NSSet?
     @NSManaged var definition: MODefinition?
 

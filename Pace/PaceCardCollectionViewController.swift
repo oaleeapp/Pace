@@ -34,7 +34,7 @@ class PaceCardCollectionViewController: UICollectionViewController {
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let proficiency = 0
-        let predicate = NSPredicate(format: "proficiency == %d", proficiency)
+        let predicate = NSPredicate(format: "needsShow = TRUE && proficiency == %d", proficiency)
         cardFetchRequest.predicate = predicate
 
         let frc = NSFetchedResultsController(fetchRequest: cardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
@@ -243,14 +243,14 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
             } else if deltaY > 0 {
                 // up level
                 if card.proficiency < 6 {
-                    card.proficiency = card.proficiency + 1
+                    card.proficiency++
                 }
                 print("up")
 
             } else {
                 // down level
                 if card.proficiency > 0 {
-                    card.proficiency = card.proficiency - 1
+                    card.proficiency--
                 }
                 print("down")
             }

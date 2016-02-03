@@ -33,6 +33,7 @@ class WordViewController: UIViewController, SegueHandlerType {
             guard let destination = segue.destinationViewController as? WordDefinitionsCollectionViewController
                 else { fatalError("segue not possible") }
             destination.setUpManagedObjectContect(self.managedObjectContext, word: word)
+            destination.definitionDetailDelegate = self
 
         }
     }
@@ -76,6 +77,7 @@ extension WordViewController {
             let newDefinition = MODefinition(managedObjectContext: self.managedObjectContext!)
             newDefinition.word = self.word
             newDefinition.definitoin = text
+            newDefinition.partOfSpeech = "noun"
 
         })
 //        addAction?.enabled = false
@@ -91,6 +93,21 @@ extension WordViewController {
 
 extension WordViewController : UITextFieldDelegate {
 
+    func textFieldDidChangeText(sender : UITextField) {
+
+    }
 
 
+}
+
+extension WordViewController : WordDefinitionDetailDelegate{
+
+    func showDefinition(definition: MODefinition) {
+
+        let definitionVC = storyboard?.instantiateViewControllerWithIdentifier("WordDefinitionTableViewController") as! WordDefinitionTableViewController
+        definitionVC.managedObjectContext = self.managedObjectContext
+        definitionVC.definition = definition
+
+        navigationController?.pushViewController(definitionVC, animated: true)
+    }
 }

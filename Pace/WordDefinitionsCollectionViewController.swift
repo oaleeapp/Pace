@@ -9,6 +9,13 @@
 import UIKit
 import CoreData
 
+
+protocol WordDefinitionDetailDelegate {
+
+    func showDefinition(definition:MODefinition)
+
+}
+
 class WordDefinitionsCollectionViewController: UICollectionViewController {
 
     let cellIdentifier = "DefinitionCell"
@@ -16,6 +23,8 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
     var blockOperation : NSBlockOperation?
     var managedObjectContext : NSManagedObjectContext?
     var word : MOWord?
+    var definitionDetailDelegate : WordDefinitionDetailDelegate?
+    
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
         let wordFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
@@ -58,10 +67,12 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
+        let flowLayout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
+        flowLayout.itemSize = CGSize(width: (collectionView?.bounds.width)! - 100, height: (collectionView?.bounds.height)! - 100)
         var insets = collectionView!.contentInset
-        let value = (self.view.frame.size.width - (collectionView!.collectionViewLayout as! UICollectionViewFlowLayout).itemSize.width) * 0.5
-        insets.left = value
-        insets.right = value
+        let padding = abs((self.view.frame.size.width - flowLayout.itemSize.width) * 0.5)
+        insets.left = padding
+        insets.right = padding
         collectionView!.contentInset = insets
         collectionView!.decelerationRate = UIScrollViewDecelerationRateFast;
     }
@@ -89,7 +100,13 @@ extension WordDefinitionsCollectionViewController {
         return cell
 
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let definition = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        definitionDetailDelegate?.showDefinition(definition)
+
+    }
 }
 
 

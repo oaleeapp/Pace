@@ -165,6 +165,9 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
             return cell
         }
 
+        cell.tintColor = UIColor(hexString: "BA6A6D")
+
+
         if inDeck {
             cell.accessoryType = .Checkmark
         } else {
