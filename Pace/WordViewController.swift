@@ -11,15 +11,10 @@ import CoreData
 
 class WordViewController: UIViewController, SegueHandlerType {
 
-    var managedObjectContext : NSManagedObjectContext?
-    var word : MOWord?
-    var addAction : UIAlertAction?
-
-    @IBOutlet weak var wordLabel: UILabel!
-
-    @IBOutlet weak var syllablesLabel: UILabel!
-
-    @IBOutlet weak var pronunciationLabel: UILabel!
+    var managedObjectContext: NSManagedObjectContext!
+    var word: MOWord?
+    var addAction: UIAlertAction?
+    @IBOutlet weak var wordDetailView: WordDetailView!
 
 
     //DefinitionSegue
@@ -41,16 +36,22 @@ class WordViewController: UIViewController, SegueHandlerType {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.wordLabel.text = word?.word
-        self.syllablesLabel.text = word?.syllables
-        self.pronunciationLabel.text = word?.pronunciation
-
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNewDefinitoin:")
 
         navigationItem.rightBarButtonItems = [addButton]
-
+        setUpWordView()
     }
 
+    func setUpWordView() {
+        guard let word = self.word else {
+            print("word did setted is invalid")
+            return
+        }
+        let viewModel = WordDetailViewModel(managedObjectContext: self.managedObjectContext, word: word)
+        self.wordDetailView.viewModel = viewModel
+        self.wordDetailView.setUpWithWord(viewModel.word)
+        self.wordDetailView.downloadButton.addTarget(self, action: "showFrequencyRankSelectSheet", forControlEvents: .TouchUpInside)
+    }
 
 }
 
@@ -76,7 +77,7 @@ extension WordViewController {
 
             let newDefinition = MODefinition(managedObjectContext: self.managedObjectContext!)
             newDefinition.word = self.word
-            newDefinition.definitoin = text
+            newDefinition.definition = text
             newDefinition.partOfSpeech = "noun"
 
         })
@@ -85,8 +86,21 @@ extension WordViewController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
 
+    }
 
+    func showFrequencyRankSelectSheet(){
 
+        let alertController = UIAlertController(title: "Usage-Frequency of [\(word!.word!)]", message: "You can only set once.", preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        for rank in FrequencyRank.rankList() {
+            let rankAction = UIAlertAction(title: rank.name(), style: .Default){ _ in
+                self.word!.rank = rank
+            }
+            alertController.addAction(rankAction)
+        }
+
+        presentViewController(alertController, animated: true, completion: nil)
     }
 
 }

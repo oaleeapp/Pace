@@ -29,7 +29,7 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
 
         let wordFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
         let primarySortDescriptor = NSSortDescriptor(key: "partOfSpeech", ascending: true)
-        let secondarySortDescriptor = NSSortDescriptor(key: "definitoin", ascending: true)
+        let secondarySortDescriptor = NSSortDescriptor(key: "definition", ascending: true)
         wordFetchRequest.sortDescriptors = [primarySortDescriptor,secondarySortDescriptor]
 
 
@@ -133,7 +133,7 @@ extension WordDefinitionsCollectionViewController : NSFetchedResultsControllerDe
     func configureCell(cell: WordDefinitionCell, indexPath: NSIndexPath) -> WordDefinitionCell {
 
         let definition = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
-        cell.definitionLabel.text = definition.definitoin
+        cell.definitionLabel.text = definition.definition
         print(definition.details)
 
         return cell

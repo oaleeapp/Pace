@@ -35,8 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().backgroundColor = UIColor(hexString: "BA6A6D")
             UINavigationBar.appearance().tintColor = UIColor(hexString: "BA6A6D")
             UISearchBar.appearance().barTintColor = UIColor(hexString: "BA6A6D")
-            UISearchBar.appearance().tintColor = UIColor(hexString: "E2E3E5")
+            UISearchBar.appearance().tintColor = UIColor(hexString: "525252")
 
+            rootVC.selectedViewController = navWordsVC
 
 
 

@@ -15,11 +15,13 @@ class CardSelectionTableViewController: UITableViewController {
     var deck : MODeck?
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
-        let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
-        cardFetchRequest.sortDescriptors = [primarySortDescriptor]
+        let definitionCardFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
+        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        definitionCardFetchRequest.sortDescriptors = [primarySortDescriptor]
+        let predicate = NSPredicate(format: "needsShow == 1")
+        definitionCardFetchRequest.predicate = predicate
 
-        let frc = NSFetchedResultsController(fetchRequest: cardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: definitionCardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
 
         frc.delegate = self
 
@@ -121,7 +123,7 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
 
     func searchWord(word: String){
 
-        let predicate = NSPredicate(format: "definition.word.word CONTAINS[cd] %@", word)
+        let predicate = NSPredicate(format: "definition.word.word CONTAINS[cd] %@ && needsShow == 1", word)
         fetchedResultsController.fetchRequest.predicate = predicate
 
         do{
@@ -134,8 +136,9 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
     }
 
     func searchWordAll() {
-
-        fetchedResultsController.fetchRequest.predicate = nil
+        
+        let predicate = NSPredicate(format: "needsShow == 1")
+        fetchedResultsController.fetchRequest.predicate = predicate
         do{
             try fetchedResultsController.performFetch()
             self.tableView.reloadData()
@@ -159,9 +162,9 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
     }
 
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
-        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.textLabel?.text = card.definition?.word?.word
-        guard let inDeck = card.decks?.containsObject(self.deck!) else {
+        let definitinCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        cell.textLabel?.text = definitinCard.word?.word
+        guard let inDeck = definitinCard.decks?.containsObject(self.deck!) else {
             return cell
         }
 
@@ -178,15 +181,15 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
     }
 
     func didSelectedAtIndexPath(indexPath: NSIndexPath) {
-        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        guard let inDeck = card.decks?.containsObject(self.deck!) else {
+        let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        guard let inDeck = definitionCard.decks?.containsObject(self.deck!) else {
             return
         }
 
         if inDeck {
-            card.removeDeck(self.deck!)
+            definitionCard.removeDeck(self.deck!)
         } else {
-            card.addDeck(self.deck!)
+            definitionCard.addDeck(self.deck!)
         }
     }
 

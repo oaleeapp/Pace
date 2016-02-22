@@ -15,11 +15,11 @@ class DeckCardsTableViewController: UITableViewController {
     var deck : MODeck?
     lazy var fetchedResultsController : NSFetchedResultsController = {
 
-        let wordFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
-        wordFetchRequest.sortDescriptors = [primarySortDescriptor]
+        let definitionCardFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
+        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
+        definitionCardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
-        let frc = NSFetchedResultsController(fetchRequest: wordFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: definitionCardFetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
 
         frc.delegate = self
 
@@ -35,7 +35,7 @@ class DeckCardsTableViewController: UITableViewController {
             print("has no word managedObject exist")
             return
         }
-        let predicate = NSPredicate(format: "ANY decks.title == %@", deckTitle)
+        let predicate = NSPredicate(format: "ANY decks.title == %@ && needsShow == 1", deckTitle)
         fetchedResultsController.fetchRequest.predicate = predicate
         do {
             try fetchedResultsController.performFetch()
@@ -114,9 +114,9 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
     }
 
     func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
-        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.textLabel?.text = card.definition?.word?.word
-        cell.detailTextLabel?.text = card.definition?.definitoin
+        let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        cell.textLabel?.text = definitionCard.word?.word
+        cell.detailTextLabel?.text = definitionCard.definition
         return cell
     }
 
@@ -125,6 +125,7 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
     }
 
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        print(fetchedResultsController.sections?.first?.numberOfObjects)
         tableView.endUpdates()
     }
 

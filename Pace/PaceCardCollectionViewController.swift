@@ -29,8 +29,8 @@ class PaceCardCollectionViewController: UICollectionViewController {
     var touchCell : UICollectionViewCell?
 
     lazy var fetchedResultsController : NSFetchedResultsController = {
-        let cardFetchRequest = NSFetchRequest(entityName: MOCard.entityName())
-        let primarySortDescriptor = NSSortDescriptor(key: "definition.word.word", ascending: true)
+        let cardFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
+        let primarySortDescriptor = NSSortDescriptor(key: "word.word", ascending: true)
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
 
         let proficiency = 0
@@ -122,10 +122,6 @@ extension PaceCardCollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-
-
-        //        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        //        card.proficiency = 1
 
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PaceCardCollectionViewCell
         cell.cardView.flip()
@@ -229,7 +225,7 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
                 print("this point has no indexPath")
                 break
             }
-            let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
+            let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
 
             defer {
                 movingCell?.removeFromSuperview()
@@ -242,15 +238,15 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
 
             } else if deltaY > 0 {
                 // up level
-                if card.proficiency < 6 {
-                    card.proficiency++
+                if definitionCard.proficiency < 6 {
+                    definitionCard.proficiency++
                 }
                 print("up")
 
             } else {
                 // down level
-                if card.proficiency > 0 {
-                    card.proficiency--
+                if definitionCard.proficiency > 0 {
+                    definitionCard.proficiency--
                 }
                 print("down")
             }
@@ -333,12 +329,11 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
 
     func configureCell(cell: PaceCardCollectionViewCell, indexPath: NSIndexPath) -> PaceCardCollectionViewCell {
 
-        let card = fetchedResultsController.objectAtIndexPath(indexPath) as! MOCard
-        cell.cardView.frontView.wordLabel.text = card.definition?.word?.word
-        cell.cardView.frontView.syllablesLabel.text = card.definition?.word?.syllables
-        cell.cardView.frontView.pronunciationLabel.text = card.definition?.word?.pronunciation
-
-        cell.cardView.backView.definitionLabel.text = card.definition?.definitoin
+        let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        cell.cardView.frontView.wordLabel.text = definitionCard.word?.word
+        cell.cardView.frontView.syllablesLabel.text = definitionCard.word?.syllables
+        cell.cardView.frontView.pronunciationLabel.text = definitionCard.word?.pronunciation
+        cell.cardView.backView.definitionLabel.text = definitionCard.definition
 
         return cell
     }

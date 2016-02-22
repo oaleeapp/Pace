@@ -38,6 +38,7 @@ class WordDefinitionTableViewController: UITableViewController {
     }()
     weak var addAction : UIAlertAction?
     var addButton : UIBarButtonItem?
+    let editTitle = "Edit"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,8 @@ class WordDefinitionTableViewController: UITableViewController {
         }
 
         addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addDetailButton:")
-        navigationItem.rightBarButtonItems = [addButton!]
+        let editButton = UIBarButtonItem(title: editTitle, style: .Plain, target: self, action: "editDefinition:")
+        navigationItem.rightBarButtonItems = [addButton!, editButton]
 
         tableView.registerClass(DefinitionDetailHeaderView().dynamicType, forHeaderFooterViewReuseIdentifier: headerViewIdentifier)
     }
@@ -142,11 +144,14 @@ extension WordDefinitionTableViewController {
 
     func setUpHeaderViewWithDefinition(definition: MODefinition) {
         definitionHeaderView.wordLabel.text = definition.word?.word
-        definitionHeaderView.definitionTextView.text = definition.definitoin
-        definitionHeaderView.cardifyButton.selected = (definition.card?.needsShow)!
+        definitionHeaderView.definitionTextView.text = definition.definition
+        definitionHeaderView.cardifyButton.selected = definition.needsShow
         definitionHeaderView.cardifyButton.addTarget(self, action: "pressCardifyButton:", forControlEvents: .TouchUpInside)
         definitionHeaderView.deleteDefinitionButton.addTarget(self, action: "pressDeleteButton:", forControlEvents: .TouchUpInside)
         definitionHeaderView.setPartOfSpeech(definition.partOfSpeech!, withColor: UIColor(hexString: definition.colorHexString!))
+
+        definitionHeaderView.definitionTextView.editable = false
+        enableCustomMenu()
 
     }
 
@@ -262,18 +267,41 @@ extension WordDefinitionTableViewController : UITextViewDelegate {
 
         adjustHeaderViewHeight()
     }
+
+    func enableCustomMenu() {
+        let lookup = UIMenuItem(title: "Lookup", action: "lookup")
+        UIMenuController.sharedMenuController().menuItems = [lookup]
+    }
+
+    func disableCustomMenu() {
+        UIMenuController.sharedMenuController().menuItems = nil
+    }
+
+    func lookup(){
+        guard let word = definitionHeaderView.definitionTextView.textInRange(definitionHeaderView.definitionTextView.selectedTextRange!) else {
+            return
+        }
+        searchWord(word)
+    }
+
 }
 
 // MARK: Editing and Creating Function
-extension WordDefinitionTableViewController : WordDetailDelegate {
+extension WordDefinitionTableViewController : DefinitionDetailDelegate {
 
-    func addableDetailKey() -> [String] {
 
-        let keys = [WordsAPIDefinitionDetailType.Example.key,
-                    WordsAPIDefinitionDetailType.Synonyms.key,
-                    WordsAPIDefinitionDetailType.Antonyms.key,
-                    WordsAPIDefinitionDetailType.SimilarTo.key]
-        return keys
+    func editDefinition(sender: UIBarButtonItem) {
+
+
+        if sender.title == editTitle {
+
+            definitionHeaderView.definitionTextView.editable = true
+            definitionHeaderView.definitionTextView.becomeFirstResponder()
+            sender.title = "Done"
+        } else {
+            definitionHeaderView.definitionTextView.editable = false
+            sender.title = editTitle
+        }
     }
 
     func addDetailButton(sender : UIBarButtonItem) {
@@ -283,7 +311,7 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
         // perform showAlertAddDetailForKey
         var actions : [UIAlertAction] = []
 
-        for key in addableDetailKey() {
+        for key in WordsApiDefinitionDetailKey.addableKeys() {
 
             let newAction = UIAlertAction(title: key, style: .Default, handler: { (action) -> Void in
                 self.showAlertAddDetailForKey(key)
@@ -337,7 +365,7 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
 
     func pressDeleteButton(sender : UIButton) {
 
-        let deleteDefinitionAction = UIAlertAction(title: "Done", style: .Destructive) { (action) -> Void in
+        let deleteDefinitionAction = UIAlertAction(title: "Delete", style: .Destructive) { (action) -> Void in
             self.deleteDefinition(self.definition!)
         }
 
@@ -353,8 +381,10 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
 
     func pressCardifyButton(sender : UIButton) {
 
-        definition?.card?.needsShow = !(definition?.card?.needsShow)!
-        sender.selected = (definition?.card?.needsShow)!
+        let needsShow = !(definition?.needsShow)!
+        definition?.needsShow = needsShow
+        sender.selected = needsShow
+        
     }
 
     func deleteDefinition(definition : MODefinition) {
@@ -362,13 +392,17 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
         managedObjectContext?.deleteObject(definition)
         navigationController?.popViewControllerAnimated(true)
 
-    }   
+    }
+
+    func searchWordFormDefinition() {
+        searchWordFromDetailString(definitionHeaderView.definitionTextView.text!)
+    }
 
     func searchWordFromDetailString(detailString: String) {
 
         let words = detailString.componentsSeparatedByString(" ")
 
-        let actionSheetController = UIAlertController(title: "Search Word", message: "pich the word to search", preferredStyle: .ActionSheet)
+        let actionSheetController = UIAlertController(title: "Look Up Word", message: "pick the word to search", preferredStyle: .ActionSheet)
         for word in words {
             let action = UIAlertAction(title: word, style: .Default, handler: { (action) -> Void in
                 // add or search word
@@ -405,18 +439,9 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
                 let word = results.first
                 pushToWord(word!)
             } else {
-                let newWord = MOWord(managedObjectContext: managedObjectContext!)
-                newWord.word = wordString
+                let word = MOModelManager.insertWord(wordString, managedObjectContext: managedObjectContext!)
 
-                // request word dictionary
-                let wordsapi = WordsApi()
-                wordsapi.getWord(wordString){wordResult in
-
-                    self.managedObjectContext!.modifyWord(newWord, withWordStruct: wordResult)
-                    
-                }
-
-                pushToWord(newWord)
+                pushToWord(word)
             }
 
 
@@ -434,6 +459,21 @@ extension WordDefinitionTableViewController : WordDetailDelegate {
         wordVC.word = word
 
         navigationController?.pushViewController(wordVC, animated: true)
+    }
+
+    func showFrequencyRankSelectSheet(word: MOWord){
+
+        let alertController = UIAlertController(title: "Usage-Frequency of [\(word.word!)]", message: "You can only set once.", preferredStyle: .ActionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        for rank in FrequencyRank.rankList() {
+            let rankAction = UIAlertAction(title: rank.name(), style: .Default){ _ in
+                word.rank = rank
+            }
+            alertController.addAction(rankAction)
+        }
+
+        presentViewController(alertController, animated: true, completion: nil)
     }
 
 

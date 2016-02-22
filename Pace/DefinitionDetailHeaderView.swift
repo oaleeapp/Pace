@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol WordDetailDelegate {
+protocol DefinitionDetailDelegate {
     func showAlertAddDetailForKey(key: String)
 }
 
@@ -22,7 +22,7 @@ protocol WordDetailDelegate {
 
     let nibName = "DefinitionDetailHeaderView"
     var view : UIView!
-    var delegate : WordDetailDelegate?
+    var delegate : DefinitionDetailDelegate?
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

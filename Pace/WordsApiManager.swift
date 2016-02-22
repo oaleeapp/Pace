@@ -44,18 +44,31 @@ struct WordsApi {
     }
 
     func getWord(word: String, completor: (result: WAWord) -> Void) {
+
         Alamofire.request(Method.GET, wordsApiURL + word, headers: headers)
             .responseJSON { response in
-            debugPrint(response)
-                print(response.request?.allHTTPHeaderFields)
-                let json = JSON(data: response.data!)
-                print(json)
-                if json.count != 0 {
-                    let word = self.wordFromJson(json)
-                    completor(result: word)
-                } else {
-                    // have no data online
+
+//                debugPrint(response)
+                switch response.result {
+                case .Success:
+
+                    print("Validation Successful")
+
+                    let json = JSON(data: response.data!)
+                    print(json)
+                    if json.count != 0 {
+                        let word = self.wordFromJson(json)
+                        completor(result: word)
+                    } else {
+                        print("have no data for \(word)")
+                    }
+                    
+                case .Failure(let error):
+                    print(error)
                 }
+
+
+
         }
 
     }
@@ -174,38 +187,7 @@ struct WADefinition {
 }
 
 
-enum WordsAPIDefinitionDetailType : String{
 
-    case Example = "example"
-    case Synonyms = "synonyms"
-    case Antonyms = "antonyms"
-    case TypeOf = "typeOf"
-    case HasTypes = "hasTypes"
-    case PartOf = "partOf"
-    case HasParts = "hasParts"
-    case InstanceOf = "instanceOf"
-    case HasInstances = "hasInstances"
-    case SimilarTo = "similarTo"
-    case Also = "also"
-    case Entails = "entails"
-    case MemberOf = "memberOf"
-    case HasMembers = "hasMembers"
-    case SubstanceOf = "substanceOf"
-    case HasSubstances = "hasSubstances"
-    case InCategory = "inCategory"
-    case HasCategories = "hasCategories"
-    case UsageOf = "usageOf"
-    case HasUsages = "hasUsages"
-    case InRegion = "inRegion"
-    case RegionOf = "regionOf"
-    case PertainsTo = "pertainsTo"
-
-    var key : String {
-        get{
-            return self.rawValue
-        }
-    }
-}
 
 enum WordsAPIPartOfSpeechType : String{
     case Noun = "noun"

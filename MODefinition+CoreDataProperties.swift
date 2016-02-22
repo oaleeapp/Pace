@@ -2,7 +2,7 @@
 //  MODefinition+CoreDataProperties.swift
 //  Pace
 //
-//  Created by lee on 1/17/16.
+//  Created by lee on 2/3/16.
 //  Copyright © 2016 OALeeapp. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,11 +14,14 @@ import CoreData
 
 extension MODefinition {
 
-    @NSManaged var definitoin: String?
-    @NSManaged var partOfSpeech: String?
     @NSManaged var colorHexString: String?
-    @NSManaged var card: MOCard?
+    @NSManaged var definition: String?
+    @NSManaged var partOfSpeech: String?
+    @NSManaged var checkCount: Int64
+    @NSManaged var needsShow: Bool
+    @NSManaged var proficiency: Int16
     @NSManaged var details: NSSet?
     @NSManaged var word: MOWord?
-    @NSManaged var examples : [MODefinitionDetail]?
+    @NSManaged var decks: NSSet?
+
 }

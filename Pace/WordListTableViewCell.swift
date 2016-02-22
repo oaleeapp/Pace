@@ -1,25 +1,28 @@
 //
-//  WordDefinitionCell.swift
+//  WordListTableViewCell.swift
 //  Pace
 //
-//  Created by lee on 1/4/16.
+//  Created by lee on 2/20/16.
 //  Copyright © 2016 OALeeapp. All rights reserved.
 //
 
 import UIKit
 
-class WordDefinitionCell: UICollectionViewCell {
+class WordListTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var definitionLabel: UILabel!
-
-    let nibName = "WordDefinitionCell"
+    @IBOutlet weak var downloadButton: DownloadWordButton!
+    @IBOutlet weak var wordLebel: UILabel!
+    let nibName = "WordListTableViewCell"
     var view : UIView!
 
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
 
+        // Configure the view for the selected state
+    }
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         xibSetUp()
     }
 
@@ -42,9 +45,9 @@ class WordDefinitionCell: UICollectionViewCell {
         let bundle = NSBundle(forClass: self.dynamicType)
         let nib = UINib(nibName: nibName, bundle: bundle)
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
-
+        
         return view
     }
-    
 
+    
 }

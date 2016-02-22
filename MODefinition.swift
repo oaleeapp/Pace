@@ -16,17 +16,26 @@ class MODefinition: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    override func awakeFromInsert() {
-        super.awakeFromInsert()
-        let card = MOCard(managedObjectContext: self.managedObjectContext!)
-        self.card = card
-    }
-
     func addDetail(detail : MODefinitionDetail) {
 
         self.mutableSetValueForKey("details").addObject(detail)
         
     }
 
+    func addDetails(details : [MODefinitionDetail]) {
+        self.mutableSetValueForKey("details").addObjectsFromArray(details)
+    }
+
+    func addDeck(deck: MODeck) {
+
+        self.mutableSetValueForKey("decks").addObject(deck)
+
+    }
+
+    func removeDeck(deck: MODeck) {
+
+        self.mutableSetValueForKey("decks").removeObject(deck)
+        
+    }
 
 }

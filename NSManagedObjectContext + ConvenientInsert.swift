@@ -9,14 +9,7 @@
 import Foundation
 import CoreData
 
-extension NSManagedObjectContext {
 
-    public func insertObject<T: NSManagedObject>() -> T {
-        guard let object = NSEntityDescription.insertNewObjectForEntityForName(T.entityName(), inManagedObjectContext: self) as? T
-            else { fatalError("Invalid Core Data Model.") }
-        return object;
-    }
-}
 
 // MARK: insert Word from WordsAPI
 
@@ -60,7 +53,7 @@ extension NSManagedObjectContext {
 
 
         let definition = definitions.first
-        definition?.card?.needsShow = true
+        definition?.needsShow = true
         
 
 
@@ -77,7 +70,7 @@ extension NSManagedObjectContext {
         }
 
         let newDefinition = MODefinition(managedObjectContext: self)
-        newDefinition.definitoin = definitionStruct.definition
+        newDefinition.definition = definitionStruct.definition
         newDefinition.partOfSpeech = definitionStruct.partOfSpeech
         newDefinition.details = NSSet(array: details)
         newDefinition.colorHexString = definitionStruct.colorHexString
