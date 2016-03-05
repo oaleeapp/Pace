@@ -10,69 +10,64 @@ import UIKit
 
 @IBDesignable class PaceLevelView: UIView {
 
-    let numberOfLevels = 6
-    let π : CGFloat = CGFloat(M_PI)
+    var view: UIView!
 
-    @IBInspectable var counter: Int = 3
-    @IBInspectable var outlineColor: UIColor = UIColor.blueColor()
-    @IBInspectable var counterColor: UIColor = UIColor.orangeColor()
+    @IBOutlet weak var levelCirCleView: LevelCircleView!
 
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var levelLabel: UILabel!
 
-        // 1
-        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+    var level: WordDefinitionProficiencyLevel = .Never {
+        didSet{
+            levelCirCleView.counter = level.rawValue
+            levelLabel.text = level.symbol()
+        }
+    }
 
-        // 2
-        let radius: CGFloat = max(bounds.width, bounds.height)
+    
 
-        // 3
-        let arcWidth: CGFloat = 30
+    required init?(coder aDecoder: NSCoder) {
 
-        // 4
-        let startAngle: CGFloat = π / 2
-        let endAngle: CGFloat = 5 * π / 2
+        super.init(coder: aDecoder)
 
-        // 5
-        let path = UIBezierPath(arcCenter: center,
-            radius: radius/2 - arcWidth/2,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            clockwise: true)
-        
-        // 6
-        path.lineWidth = arcWidth
-        counterColor.setStroke()
-        path.stroke()
-
-        let unitAngle : CGFloat = π / 3
-
-        let levelEndAngle = CGFloat(counter) * unitAngle + startAngle
-
-        let levelPath = UIBezierPath(arcCenter: center,
-            radius: radius/2 - arcWidth/2,
-            startAngle: startAngle,
-            endAngle: levelEndAngle,
-            clockwise: true)
-
-        levelPath.lineWidth = arcWidth
-        outlineColor.setStroke()
-        levelPath.stroke()
-
+        xibSetup()
 
     }
 
     override init(frame: CGRect) {
+
         super.init(frame: frame)
 
+        xibSetup()
+
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    func xibSetup() {
+        view = loadViewFromNib()
+
+        // use bounds not frame or it'll be offset
+        view.frame = bounds
+
+        // Make the view stretch with containing view
+        view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+
+        // Adding custom subview on top of our view (over any custom drawing > see note below)
+        addSubview(view)
     }
 
+    func loadViewFromNib() -> UIView {
+        let bundle = NSBundle(forClass: self.dynamicType)
+        let nib = UINib(nibName: "PaceLevelView", bundle: bundle)
+
+        // Assumes UIView is top level and only object in CustomView.xib file
+        let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
+        return view
+    }
+
+
+    override func prepareForInterfaceBuilder() {
+        levelCirCleView.counter = level.rawValue
+        levelLabel.text = level.symbol()
+    }
 
 
 }

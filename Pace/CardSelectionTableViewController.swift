@@ -31,8 +31,16 @@ class CardSelectionTableViewController: UITableViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
 
+
+    let cellIdentifier = "CardSelectCell"
+    let cellNibName = "DeckCardSelectTableViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = deck?.title
+        let nib = UINib(nibName: cellNibName, bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44.0
 
         tableView.allowsMultipleSelection = true
 
@@ -43,6 +51,8 @@ class CardSelectionTableViewController: UITableViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.returnKeyType = .Done
         searchController.searchBar.placeholder = "find a word"
+
+
 
         do {
             try fetchedResultsController.performFetch()
@@ -76,7 +86,7 @@ extension CardSelectionTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CardCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeckCardSelectTableViewCell
 
         return configureCell(cell, indexPath: indexPath)
     }
@@ -123,7 +133,7 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
 
     func searchWord(word: String){
 
-        let predicate = NSPredicate(format: "definition.word.word CONTAINS[cd] %@ && needsShow == 1", word)
+        let predicate = NSPredicate(format: "word.word CONTAINS[cd] %@ && needsShow == 1", word)
         fetchedResultsController.fetchRequest.predicate = predicate
 
         do{
@@ -161,10 +171,12 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
         return sectionData.numberOfObjects
     }
 
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
-        let definitinCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
-        cell.textLabel?.text = definitinCard.word?.word
-        guard let inDeck = definitinCard.decks?.containsObject(self.deck!) else {
+    func configureCell(cell: DeckCardSelectTableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+        let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        cell.wordLabel.text = definitionCard.word?.word
+        cell.definitionLabel.text = definitionCard.definition
+        cell.partOfSpeechLabel.text = definitionCard.partOfSpeech
+        guard let inDeck = definitionCard.decks?.containsObject(self.deck!) else {
             return cell
         }
 
@@ -226,8 +238,8 @@ extension CardSelectionTableViewController : NSFetchedResultsControllerDelegate{
             break;
         case .Update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRowAtIndexPath(indexPath)
-                configureCell(cell!, indexPath: indexPath)
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! DeckCardSelectTableViewCell
+                configureCell(cell, indexPath: indexPath)
             }
             break;
         case .Move:

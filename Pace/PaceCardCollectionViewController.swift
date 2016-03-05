@@ -13,20 +13,19 @@ private let reuseIdentifier = "PaceCardCell"
 
 class PaceCardCollectionViewController: UICollectionViewController {
 
+    @IBOutlet var levelView: PaceLevelView!
 
-    @IBOutlet var gotView: UIView!
-    @IBOutlet var studyView: UIView!
-
+    @IBOutlet var coverView: UIView!
 
     var managedObjectContext : NSManagedObjectContext?
-    var proficiencyFetchRequest : NSFetchRequest?
+    var level: WordDefinitionProficiencyLevel = .Never
 
     var shouldReloadCollectionView = false
     var blockOperation : NSBlockOperation?
 
-    var movingCell : UIImageView?
-    var touchOriginPoint : CGPoint?
-    var touchCell : UICollectionViewCell?
+    var movingCell = PaceCardView(frame: CGRect.zero)
+    var touchOriginPoint : CGPoint = CGPoint.zero
+    var touchCell : PaceCardCollectionViewCell?
 
     lazy var fetchedResultsController : NSFetchedResultsController = {
         let cardFetchRequest = NSFetchRequest(entityName: MODefinition.entityName())
@@ -47,6 +46,8 @@ class PaceCardCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.title = level.name()
 
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: self.view.frame.width - 32.0, height: self.view.frame.height - 232.0)
@@ -79,10 +80,10 @@ class PaceCardCollectionViewController: UICollectionViewController {
     }
 
 
-    func setUpFetchRequest(fetchRequest : NSFetchRequest, managedObjectContext: NSManagedObjectContext) {
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+    func setUpFetchRequest(levelController : PaceLevelResultsController, managedObjectContext: NSManagedObjectContext) {
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: levelController.fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
-
+        level = levelController.level
         do {
             try fetchedResultsController.performFetch()
             collectionView?.reloadData()
@@ -130,9 +131,10 @@ extension PaceCardCollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         let cardCell = cell as! PaceCardCollectionViewCell
-        cardCell.cardView.face = .Front
+        cardCell.cardView.setFace(.Front, withAnimated: false)
         
     }
+
 
 }
 
@@ -141,30 +143,12 @@ extension PaceCardCollectionViewController {
 
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
-        var closestCell : UICollectionViewCell = collectionView!.visibleCells()[0];
-        for cell in collectionView!.visibleCells() as [UICollectionViewCell] {
-            let closestCellDelta = abs(closestCell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
-            let cellDelta = abs(cell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
-            if (cellDelta < closestCellDelta){
-                closestCell = cell
-            }
-        }
-        let indexPath = collectionView!.indexPathForCell(closestCell)
-        collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        cellToCenter()
 
     }
 
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        var closestCell : UICollectionViewCell = collectionView!.visibleCells()[0];
-        for cell in collectionView!.visibleCells() as [UICollectionViewCell] {
-            let closestCellDelta = abs(closestCell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
-            let cellDelta = abs(cell.center.x - collectionView!.bounds.size.width/2.0 - collectionView!.contentOffset.x)
-            if (cellDelta < closestCellDelta){
-                closestCell = cell
-            }
-        }
-        let indexPath = collectionView!.indexPathForCell(closestCell)
-        collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        cellToCenter()
     }
 
 
@@ -174,84 +158,74 @@ extension PaceCardCollectionViewController {
 // MARK: Pan Gesture Handler & delegate
 extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
 
+    enum PanResult {
+        case LevelStay
+        case LevelUp
+        case LevelDown
+    }
+
+
     func handleLongPress(longPressRecognizer: UILongPressGestureRecognizer){
         let locationPoint = longPressRecognizer.locationInView(self.collectionView)
 
         switch longPressRecognizer.state{
         case .Began :
-            print("began")
-            touchOriginPoint = locationPoint
+
             guard let indexPath = collectionView?.indexPathForItemAtPoint(locationPoint) else {
                 print("this point has no indexPath")
                 break
             }
-            let cell = collectionView?.cellForItemAtIndexPath(indexPath)
+            touchOriginPoint = locationPoint
+            let cell = collectionView?.cellForItemAtIndexPath(indexPath) as! PaceCardCollectionViewCell
             touchCell = cell
-            guard let size = cell?.bounds.size else {
-                print("cell has no size")
-                break
-            }
-            UIGraphicsBeginImageContext(size)
-            guard let ctx = UIGraphicsGetCurrentContext() else {
-                print("has no current context")
-                break
-            }
-            cell?.layer.renderInContext(ctx)
-            let cellImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+            configureMovingCellFromCell(cell)
+            cell.hidden = true
+            coverView.frame = (collectionView?.bounds)!
+            collectionView?.addSubview(coverView)
+            collectionView?.addSubview(levelView(levelView, withframe: cell.frame))
+            collectionView?.addSubview(movingCell)
 
-            cell?.hidden = true
-
-            movingCell = UIImageView(image: cellImage)
-            movingCell?.center = (cell?.center)!
-            collectionView?.addSubview(movingCell!)
-
-            addGotAndStudyViewAtFrame((cell?.frame)!, belowView: movingCell!)
 
         case .Changed :
-            print("changed")
-            let deltaY = (touchOriginPoint?.y)! - locationPoint.y
-            movingCell?.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! - deltaY)
+
+            guard touchOriginPoint != CGPoint.zero else {
+                return
+            }
+
+            let deltaY = touchOriginPoint.y - locationPoint.y
+            movingCell.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! - deltaY)
 
             let threshold = (touchCell?.bounds.height)!/2
-            gotAndStudyViewMovedY(deltaY, threshold: threshold)
-
+            levelViewMovedY(deltaY, threshold: threshold, withCurrentLevel: (touchCell?.cardView.level)!)
 
 
         case .Ended :
-            print("ended")
 
+            guard touchOriginPoint != CGPoint.zero else {
+                return
+            }
             guard let indexPath = collectionView?.indexPathForCell(touchCell!) else {
                 print("this point has no indexPath")
                 break
             }
             let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+            var result : PanResult = .LevelStay
+            let deltaY = touchOriginPoint.y - locationPoint.y
+            if abs(deltaY) <= (touchCell?.bounds.height)!/2{
 
-            defer {
-                movingCell?.removeFromSuperview()
-                touchCell?.hidden = false
-            }
-            let deltaY = (touchOriginPoint?.y)! - locationPoint.y
-            if abs(deltaY) <= (touchCell?.bounds.height)!/2 {
-                // no change
                 print("no change")
 
             } else if deltaY > 0 {
-                // up level
-                if definitionCard.proficiency < 6 {
-                    definitionCard.proficiency++
+                if definitionCard.level != .Master {
+                    result = .LevelUp
                 }
-                print("up")
-
             } else {
-                // down level
-                if definitionCard.proficiency > 0 {
-                    definitionCard.proficiency--
+                if definitionCard.level != .Never {
+                    result = .LevelDown
                 }
-                print("down")
             }
+            endPanWithResult(result, withDefinitionCard: definitionCard)
 
-            removeGotAndStudyView()
 
         default:
             break
@@ -259,49 +233,97 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
         }
     }
 
-    func handleSwipe(swipeRecognizer: UISwipeGestureRecognizer) {
-        switch swipeRecognizer.direction {
-        case UISwipeGestureRecognizerDirection.Left :
-            print("Left")
-        case UISwipeGestureRecognizerDirection.Right :
-            print("Right")
-        case UISwipeGestureRecognizerDirection.Up :
-            print("Left")
-        case UISwipeGestureRecognizerDirection.Down :
-            print("Right")
-        default :
-            break
+    func endPanWithResult(result: PanResult, withDefinitionCard definitionCard: MODefinition) {
+
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.animateWithResult(result)
+            }) { (isFinished) -> Void in
+                if isFinished {
+                    self.touchOriginPoint = CGPoint.zero
+                    self.movingCell.removeFromSuperview()
+                    self.levelView.removeFromSuperview()
+                    self.coverView.removeFromSuperview()
+                    self.coverView.alpha = 0.0
+                    self.touchCell?.hidden = false
+                    self.switchLevelWithResult(result, withDefinitionCard: definitionCard)
+                }
+        }
+
+    }
+
+    func animateWithResult(result: PanResult) {
+
+        var frame = (touchCell?.frame)!
+        switch result {
+        case .LevelStay:
+            movingCell.frame = frame
+        case .LevelUp:
+            frame.origin.y = -self.collectionView!.frame.height
+            movingCell.frame = frame
+        case .LevelDown:
+            frame.origin.y = self.collectionView!.frame.height
+            movingCell.frame = frame
+        }
+    }
+
+    func switchLevelWithResult(result: PanResult, withDefinitionCard definitionCard: MODefinition) {
+        switch result {
+        case .LevelStay:
+            print("no change")
+        case .LevelUp:
+            definitionCard.levelUp()
+        case .LevelDown:
+            definitionCard.levelDown()
         }
     }
 
 }
 
-// MARK : Got and Study View
+// MARK : level view
 extension PaceCardCollectionViewController {
 
-    func addGotAndStudyViewAtFrame(frame : CGRect, belowView: UIView) {
-        gotView.alpha = 0.0
-        studyView.alpha = 0.0
-        self.collectionView?.insertSubview(gotView, belowSubview: belowView)
-        self.collectionView?.insertSubview(studyView, belowSubview: belowView)
-        gotView.frame = frame
-        studyView.frame = frame
+    func levelView(levelView: PaceLevelView, withframe frame: CGRect) -> PaceLevelView {
+        let sideLength = min(frame.width, frame.height) * 0.6
+        levelView.frame = CGRect(x: 0, y: 0, width: sideLength, height: sideLength)
+        levelView.center = CGPoint(x: frame.midX, y: frame.midY)
+        return levelView
     }
 
-    func gotAndStudyViewMovedY(movedY: CGFloat, threshold: CGFloat) {
+    func levelViewMovedY(movedY: CGFloat, threshold: CGFloat, withCurrentLevel currentLevel: WordDefinitionProficiencyLevel) {
+
+
 
         if movedY >= 0 {
-            studyView.alpha = 0.0
-            gotView.alpha = threshold > movedY ? movedY / threshold : 1.0
+            levelView.level = currentLevel.nextLevel()
+            coverView.backgroundColor = UIColor(themeColor: .LightLevelUpColor)
+            let alpha = threshold > movedY ? movedY / threshold : 1.0
+            levelView.alpha = alpha
+            coverView.alpha = alpha / 2.0
+            let deltaY = threshold > movedY ? movedY : threshold
+            levelView.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! + deltaY / 2.0 )
+
+
         } else {
-            gotView.alpha = 0.0
-            studyView.alpha = threshold > abs(movedY) ? abs(movedY) / threshold : 1.0
+            levelView.level = currentLevel.previousLevel()
+            coverView.backgroundColor = UIColor(themeColor: .LightLevelDownColor)
+            let alpha = threshold > abs(movedY) ? abs(movedY) / threshold : 1.0
+            levelView.alpha = alpha
+            coverView.alpha = alpha / 2.0
+            let deltaY = threshold > abs(movedY) ? movedY : -threshold
+            levelView.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! + deltaY / 2.0 )
         }
     }
 
-    func removeGotAndStudyView() {
-        gotView.removeFromSuperview()
-        studyView.removeFromSuperview()
+    func configureMovingCellFromCell(cell: PaceCardCollectionViewCell) {
+        movingCell.frontView.wordLabel.text = cell.cardView.frontView.wordLabel.text
+        movingCell.frontView.syllablesLabel.text = cell.cardView.frontView.syllablesLabel.text
+        movingCell.frontView.pronunciationLabel.text = cell.cardView.frontView.pronunciationLabel.text
+        movingCell.backView.definitionLabel.text = cell.cardView.backView.definitionLabel.text
+
+        movingCell.level = cell.cardView.level
+        movingCell.partOfSpeechColor = cell.cardView.partOfSpeechColor
+        self.movingCell.setFace(cell.cardView.face, withAnimated: false)
+        movingCell.frame = cell.frame
     }
 
 }
@@ -334,7 +356,8 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
         cell.cardView.frontView.syllablesLabel.text = definitionCard.word?.syllables
         cell.cardView.frontView.pronunciationLabel.text = definitionCard.word?.pronunciation
         cell.cardView.backView.definitionLabel.text = definitionCard.definition
-
+        cell.cardView.partOfSpeechColor = UIColor(hexString: definitionCard.colorHexString!)
+        cell.cardView.level = definitionCard.level
         return cell
     }
 

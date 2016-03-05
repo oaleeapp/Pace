@@ -126,7 +126,7 @@ final class WordsAPIService {
 
                 print("Validation Successful")
                 let json = JSON(data: response.data!)
-//                print(json)
+                print(json)
                 completor(result: json)
 
             case .Failure(let error):
@@ -139,7 +139,10 @@ final class WordsAPIService {
 
 
     func URLForWord(word: String) -> String {
-        return WordsApiURL + "/words/\(word)/"
+        guard let escapedString = word.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) else {
+            fatalError("word can't be encoding")
+        }
+        return WordsApiURL + "/words/\(escapedString)"
     }
 
 }

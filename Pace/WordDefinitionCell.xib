@@ -2,14 +2,82 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WordDefinitionCell" customModule="Pace" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WordDefinitionCell" customModule="Pace" customModuleProvider="target">
+            <connections>
+                <outlet property="cardifyButton" destination="0Xd-6q-8h3" id="b7J-pf-1D7"/>
+                <outlet property="definitionLabel" destination="fpC-tQ-itM" id="Ssa-JG-zfN"/>
+                <outlet property="levelView" destination="aew-P5-3Uk" id="KOn-Xg-bs2"/>
+                <outlet property="partOfSpeechIndicateView" destination="kZg-OT-qEf" id="A5z-LR-ViQ"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="320"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZg-OT-qEf">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="13"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Definition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fpC-tQ-itM">
+                    <rect key="frame" x="16" y="21" width="168" height="239"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Xd-6q-8h3">
+                    <rect key="frame" x="148" y="268" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="1Xl-On-ghk"/>
+                        <constraint firstAttribute="height" constant="44" id="8Jf-eW-Uh2"/>
+                    </constraints>
+                    <state key="normal" image="CardifyUnselected"/>
+                    <state key="selected" image="CardifySelected"/>
+                    <connections>
+                        <action selector="cardifyDefinition:" destination="-1" eventType="touchUpInside" id="gxY-xX-kgf"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aew-P5-3Uk" customClass="PaceLevelView" customModule="Pace" customModuleProvider="target">
+                    <rect key="frame" x="8" y="268" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="AeW-1a-nIR"/>
+                        <constraint firstAttribute="width" constant="44" id="dGx-O1-NKp"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.91372549020000005" green="0.83137254900000002" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="6CQ-Km-8uy"/>
+                <constraint firstItem="kZg-OT-qEf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bqp-Cg-ahb"/>
+                <constraint firstAttribute="bottom" secondItem="aew-P5-3Uk" secondAttribute="bottom" constant="8" id="BzW-FV-z4N"/>
+                <constraint firstItem="aew-P5-3Uk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="JnZ-ig-RHX"/>
+                <constraint firstAttribute="trailingMargin" secondItem="fpC-tQ-itM" secondAttribute="trailing" constant="8" id="LfC-nM-Ahq"/>
+                <constraint firstItem="kZg-OT-qEf" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="1:25" id="Xgh-VK-vAF"/>
+                <constraint firstItem="kZg-OT-qEf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bbH-h4-oIn"/>
+                <constraint firstAttribute="bottom" secondItem="kZg-OT-qEf" secondAttribute="bottom" constant="310" id="f6s-Zq-3HN"/>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="top" secondItem="kZg-OT-qEf" secondAttribute="bottom" constant="8" id="hqm-sQ-16X"/>
+                <constraint firstAttribute="trailing" secondItem="0Xd-6q-8h3" secondAttribute="trailing" constant="8" id="o0B-Ev-Egb"/>
+                <constraint firstItem="0Xd-6q-8h3" firstAttribute="top" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="pyj-Az-hvR"/>
+                <constraint firstAttribute="bottom" secondItem="0Xd-6q-8h3" secondAttribute="bottom" constant="8" id="swc-p2-fDO"/>
+                <constraint firstAttribute="trailing" secondItem="kZg-OT-qEf" secondAttribute="trailing" id="vnT-LU-ewe"/>
+                <constraint firstItem="aew-P5-3Uk" firstAttribute="top" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="wEM-JE-CBF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="f6s-Zq-3HN"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="17" y="115"/>
         </view>
     </objects>
+    <resources>
+        <image name="CardifySelected" width="23" height="30"/>
+        <image name="CardifyUnselected" width="23" height="30"/>
+    </resources>
 </document>

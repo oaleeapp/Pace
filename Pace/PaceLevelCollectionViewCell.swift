@@ -10,9 +10,19 @@ import UIKit
 
 class PaceLevelCollectionViewCell: UICollectionViewCell {
 
+
+    @IBOutlet weak var backView: UIView!
+
+    @IBOutlet weak var levelView: PaceLevelView!
+
+    @IBOutlet weak var countLabel: UILabel!
+
+    @IBOutlet weak var levelNameLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
+        backView.layer.cornerRadius = 15.0
     }
 
 }

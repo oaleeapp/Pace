@@ -23,5 +23,6 @@ extension MODefinition {
     @NSManaged var details: NSSet?
     @NSManaged var word: MOWord?
     @NSManaged var decks: NSSet?
+    @NSManaged var records: NSSet?
 
 }

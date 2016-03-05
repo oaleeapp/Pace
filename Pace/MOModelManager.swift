@@ -48,7 +48,7 @@ class MOModelManager {
 
     static func validateWordString(wordString: String) ->Bool {
 
-        let regex = try! NSRegularExpression(pattern: "^[a-z]{0,}$", options: .CaseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "^[a-z\\s]{0,}$", options: .CaseInsensitive)
         let range = NSMakeRange(0, wordString.characters.count)
         let matchRange = regex.rangeOfFirstMatchInString(wordString, options: .ReportProgress, range: range)
         return  matchRange.location != NSNotFound
@@ -113,9 +113,14 @@ extension MOModelManager {
 
         let definition = MODefinition(managedObjectContext: word.managedObjectContext!)
         definition.definition = json.word(.Definition).stringValue
-        let partOfSpeech = MOPartOfSpeechType(rawValue: json.word(.PartOfSpeech).stringValue)
-        definition.partOfSpeech = partOfSpeech?.abbreviation()
-        definition.colorHexString = partOfSpeech?.colorHexString()
+        if let partOfSpeech = MOPartOfSpeechType(rawValue: json.word(.PartOfSpeech).stringValue) {
+            definition.partOfSpeech = partOfSpeech.abbreviation()
+            definition.colorHexString = partOfSpeech.colorHexString()
+        } else {
+            let undefine = MOPartOfSpeechType.Undefine
+            definition.partOfSpeech = undefine.abbreviation()
+            definition.colorHexString = undefine.colorHexString()
+        }
 
         let details = json.detailJsons(
             [.Derivation, .SimilarTo, .Synonyms,
@@ -147,71 +152,7 @@ extension MOModelManager {
     }
 
 
-    private enum MOPartOfSpeechType : String{
-        case Noun = "noun"
-        case Pronoun = "pronoun"
-        case Adjective = "adjective"
-        case Verb = "verb"
-        case Adverb = "adverb"
-        case Preposition = "preposition" // have no this type
-        case Conjunction = "conjunction"
-        case Interjection = "interjection" // have no this type
-        case ArticleDefinite = "definite article"
-        case ArticleIndefinite = "indefinite article"
-
-        func abbreviation() -> String{
-
-            switch self{
-            case .Noun:
-                return "n."
-            case .Pronoun:
-                return "pron."
-            case .Adjective:
-                return "adj."
-            case .Verb:
-                return "v."
-            case .Adverb:
-                return "adv."
-            case .Preposition:
-                return "prep."
-            case .Conjunction:
-                return "conj."
-            case .Interjection:
-                return "int."
-            case .ArticleDefinite:
-                return "def.a."
-            case .ArticleIndefinite:
-                return "indef.a."
-            }
-
-        }
-
-        func colorHexString() -> String {
-
-            switch self{
-            case .Noun:
-                return "007AFF"
-            case .Pronoun:
-                return "34AADC"
-            case .Adjective:
-                return "FF9500"
-            case .Verb:
-                return "FF3B30"
-            case .Adverb:
-                return "FFCC00"
-            case .Preposition:
-                return "4CD964"
-            case .Conjunction:
-                return "5856D6"
-            case .Interjection:
-                return "FF2D55"
-            case .ArticleDefinite:
-                return "4A4A4A"
-            case .ArticleIndefinite:
-                return "2B2B2B"
-            }
-        }
-    }
+    
 
 }
 

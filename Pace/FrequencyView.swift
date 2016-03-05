@@ -16,7 +16,7 @@ class FrequencyView: UIView {
     override func drawRect(rect: CGRect) {
 
         let backRect = UIBezierPath(rect: rect)
-        UIColor.whiteColor().setFill()
+        UIColor(themeColor: .LightBackgroundColor).setFill()
         backRect.fill()
 
         let lineWidth = (rect.width - (edgeInset.left + edgeInset.right) - space * 4) / 5
@@ -37,7 +37,7 @@ class FrequencyView: UIView {
 
             let pathColor =
                 lineIndex < self.rank.rawValue ? self.tintColor :
-                self.rank == FrequencyRank.Undefine ? UIColor.lightGrayColor() : UIColor.clearColor()
+                self.rank == FrequencyRank.Undefine ? UIColor(themeColor: .LightDescribeColor) : UIColor.clearColor()
             pathColor.setStroke()
             path.stroke()
         }

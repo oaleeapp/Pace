@@ -251,7 +251,7 @@ extension WordListViewController : NSFetchedResultsControllerDelegate{
 
     func searchWord(word: String){
 
-        let predicate = NSPredicate(predicateIdentifier: .IsContainString, word)
+        let predicate = NSPredicate(format: "word CONTAINS[cd] %@", word)
         fetchedResultsController.fetchRequest.predicate = predicate
 
         do{

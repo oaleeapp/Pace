@@ -19,19 +19,17 @@ protocol PaceLevelDelegate {
 
 class PaceLevelResultsController: NSFetchedResultsController {
 
-    enum ProficiencyLevel : Int {
-        case Level0 = 0
-        case Level1 = 1
-        case Level2 = 2
-        case Level3 = 3
-        case Level4 = 4
-        case Level5 = 5
-        case Understood = 6
-    }
-
-    var level : ProficiencyLevel
+    var level : WordDefinitionProficiencyLevel
     var levelDelegate : PaceLevelDelegate
     var oldCount : Int?
+    var count : Int {
+        get{
+            guard let objectCount = self.sections?.first?.objects?.count else {
+                return 0
+            }
+            return objectCount
+        }
+    }
     
 
     init(levelInt: Int, managedObjectContext: NSManagedObjectContext, levelDelegate : PaceLevelDelegate) {
@@ -42,7 +40,7 @@ class PaceLevelResultsController: NSFetchedResultsController {
         cardFetchRequest.sortDescriptors = [primarySortDescriptor]
         let predicate = NSPredicate(format: "needsShow = TRUE && proficiency == %d", levelInt)
         cardFetchRequest.predicate = predicate
-        let level = ProficiencyLevel.init(rawValue: levelInt)
+        let level = WordDefinitionProficiencyLevel(rawValue: levelInt)
         self.level = level!
         self.levelDelegate = levelDelegate
 

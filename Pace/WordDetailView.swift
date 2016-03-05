@@ -30,9 +30,9 @@ class WordDetailView: UIView {
         wordLabel.text = word.word
         syllablesLabel.text = word.syllables
         pronunciationLabel.text = word.pronunciation
-
-        downloadButton.downloadState = word.downloadState
         downloadButton.rank = word.rank
+        downloadButton.downloadState = word.downloadState
+
 
     }
 

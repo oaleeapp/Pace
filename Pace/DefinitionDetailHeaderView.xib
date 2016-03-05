@@ -22,14 +22,16 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-af-P0I">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-af-P0I">
                     <rect key="frame" x="370" y="5" width="22" height="22"/>
+                    <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" image="addIcon"/>
                     <connections>
                         <action selector="addDetail:" destination="-1" eventType="touchUpInside" id="r9R-T2-Teu"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="yX8-af-P0I" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3Hg-XK-8Ws"/>
                 <constraint firstItem="yX8-af-P0I" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="6AT-LM-485"/>
@@ -40,4 +42,7 @@
             <point key="canvasLocation" x="258" y="272.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="addIcon" width="22" height="22"/>
+    </resources>
 </document>

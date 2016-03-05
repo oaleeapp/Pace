@@ -9,6 +9,12 @@
 import UIKit
 
 extension UIColor {
+
+    convenience init(themeColor: ThemeColor) {
+        let hexString = themeColor.rawValue
+        self.init(hexString: hexString)
+    }
+
     convenience init(hexString: String) {
         let hex = hexString.stringByTrimmingCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet)
         var int = UInt32()
@@ -39,14 +45,12 @@ extension UIColor {
     }
 
     enum ThemeColor : String {
-        case TintColor = "b"
-        case CardColor = "c"
-        case CardTextColor = "d"
-        case HintTextColor = "e"
-        case DarkTextColor = "f"
-        case LightTextColor = "g"
-        case DarkBackgroundColor = "h"
-        case LightBackgroundColor = "i"
-        
+        case LightThemeColor = "007AFF"
+        case LightBackgroundColor = "F7F7F7"
+        case LightCardBackgroundColor = "E9D460"
+        case LightTextColor = "141414"
+        case LightDescribeColor = "D2D7D3"
+        case LightLevelUpColor = "E74C3C"
+        case LightLevelDownColor = "2ECC71"
     }
 }

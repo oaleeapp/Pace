@@ -17,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        UINavigationBar.appearance().barTintColor = UIColor(themeColor: .LightThemeColor)
+        UINavigationBar.appearance().backgroundColor = UIColor(themeColor: .LightBackgroundColor)
+        UINavigationBar.appearance().tintColor = UIColor(themeColor: .LightBackgroundColor)
+        let titleDict = [NSForegroundColorAttributeName: UIColor(themeColor: .LightBackgroundColor)]
+        UINavigationBar.appearance().titleTextAttributes = titleDict
+        UISearchBar.appearance().barTintColor = UIColor(themeColor: .LightThemeColor)
+        UISearchBar.appearance().tintColor = UIColor(themeColor: .LightBackgroundColor)
+
+
         // Override point for customization after application launch.
             let rootVC = window?.rootViewController as! PaceTabBarViewController
             let navPaceVC = rootVC.viewControllers![0] as! UINavigationController
@@ -29,15 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             paceVC.managedObjectContext = self.managedObjectContext
             decksVC.managedObjectContext = self.managedObjectContext
             wordsVC.managedObjectContext = self.managedObjectContext
-
-            // 778DB5 blue
-            UINavigationBar.appearance().barTintColor = UIColor(hexString: "E2E3E5")
-            UINavigationBar.appearance().backgroundColor = UIColor(hexString: "BA6A6D")
-            UINavigationBar.appearance().tintColor = UIColor(hexString: "BA6A6D")
-            UISearchBar.appearance().barTintColor = UIColor(hexString: "BA6A6D")
-            UISearchBar.appearance().tintColor = UIColor(hexString: "525252")
-
-            rootVC.selectedViewController = navWordsVC
+//            rootVC.selectedViewController = navWordsVC
 
 
 

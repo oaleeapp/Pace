@@ -188,7 +188,7 @@ class MOWord: NSManagedObject {
 
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        self.createdAt = NSDate().timeIntervalSince1970
+        self.createdAt = NSDate.timeIntervalSinceReferenceDate()
     }
 
     func addDefinition(definition: MODefinition) {

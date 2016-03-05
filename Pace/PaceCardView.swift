@@ -17,21 +17,29 @@ class PaceCardView: UIView {
     @IBOutlet var backView: PaceCardBackView!
     @IBOutlet var frontView: PaceCardFrontView!
 
-
     let nibName = "PaceCardView"
 
+    var level: WordDefinitionProficiencyLevel = .Never
+    var partOfSpeechColor: UIColor = UIColor(themeColor: .LightBackgroundColor) {
+        didSet{
+            frontView.partOfSpeechIndicateView.backgroundColor = partOfSpeechColor
+            backView.partOfSpeechIndicateView.backgroundColor = partOfSpeechColor
+        }
+    }
     enum PaceCardFace {
         case Front
         case Back
     }
 
-    var face : PaceCardFace = .Front {
+    private(set) var face : PaceCardFace = .Front
 
-        didSet{
+    func setFace(face: PaceCardFace, withAnimated animated: Bool) {
+        if self.face != face {
 
-            setFace(face, fromFace: oldValue)
-
+            self.face = face
+            animated ? flipAnimate() : switchViews()
         }
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -55,6 +63,13 @@ class PaceCardView: UIView {
         view.frame = self.bounds
         view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         addSubview(view)
+        self.layer.cornerRadius = 15.0
+        self.clipsToBounds = true
+        self.layer.masksToBounds = true
+        self.view.layer.cornerRadius = 15.0
+        self.view.clipsToBounds = true
+        self.view.layer.masksToBounds = true
+        self.backgroundColor = UIColor(themeColor: .LightBackgroundColor)
     }
 
     func loadViewFromNib() -> UIView {
@@ -87,51 +102,55 @@ class PaceCardView: UIView {
 // MARK: animating func
 extension PaceCardView {
 
-    func setFace(face: PaceCardFace, fromFace: PaceCardFace) {
+    func flipAnimate() {
+        switch face {
+        case .Front :
 
-        // animating to flip
-        if face != fromFace {
+            let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromRight, .ShowHideTransitionViews]
 
-            switch face {
-            case .Front :
+            UIView.transitionWithView(backView, duration: 1.0, options: transitionOptions, animations: {
+                self.backView.hidden = true
+                }, completion: nil)
 
-                let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromRight, .ShowHideTransitionViews]
+            UIView.transitionWithView(frontView, duration: 1.0, options: transitionOptions, animations: {
+                self.frontView.hidden = false
+                }, completion: nil)
 
-                UIView.transitionWithView(backView, duration: 1.0, options: transitionOptions, animations: {
-                    self.backView.hidden = true
-                    }, completion: nil)
+        case .Back :
 
-                UIView.transitionWithView(frontView, duration: 1.0, options: transitionOptions, animations: {
-                    self.frontView.hidden = false
-                    }, completion: nil)
+            let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromLeft, .ShowHideTransitionViews]
 
-            case .Back :
+            UIView.transitionWithView(frontView, duration: 1.0, options: transitionOptions, animations: {
+                self.frontView.hidden = true
+                }, completion: nil)
 
-                let transitionOptions: UIViewAnimationOptions = [.TransitionFlipFromLeft, .ShowHideTransitionViews]
-
-                UIView.transitionWithView(frontView, duration: 1.0, options: transitionOptions, animations: {
-                    self.frontView.hidden = true
-                    }, completion: nil)
-
-                UIView.transitionWithView(backView, duration: 1.0, options: transitionOptions, animations: {
-                    self.backView.hidden = false
-                    }, completion: nil)
-
-            }
-
+            UIView.transitionWithView(backView, duration: 1.0, options: transitionOptions, animations: {
+                self.backView.hidden = false
+                }, completion: nil)
+            
         }
+    }
 
+    func switchViews() {
 
+        switch face {
+        case .Front :
+            backView.hidden = true
+            frontView.hidden = false
+        case .Back :
+            frontView.hidden = true
+            backView.hidden = false
+        }
     }
 
     func flip() {
         switch face {
         case .Front :
-            face = .Back
-//            setFace(.Back, fromFace: .Front)
+            setFace(.Back, withAnimated: true)
+
         case .Back :
-            face = .Front
-//            setFace(.Front, fromFace: .Back)
+            setFace(.Front, withAnimated: true)
+
         }
     }
 

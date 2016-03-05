@@ -19,7 +19,7 @@ class PaceMainViewController: UIViewController , SegueHandlerType{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = "Pace"
         // Do any additional setup after loading the view.
     }
 
@@ -35,16 +35,18 @@ class PaceMainViewController: UIViewController , SegueHandlerType{
 
             let destVC = segue.destinationViewController as! PaceProficiencyCollectionViewController
             destVC.managedObjectContext = self.managedObjectContext
+            destVC.statisticsDelegate = self
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+}
+
+extension PaceMainViewController : PaceProficiencyStatisticsDelegate {
+    func levelControllersDidChange(controllers: [PaceLevelResultsController]) {
+        print("level change")
+//        let levelCountArray = controllers.map{
+//            $0.count
+//        }
+//        statisticsView.levelCountArray = levelCountArray
     }
-    */
-
 }

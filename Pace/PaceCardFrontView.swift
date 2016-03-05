@@ -18,6 +18,7 @@ class PaceCardFrontView: UIView {
     @IBOutlet weak var syllablesLabel: UILabel!
     @IBOutlet weak var pronunciationLabel: UILabel!
 
+    @IBOutlet weak var partOfSpeechIndicateView: UIView!
 
     required init?(coder aDecoder: NSCoder) {
 
@@ -45,6 +46,12 @@ class PaceCardFrontView: UIView {
 
         // Adding custom subview on top of our view (over any custom drawing > see note below)
         addSubview(view)
+        self.layer.cornerRadius = 15.0
+        self.clipsToBounds = true
+        self.layer.masksToBounds = true
+        self.view.layer.cornerRadius = 15.0
+        self.view.clipsToBounds = true
+        self.view.layer.masksToBounds = true
     }
 
     func loadViewFromNib() -> UIView {

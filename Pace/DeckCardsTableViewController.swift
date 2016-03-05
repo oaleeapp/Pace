@@ -27,6 +27,9 @@ class DeckCardsTableViewController: UITableViewController {
         
     }()
 
+    let cellIdentifier = "CardCell"
+    let cellNibName = "DeckCardTableViewCell"
+
     func setUpManagedObjectContect(managedObjectContext: NSManagedObjectContext?, deck: MODeck?) {
 
         self.managedObjectContext = managedObjectContext
@@ -50,8 +53,12 @@ class DeckCardsTableViewController: UITableViewController {
 
         let editBarItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editCards")
         navigationItem.rightBarButtonItems = [editBarItem]
+        navigationItem.title = deck?.title
 
-
+        let nib = UINib(nibName: cellNibName, bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100.0
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -86,13 +93,32 @@ extension DeckCardsTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CardCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeckCardTableViewCell
 
         return configureCell(cell, indexPath: indexPath)
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+        selectCardAtIndexPath(indexPath)
+
+    }
+
+    func selectCardAtIndexPath(indexPath: NSIndexPath) {
+
+        let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
+        let definitionController = storyboard?.instantiateViewControllerWithIdentifier("WordDefinitionTableViewController") as! WordDefinitionTableViewController
+        definitionController.managedObjectContext = managedObjectContext
+        definitionController.definition = definitionCard
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismissDefinitionViewController:")
+        definitionController.navigationItem.leftBarButtonItem = doneButton
+        let naviController = UINavigationController(rootViewController: definitionController)
+
+        presentViewController(naviController, animated: true, completion: nil)
+    }
+
+    func dismissDefinitionViewController(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
@@ -113,10 +139,15 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
         return sectionData.numberOfObjects
     }
 
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+    func configureCell(cell: DeckCardTableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+        cell.selectionStyle = .None
         let definitionCard = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
-        cell.textLabel?.text = definitionCard.word?.word
-        cell.detailTextLabel?.text = definitionCard.definition
+        cell.wordLabel.text = definitionCard.word?.word
+        cell.definitionLabel.text = definitionCard.definition
+        cell.partOfSpeechLabel.text = definitionCard.partOfSpeech
+        cell.partOfSpeechIndicateView.backgroundColor = UIColor(hexString: definitionCard.colorHexString!)
+        cell.countLabel.text = "\(definitionCard.checkCount) times"
+        cell.levelView.level = definitionCard.level
         return cell
     }
 
@@ -154,8 +185,8 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
             break;
         case .Update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRowAtIndexPath(indexPath)
-                configureCell(cell!, indexPath: indexPath)
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! DeckCardTableViewCell
+                configureCell(cell, indexPath: indexPath)
             }
             break;
         case .Move:

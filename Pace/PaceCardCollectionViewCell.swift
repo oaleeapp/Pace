@@ -12,10 +12,19 @@ class PaceCardCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var cardView: PaceCardView!
 
-    override func prepareForReuse() {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+    }
 
-//        cardView.face = .Front
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setUp()
+    }
 
+    func setUp() {
+        self.layer.cornerRadius = 15.0
+        self.clipsToBounds = true
     }
 
 }

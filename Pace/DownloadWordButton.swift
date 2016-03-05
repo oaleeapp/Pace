@@ -36,6 +36,7 @@ class DownloadWordButton: UIButton {
             if newValue != rank {
                 setNeedsDisplay()
                 frequencyView.rank = newValue
+                self.enabled = rank == .Undefine ? true : false
             }
         }
     }
@@ -92,6 +93,7 @@ class DownloadWordButton: UIButton {
             print("show loading animate\(self.imageView)")
 
         case .HasDownloaded:
+
             print("show frequency view\(self.imageView)")
             self.imageView?.layer.removeAllAnimations()
             self.enabled = self.frequencyView.rank == .Undefine ? true : false

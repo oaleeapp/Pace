@@ -37,8 +37,10 @@ class WordDefinitionTableViewController: UITableViewController {
         
     }()
     weak var addAction : UIAlertAction?
-    var addButton : UIBarButtonItem?
-    let editTitle = "Edit"
+    lazy var addButton : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addDetailButton:")
+    lazy var editButton : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editDefinition:")
+    lazy var doneButton : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneEdit:")
+    lazy var deleteButton : UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "pressDeleteButton")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +59,9 @@ class WordDefinitionTableViewController: UITableViewController {
         }
 
         addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addDetailButton:")
-        let editButton = UIBarButtonItem(title: editTitle, style: .Plain, target: self, action: "editDefinition:")
-        navigationItem.rightBarButtonItems = [addButton!, editButton]
 
+        navigationItem.rightBarButtonItems = [editButton, addButton]
+        navigationItem.title = definition?.word?.word
         tableView.registerClass(DefinitionDetailHeaderView().dynamicType, forHeaderFooterViewReuseIdentifier: headerViewIdentifier)
     }
 
@@ -147,7 +149,6 @@ extension WordDefinitionTableViewController {
         definitionHeaderView.definitionTextView.text = definition.definition
         definitionHeaderView.cardifyButton.selected = definition.needsShow
         definitionHeaderView.cardifyButton.addTarget(self, action: "pressCardifyButton:", forControlEvents: .TouchUpInside)
-        definitionHeaderView.deleteDefinitionButton.addTarget(self, action: "pressDeleteButton:", forControlEvents: .TouchUpInside)
         definitionHeaderView.setPartOfSpeech(definition.partOfSpeech!, withColor: UIColor(hexString: definition.colorHexString!))
 
         definitionHeaderView.definitionTextView.editable = false
@@ -292,16 +293,14 @@ extension WordDefinitionTableViewController : DefinitionDetailDelegate {
 
     func editDefinition(sender: UIBarButtonItem) {
 
+        navigationItem.setRightBarButtonItems([doneButton, deleteButton, addButton], animated: true)
+        definitionHeaderView.definitionTextView.editable = true
+        definitionHeaderView.definitionTextView.becomeFirstResponder()
+    }
 
-        if sender.title == editTitle {
-
-            definitionHeaderView.definitionTextView.editable = true
-            definitionHeaderView.definitionTextView.becomeFirstResponder()
-            sender.title = "Done"
-        } else {
-            definitionHeaderView.definitionTextView.editable = false
-            sender.title = editTitle
-        }
+    func doneEdit(sender: UIBarButtonItem) {
+        navigationItem.setRightBarButtonItems([editButton, addButton], animated: true)
+        definitionHeaderView.definitionTextView.editable = false
     }
 
     func addDetailButton(sender : UIBarButtonItem) {
@@ -363,7 +362,7 @@ extension WordDefinitionTableViewController : DefinitionDetailDelegate {
 
     }
 
-    func pressDeleteButton(sender : UIButton) {
+    func pressDeleteButton(sender : UIBarButtonItem) {
 
         let deleteDefinitionAction = UIAlertAction(title: "Delete", style: .Destructive) { (action) -> Void in
             self.deleteDefinition(self.definition!)
@@ -385,6 +384,10 @@ extension WordDefinitionTableViewController : DefinitionDetailDelegate {
         definition?.needsShow = needsShow
         sender.selected = needsShow
         
+    }
+
+    func selectDeck(sender: UIButton) {
+        print("select Deck")
     }
 
     func deleteDefinition(definition : MODefinition) {

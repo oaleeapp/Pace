@@ -49,7 +49,7 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
             print("has no word managedObject exist")
             return
         }
-        let predicate = NSPredicate(predicateIdentifier: .IsLikeString, wordString)
+        let predicate = NSPredicate(format: "word.word LIKE[cd] %@", wordString)
         fetchedResultsController.fetchRequest.predicate = predicate
         do {
             try fetchedResultsController.performFetch()
@@ -64,11 +64,15 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
 
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        cellToCenter()
+    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
         let flowLayout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.itemSize = CGSize(width: (collectionView?.bounds.width)! - 100, height: (collectionView?.bounds.height)! - 100)
+        flowLayout.itemSize = CGSize(width: (collectionView?.bounds.width)! - 100, height: (collectionView?.bounds.height)! - 16)
         var insets = collectionView!.contentInset
         let padding = abs((self.view.frame.size.width - flowLayout.itemSize.width) * 0.5)
         insets.left = padding
@@ -107,6 +111,7 @@ extension WordDefinitionsCollectionViewController {
         definitionDetailDelegate?.showDefinition(definition)
 
     }
+
 }
 
 
@@ -131,10 +136,19 @@ extension WordDefinitionsCollectionViewController : NSFetchedResultsControllerDe
     }
 
     func configureCell(cell: WordDefinitionCell, indexPath: NSIndexPath) -> WordDefinitionCell {
-
         let definition = fetchedResultsController.objectAtIndexPath(indexPath) as! MODefinition
-        cell.definitionLabel.text = definition.definition
-        print(definition.details)
+
+        guard cell.viewModel != nil else {
+
+            let viewModel = WordDefinitionCellViewModel(managedObjectContext: managedObjectContext!, definition: definition)
+            cell.viewModel = viewModel
+            return cell
+
+        }
+
+        cell.viewModel.definition = definition
+
+
 
         return cell
     }

@@ -2,46 +2,79 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PaceLevelCollectionViewCell" customModule="Pace" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="320"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="200" height="320"/>
+                <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-NO-0sx" customClass="PaceLevelView" customModule="Pace" customModuleProvider="target">
-                        <rect key="frame" x="25" y="8" width="150" height="150"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="outlineColor">
-                                <color key="value" red="0.729411780834198" green="0.41568627953529358" blue="0.42745098471641541" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="counterColor">
-                                <color key="value" red="0.88627451658248901" green="0.89019608497619629" blue="0.89803922176361084" alpha="1" colorSpace="calibratedRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="counter">
-                                <integer key="value" value="2"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2h-8g-pui" customClass="PaceCardStackView" customModule="Pace" customModuleProvider="target">
-                        <rect key="frame" x="40" y="162" width="120" height="150"/>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="offSet">
-                                <real key="value" value="0.0"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerOffSet">
-                                <real key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fY4-3e-0QQ">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mT7-NO-0sx" customClass="PaceLevelView" customModule="Pace" customModuleProvider="target">
+                                <rect key="frame" x="25" y="8" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.83137254900000002" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mT7-NO-0sx" secondAttribute="height" multiplier="1:1" id="0zn-zJ-W3O"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xM8-LS-MWv">
+                                <rect key="frame" x="92" y="166" width="15.5" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Never" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sph-96-wqz">
+                                <rect key="frame" x="72" y="266" width="55.5" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17m-j5-AAu">
+                                <rect key="frame" x="86" y="215" width="29.5" height="13.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91372549020000005" green="0.83137254900000002" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="sph-96-wqz" secondAttribute="bottom" constant="8" id="5Rc-Wd-IB7"/>
+                            <constraint firstItem="sph-96-wqz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="17m-j5-AAu" secondAttribute="bottom" constant="8" id="7Qi-FX-ZdB"/>
+                            <constraint firstItem="17m-j5-AAu" firstAttribute="top" secondItem="xM8-LS-MWv" secondAttribute="bottom" constant="8" id="E4x-nG-cT0"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xM8-LS-MWv" secondAttribute="trailing" constant="8" id="IjB-W5-2TY"/>
+                            <constraint firstItem="sph-96-wqz" firstAttribute="centerX" secondItem="fY4-3e-0QQ" secondAttribute="centerX" id="InN-hw-SEc"/>
+                            <constraint firstItem="mT7-NO-0sx" firstAttribute="top" secondItem="fY4-3e-0QQ" secondAttribute="top" constant="8" id="Lab-Ta-7Dv"/>
+                            <constraint firstItem="xM8-LS-MWv" firstAttribute="centerX" secondItem="fY4-3e-0QQ" secondAttribute="centerX" id="oSW-hN-PFZ"/>
+                            <constraint firstItem="17m-j5-AAu" firstAttribute="centerX" secondItem="fY4-3e-0QQ" secondAttribute="centerX" id="qAO-te-eOd"/>
+                            <constraint firstItem="xM8-LS-MWv" firstAttribute="top" secondItem="mT7-NO-0sx" secondAttribute="bottom" constant="8" id="uyS-fB-qyf"/>
+                            <constraint firstItem="mT7-NO-0sx" firstAttribute="leading" secondItem="fY4-3e-0QQ" secondAttribute="leading" constant="25" id="xOi-yk-ilE"/>
+                            <constraint firstItem="xM8-LS-MWv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fY4-3e-0QQ" secondAttribute="leading" constant="8" id="yue-CH-pmy"/>
+                            <constraint firstAttribute="trailing" secondItem="mT7-NO-0sx" secondAttribute="trailing" constant="25" id="zdy-IY-Dxx"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <constraints>
+                <constraint firstItem="fY4-3e-0QQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Qzs-lv-pe8"/>
+                <constraint firstAttribute="bottom" secondItem="fY4-3e-0QQ" secondAttribute="bottom" id="WQ5-gv-dNX"/>
+                <constraint firstItem="fY4-3e-0QQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="qhA-6n-PXL"/>
+                <constraint firstAttribute="trailing" secondItem="fY4-3e-0QQ" secondAttribute="trailing" id="t4R-y4-AKs"/>
+            </constraints>
+            <size key="customSize" width="200" height="303"/>
+            <connections>
+                <outlet property="backView" destination="fY4-3e-0QQ" id="Efg-Fq-TyY"/>
+                <outlet property="countLabel" destination="xM8-LS-MWv" id="IMT-yA-uLG"/>
+                <outlet property="levelNameLabel" destination="sph-96-wqz" id="2FF-AQ-26U"/>
+                <outlet property="levelView" destination="mT7-NO-0sx" id="bJT-ob-ATb"/>
+            </connections>
+            <point key="canvasLocation" x="263" y="334"/>
         </collectionViewCell>
     </objects>
 </document>

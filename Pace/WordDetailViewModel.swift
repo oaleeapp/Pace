@@ -31,21 +31,7 @@ class WordDetailViewModel: NSObject {
         return frc
     }()
 
-    var word : MOWord! {
-        didSet{
-
-            let predicate = NSPredicate(format: "objectID == %@", word.objectID)
-            fetchedResultsController.fetchRequest.predicate = predicate
-
-            do {
-                // will load
-                try fetchedResultsController.performFetch()
-                // did load
-            } catch {
-                print(error)
-            }
-        }
-    }
+    var word : MOWord! 
 
     var delegate: WordDetailViewModelDelegate?
 

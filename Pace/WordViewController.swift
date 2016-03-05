@@ -14,6 +14,8 @@ class WordViewController: UIViewController, SegueHandlerType {
     var managedObjectContext: NSManagedObjectContext!
     var word: MOWord?
     var addAction: UIAlertAction?
+    var definitionTextField: UITextField?
+    var partOfSpeechTextField: UITextField?
     @IBOutlet weak var wordDetailView: WordDetailView!
 
 
@@ -39,6 +41,7 @@ class WordViewController: UIViewController, SegueHandlerType {
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addNewDefinitoin:")
 
         navigationItem.rightBarButtonItems = [addButton]
+        navigationItem.title = word?.word
         setUpWordView()
     }
 
@@ -67,9 +70,19 @@ extension WordViewController {
         let alertController = UIAlertController(title: "New Definition", message: nil, preferredStyle: .Alert)
 
         alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            self.definitionTextField = textField
             textField.delegate = self //REQUIRED
-            textField.placeholder = "Enter a title for Deck"
-//            textField.addTarget(self, action: "textFieldDidChangeText:", forControlEvents: .EditingChanged)
+            textField.placeholder = "definition"
+            textField.addTarget(self, action: "textFieldDidChangeText:", forControlEvents: .EditingChanged)
+        }
+
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            self.partOfSpeechTextField = textField
+            let pickerView = UIPickerView()
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            textField.inputView = pickerView
+            textField.placeholder = "part of speech"
         }
 
         addAction = UIAlertAction(title: "Add", style: .Default, handler: { (alertAction) -> Void in
@@ -78,10 +91,11 @@ extension WordViewController {
             let newDefinition = MODefinition(managedObjectContext: self.managedObjectContext!)
             newDefinition.word = self.word
             newDefinition.definition = text
-            newDefinition.partOfSpeech = "noun"
-
+            let partOfSpeech = MOPartOfSpeechType(rawValue: self.partOfSpeechTextField!.text!)
+            newDefinition.partOfSpeech = partOfSpeech?.abbreviation()
+            newDefinition.colorHexString = partOfSpeech?.colorHexString()
         })
-//        addAction?.enabled = false
+        addAction?.enabled = false
         alertController.addAction(addAction!)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
@@ -90,7 +104,7 @@ extension WordViewController {
 
     func showFrequencyRankSelectSheet(){
 
-        let alertController = UIAlertController(title: "Usage-Frequency of [\(word!.word!)]", message: "You can only set once.", preferredStyle: .ActionSheet)
+        let alertController = UIAlertController(title: "Usage-Frequency of [\(word!.word!)]", message: nil, preferredStyle: .ActionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
         for rank in FrequencyRank.rankList() {
@@ -108,6 +122,9 @@ extension WordViewController {
 extension WordViewController : UITextFieldDelegate {
 
     func textFieldDidChangeText(sender : UITextField) {
+        let canAdd = !((definitionTextField?.text?.isEmpty)! || (partOfSpeechTextField?.text!.isEmpty)!)
+
+        addAction?.enabled = canAdd
 
     }
 
@@ -123,5 +140,24 @@ extension WordViewController : WordDefinitionDetailDelegate{
         definitionVC.definition = definition
 
         navigationController?.pushViewController(definitionVC, animated: true)
+    }
+}
+
+extension WordViewController : UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return MOPartOfSpeechType.partOfSpeechList().count
+    }
+
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return MOPartOfSpeechType.partOfSpeechList()[row].rawValue
+    }
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        partOfSpeechTextField!.text = MOPartOfSpeechType.partOfSpeechList()[row].rawValue
+        textFieldDidChangeText(partOfSpeechTextField!)
     }
 }

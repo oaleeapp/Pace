@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WordDetailView" customModule="Pace" customModuleProvider="target">
@@ -14,39 +15,24 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="120"/>
+            <rect key="frame" x="0.0" y="0.0" width="400" height="110"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="YoQ-sL-4mG">
-                    <rect key="frame" x="16" y="0.0" width="330" height="120"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="word" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="FJp-wl-kFe">
-                            <rect key="frame" x="0.0" y="0.0" width="330" height="40"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="syllables" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="VLb-2v-ChM">
-                            <rect key="frame" x="0.0" y="40" width="330" height="40"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pronunciation" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="PmF-Cd-N0E">
-                            <rect key="frame" x="0.0" y="80" width="330" height="40"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="PmF-Cd-N0E" firstAttribute="width" secondItem="YoQ-sL-4mG" secondAttribute="width" id="W5L-3P-DjU"/>
-                        <constraint firstItem="FJp-wl-kFe" firstAttribute="width" secondItem="YoQ-sL-4mG" secondAttribute="width" id="ooM-Ji-axN"/>
-                        <constraint firstItem="VLb-2v-ChM" firstAttribute="width" secondItem="YoQ-sL-4mG" secondAttribute="width" id="yqj-CG-XEY"/>
-                    </constraints>
-                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="word" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="FJp-wl-kFe">
+                    <rect key="frame" x="16" y="8" width="51" height="25.5"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="syllables" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="VLb-2v-ChM">
+                    <rect key="frame" x="16" y="41" width="66" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fU2-Uz-9VU" customClass="DownloadWordButton" customModule="Pace" customModuleProvider="target">
                     <rect key="frame" x="346" y="8" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="XXn-8M-t5j"/>
                         <constraint firstAttribute="width" constant="46" id="w4q-I1-l8k"/>
@@ -57,18 +43,27 @@
                     </state>
                     <state key="disabled" image="Loading"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pronunciation" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="PmF-Cd-N0E">
+                    <rect key="frame" x="16" y="69.5" width="105" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="FJp-wl-kFe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="0ew-kT-SqC"/>
                 <constraint firstAttribute="trailing" secondItem="fU2-Uz-9VU" secondAttribute="trailing" constant="8" id="2tK-j0-Cwx"/>
-                <constraint firstAttribute="bottom" secondItem="YoQ-sL-4mG" secondAttribute="bottom" id="qN4-lP-cnt"/>
+                <constraint firstItem="PmF-Cd-N0E" firstAttribute="top" secondItem="VLb-2v-ChM" secondAttribute="bottom" constant="8" id="CJC-9h-TKk"/>
+                <constraint firstItem="VLb-2v-ChM" firstAttribute="leading" secondItem="FJp-wl-kFe" secondAttribute="leading" id="TJy-VD-Y5Z"/>
+                <constraint firstItem="VLb-2v-ChM" firstAttribute="top" secondItem="FJp-wl-kFe" secondAttribute="bottom" constant="8" id="rxj-oU-Kvz"/>
                 <constraint firstItem="fU2-Uz-9VU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="s0A-s8-TnM"/>
-                <constraint firstItem="YoQ-sL-4mG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="shm-Wt-Db6"/>
-                <constraint firstItem="YoQ-sL-4mG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="uRb-bO-Cdn"/>
-                <constraint firstItem="fU2-Uz-9VU" firstAttribute="leading" secondItem="YoQ-sL-4mG" secondAttribute="trailing" id="yeT-uK-iC3"/>
+                <constraint firstItem="FJp-wl-kFe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="sWw-Xr-Z3N"/>
+                <constraint firstItem="fU2-Uz-9VU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FJp-wl-kFe" secondAttribute="trailing" constant="8" id="tBh-RH-nFE"/>
+                <constraint firstItem="PmF-Cd-N0E" firstAttribute="leading" secondItem="FJp-wl-kFe" secondAttribute="leading" id="ueE-GX-fAi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="168" y="43"/>
+            <point key="canvasLocation" x="168" y="38"/>
         </view>
     </objects>
     <resources>

@@ -28,17 +28,27 @@ class DeckListTableViewController: UITableViewController {
 
     }()
 
+    let cellIdentifier = "deckCell"
+    let cellNibName = "DeckListTableViewCell"
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = "Decks"
+        let nib = UINib(nibName: cellNibName, bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
+        tableView.rowHeight = 74.5
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
         }
         
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
     }
     
 
@@ -59,7 +69,8 @@ extension DeckListTableViewController {
 
         addAction = UIAlertAction(title: "Add", style: .Default, handler: { (alertAction) -> Void in
             let text = alertController.textFields?.first?.text
-            self.managedObjectContext?.insertDeck(text!)
+            let newDeck = MODeck(managedObjectContext: self.managedObjectContext!)
+            newDeck.title = text!
 
         })
         addAction?.enabled = false
@@ -99,7 +110,7 @@ extension DeckListTableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DeckCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! DeckListTableViewCell
 
         return configureCell(cell, indexPath: indexPath)
     }
@@ -121,7 +132,7 @@ extension DeckListTableViewController : NSFetchedResultsControllerDelegate{
 
     func searchWord(word: String){
 
-        let predicate = NSPredicate(predicateIdentifier: .IsContainString, word)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", word)
         fetchedResultsController.fetchRequest.predicate = predicate
 
         do{
@@ -158,10 +169,10 @@ extension DeckListTableViewController : NSFetchedResultsControllerDelegate{
         return sectionData.numberOfObjects
     }
 
-    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+    func configureCell(cell: DeckListTableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
         let deck = fetchedResultsController.objectAtIndexPath(indexPath) as! MODeck
-        cell.textLabel?.text = deck.title
-        cell.backgroundColor = deck.backgroundColor
+        cell.deckTitleLabel?.text = deck.title
+        cell.countLabel.text = "\((deck.cards?.count)!) cards"
 
         return cell
     }
@@ -199,8 +210,8 @@ extension DeckListTableViewController : NSFetchedResultsControllerDelegate{
             break;
         case .Update:
             if let indexPath = indexPath {
-                let cell = tableView.cellForRowAtIndexPath(indexPath)
-                configureCell(cell!, indexPath: indexPath)
+                let cell = tableView.cellForRowAtIndexPath(indexPath) as! DeckListTableViewCell
+                configureCell(cell, indexPath: indexPath)
             }
             break;
         case .Move:

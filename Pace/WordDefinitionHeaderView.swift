@@ -15,14 +15,15 @@ class WordDefinitionHeaderView: UIView {
     @IBOutlet weak var definitionTextView : UITextView!
     @IBOutlet weak var partOfSpeechLabel : UILabel!
     @IBOutlet weak var cardifyButton : UIButton!
-    @IBOutlet weak var deleteDefinitionButton : UIButton!
+    @IBOutlet weak var deckButton : UIButton!
 
 
     func setPartOfSpeech(partOfSpeech: String, withColor color: UIColor) {
         partOfSpeechLabel.text = partOfSpeech
         partOfSpeechLabel.textColor = color
     }
-    
+
+
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

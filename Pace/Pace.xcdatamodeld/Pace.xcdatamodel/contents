@@ -11,9 +11,10 @@
         <attribute name="definition" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="needsShow" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="partOfSpeech" optional="YES" attributeType="String" defaultValueString="-" syncable="YES"/>
-        <attribute name="proficiency" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="proficiency" attributeType="Integer 16" minValueString="1" maxValueString="6" defaultValueString="1" syncable="YES"/>
         <relationship name="decks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODeck" inverseName="cards" inverseEntity="MODeck" syncable="YES"/>
         <relationship name="details" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MODefinitionDetail" inverseName="definition" inverseEntity="MODefinitionDetail" syncable="YES"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MODefinitionHistory" inverseName="definition" inverseEntity="MODefinitionHistory" syncable="YES"/>
         <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MOWord" inverseName="definitionList" inverseEntity="MOWord" syncable="YES"/>
     </entity>
     <entity name="MODefinitionDetail" representedClassName=".MODefinitionDetail" syncable="YES">
@@ -21,10 +22,15 @@
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="details" inverseEntity="MODefinition" syncable="YES"/>
     </entity>
+    <entity name="MODefinitionHistory" representedClassName=".MODefinitionHistory" syncable="YES">
+        <attribute name="levelChangeAmount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="definition" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MODefinition" inverseName="records" inverseEntity="MODefinition" syncable="YES"/>
+    </entity>
     <entity name="MOWord" representedClassName=".MOWord" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="downloadStateRawValue" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" syncable="YES"/>
-        <attribute name="frequency" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Double" minValueString="0" maxValueString="8" defaultValueString="0" syncable="YES"/>
         <attribute name="hasDownload" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pronunciation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="syllables" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,8 +44,9 @@
     </entity>
     <elements>
         <element name="MODeck" positionX="-126" positionY="62" width="128" height="88"/>
-        <element name="MODefinition" positionX="133" positionY="-243" width="128" height="178"/>
+        <element name="MODefinition" positionX="133" positionY="-243" width="128" height="193"/>
         <element name="MODefinitionDetail" positionX="295" positionY="-205" width="128" height="88"/>
         <element name="MOWord" positionX="-38" positionY="-250" width="128" height="163"/>
+        <element name="MODefinitionHistory" positionX="135" positionY="-16" width="128" height="88"/>
     </elements>
 </model>
