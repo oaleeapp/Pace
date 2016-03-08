@@ -16,6 +16,8 @@ class PaceCardBackView: UIView {
     
     var view: UIView!
     @IBOutlet weak var definitionLabel: UILabel!
+    @IBOutlet weak var wordLabel: UILabel!
+    @IBOutlet weak var partOfSpeechLabel: UILabel!
 
     @IBOutlet weak var partOfSpeechIndicateView: UIView!
     required init?(coder aDecoder: NSCoder) {

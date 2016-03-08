@@ -61,7 +61,6 @@ class WordDefinitionTableViewController: UITableViewController {
         addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addDetailButton:")
 
         navigationItem.rightBarButtonItems = [editButton, addButton]
-        navigationItem.title = definition?.word?.word
         tableView.registerClass(DefinitionDetailHeaderView().dynamicType, forHeaderFooterViewReuseIdentifier: headerViewIdentifier)
     }
 

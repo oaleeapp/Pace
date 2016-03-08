@@ -48,7 +48,7 @@ class MOModelManager {
 
     static func validateWordString(wordString: String) ->Bool {
 
-        let regex = try! NSRegularExpression(pattern: "^[a-z\\s]{0,}$", options: .CaseInsensitive)
+        let regex = try! NSRegularExpression(pattern: "^[a-z]{0,}$", options: .CaseInsensitive)
         let range = NSMakeRange(0, wordString.characters.count)
         let matchRange = regex.rangeOfFirstMatchInString(wordString, options: .ReportProgress, range: range)
         return  matchRange.location != NSNotFound

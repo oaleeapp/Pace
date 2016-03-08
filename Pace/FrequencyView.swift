@@ -16,7 +16,7 @@ class FrequencyView: UIView {
     override func drawRect(rect: CGRect) {
 
         let backRect = UIBezierPath(rect: rect)
-        UIColor(themeColor: .LightBackgroundColor).setFill()
+        UIColor.whiteColor().setFill()
         backRect.fill()
 
         let lineWidth = (rect.width - (edgeInset.left + edgeInset.right) - space * 4) / 5

@@ -16,6 +16,7 @@ class PaceCardCollectionViewController: UICollectionViewController {
     @IBOutlet var levelView: PaceLevelView!
 
     @IBOutlet var coverView: UIView!
+    @IBOutlet var cleanView: UIView!
 
     var managedObjectContext : NSManagedObjectContext?
     var level: WordDefinitionProficiencyLevel = .Never
@@ -58,10 +59,9 @@ class PaceCardCollectionViewController: UICollectionViewController {
 
         collectionView?.decelerationRate = 0.0
 
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
-        longPressRecognizer.minimumPressDuration = 0.1
-        longPressRecognizer.delegate = self
-        collectionView?.addGestureRecognizer(longPressRecognizer)
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        panGestureRecognizer.delegate = self
+        collectionView?.addGestureRecognizer(panGestureRecognizer)
 
        
 
@@ -90,12 +90,6 @@ class PaceCardCollectionViewController: UICollectionViewController {
         } catch {
             print("\(error)")
         }
-    }
-
-
-    func centeredCell(cell : UICollectionViewCell) {
-        let indexPath = collectionView!.indexPathForCell(cell)
-        collectionView!.scrollToItemAtIndexPath(indexPath!, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
     }
 }
 
@@ -164,11 +158,10 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
         case LevelDown
     }
 
+    func handlePan(panGestureRecognizer: UIPanGestureRecognizer){
+        let locationPoint = panGestureRecognizer.locationInView(self.collectionView)
 
-    func handleLongPress(longPressRecognizer: UILongPressGestureRecognizer){
-        let locationPoint = longPressRecognizer.locationInView(self.collectionView)
-
-        switch longPressRecognizer.state{
+        switch panGestureRecognizer.state{
         case .Began :
 
             guard let indexPath = collectionView?.indexPathForItemAtPoint(locationPoint) else {
@@ -179,7 +172,7 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
             let cell = collectionView?.cellForItemAtIndexPath(indexPath) as! PaceCardCollectionViewCell
             touchCell = cell
             configureMovingCellFromCell(cell)
-            cell.hidden = true
+            touchCell?.alpha = 0.0
             coverView.frame = (collectionView?.bounds)!
             collectionView?.addSubview(coverView)
             collectionView?.addSubview(levelView(levelView, withframe: cell.frame))
@@ -195,7 +188,7 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
             let deltaY = touchOriginPoint.y - locationPoint.y
             movingCell.center = CGPoint(x: (touchCell?.center.x)!, y: (touchCell?.center.y)! - deltaY)
 
-            let threshold = (touchCell?.bounds.height)!/2
+            let threshold = (touchCell?.bounds.height)! / 3
             levelViewMovedY(deltaY, threshold: threshold, withCurrentLevel: (touchCell?.cardView.level)!)
 
 
@@ -225,11 +218,11 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
                 }
             }
             endPanWithResult(result, withDefinitionCard: definitionCard)
-
-
+            
+            
         default:
             break
-
+            
         }
     }
 
@@ -244,8 +237,14 @@ extension PaceCardCollectionViewController : UIGestureRecognizerDelegate{
                     self.levelView.removeFromSuperview()
                     self.coverView.removeFromSuperview()
                     self.coverView.alpha = 0.0
-                    self.touchCell?.hidden = false
                     self.switchLevelWithResult(result, withDefinitionCard: definitionCard)
+                    if result == .LevelStay {
+                        self.touchCell?.alpha = 1.0
+                    } else {
+                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                            self.touchCell?.alpha = 1.0
+                        })
+                    }
                 }
         }
 
@@ -319,7 +318,8 @@ extension PaceCardCollectionViewController {
         movingCell.frontView.syllablesLabel.text = cell.cardView.frontView.syllablesLabel.text
         movingCell.frontView.pronunciationLabel.text = cell.cardView.frontView.pronunciationLabel.text
         movingCell.backView.definitionLabel.text = cell.cardView.backView.definitionLabel.text
-
+        movingCell.backView.wordLabel.text = cell.cardView.backView.wordLabel.text
+        movingCell.backView.partOfSpeechLabel.text = cell.cardView.backView.partOfSpeechLabel.text
         movingCell.level = cell.cardView.level
         movingCell.partOfSpeechColor = cell.cardView.partOfSpeechColor
         self.movingCell.setFace(cell.cardView.face, withAnimated: false)
@@ -346,6 +346,14 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
         guard let sectionData = fetchedResultsController.sections?[section] else {
             return 0
         }
+        if sectionData.numberOfObjects == 0 {
+            cleanView.frame = (collectionView?.bounds)!
+            if !(collectionView?.subviews.contains(cleanView))! {
+                collectionView?.addSubview(cleanView)
+            }
+        } else {
+            cleanView.removeFromSuperview()
+        }
         return sectionData.numberOfObjects
     }
 
@@ -356,6 +364,8 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
         cell.cardView.frontView.syllablesLabel.text = definitionCard.word?.syllables
         cell.cardView.frontView.pronunciationLabel.text = definitionCard.word?.pronunciation
         cell.cardView.backView.definitionLabel.text = definitionCard.definition
+        cell.cardView.backView.wordLabel.text = definitionCard.word?.word
+        cell.cardView.backView.partOfSpeechLabel.text = definitionCard.partOfSpeech
         cell.cardView.partOfSpeechColor = UIColor(hexString: definitionCard.colorHexString!)
         cell.cardView.level = definitionCard.level
         return cell
@@ -465,3 +475,16 @@ extension PaceCardCollectionViewController : NSFetchedResultsControllerDelegate{
     
 }
 
+extension PaceCardCollectionViewController {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIPanGestureRecognizer {
+            let panGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
+            let velocity = panGestureRecognizer.velocityInView(collectionView)
+
+            return fabs(velocity.y) > fabs(velocity.x)
+        } else {
+            return true
+        }
+    }
+
+}

@@ -27,4 +27,6 @@ class PaceCardCollectionViewCell: UICollectionViewCell {
         self.clipsToBounds = true
     }
 
+
+
 }

@@ -24,8 +24,8 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Definition" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="fpC-tQ-itM">
-                    <rect key="frame" x="16" y="21" width="168" height="239"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="50.5" y="146" width="99" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -52,20 +52,22 @@
             </subviews>
             <color key="backgroundColor" red="0.91372549020000005" green="0.83137254900000002" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="fpC-tQ-itM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="6CQ-Km-8uy"/>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="6CQ-Km-8uy"/>
                 <constraint firstItem="kZg-OT-qEf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Bqp-Cg-ahb"/>
                 <constraint firstAttribute="bottom" secondItem="aew-P5-3Uk" secondAttribute="bottom" constant="8" id="BzW-FV-z4N"/>
                 <constraint firstItem="aew-P5-3Uk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="JnZ-ig-RHX"/>
-                <constraint firstAttribute="trailingMargin" secondItem="fpC-tQ-itM" secondAttribute="trailing" constant="8" id="LfC-nM-Ahq"/>
+                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="fpC-tQ-itM" secondAttribute="trailing" constant="8" id="LfC-nM-Ahq"/>
                 <constraint firstItem="kZg-OT-qEf" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="1:25" id="Xgh-VK-vAF"/>
                 <constraint firstItem="kZg-OT-qEf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="bbH-h4-oIn"/>
                 <constraint firstAttribute="bottom" secondItem="kZg-OT-qEf" secondAttribute="bottom" constant="310" id="f6s-Zq-3HN"/>
-                <constraint firstItem="fpC-tQ-itM" firstAttribute="top" secondItem="kZg-OT-qEf" secondAttribute="bottom" constant="8" id="hqm-sQ-16X"/>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kZg-OT-qEf" secondAttribute="bottom" constant="8" id="hqm-sQ-16X"/>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jCa-V2-hY3"/>
                 <constraint firstAttribute="trailing" secondItem="0Xd-6q-8h3" secondAttribute="trailing" constant="8" id="o0B-Ev-Egb"/>
-                <constraint firstItem="0Xd-6q-8h3" firstAttribute="top" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="pyj-Az-hvR"/>
+                <constraint firstItem="0Xd-6q-8h3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="pyj-Az-hvR"/>
                 <constraint firstAttribute="bottom" secondItem="0Xd-6q-8h3" secondAttribute="bottom" constant="8" id="swc-p2-fDO"/>
                 <constraint firstAttribute="trailing" secondItem="kZg-OT-qEf" secondAttribute="trailing" id="vnT-LU-ewe"/>
-                <constraint firstItem="aew-P5-3Uk" firstAttribute="top" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="wEM-JE-CBF"/>
+                <constraint firstItem="aew-P5-3Uk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fpC-tQ-itM" secondAttribute="bottom" constant="8" id="wEM-JE-CBF"/>
+                <constraint firstItem="fpC-tQ-itM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wdj-J8-LpU"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">

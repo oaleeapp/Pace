@@ -16,7 +16,6 @@ class DeckCardTableViewCell: UITableViewCell {
     @IBOutlet weak var partOfSpeechLabel: UILabel!
 
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var partOfSpeechIndicateView: UIView!
 
     @IBOutlet weak var levelView: PaceLevelView!
     

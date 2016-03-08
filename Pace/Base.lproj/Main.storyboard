@@ -12,7 +12,27 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QZS-Cn-gZe">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="kCg-BB-JMs">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="152"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmx-Ei-X4H">
+                                    <rect key="frame" x="194" y="45" width="213" height="61"/>
+                                    <string key="text">Press [Edit] button to select
+definition cards
+into this deck</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Gmx-Ei-X4H" firstAttribute="centerX" secondItem="kCg-BB-JMs" secondAttribute="centerX" id="nRM-MG-YCj"/>
+                                <constraint firstItem="Gmx-Ei-X4H" firstAttribute="centerY" secondItem="kCg-BB-JMs" secondAttribute="centerY" id="t30-nl-EVj"/>
+                            </constraints>
+                        </view>
                         <connections>
                             <outlet property="dataSource" destination="Ruy-xf-MYB" id="qCW-et-XZN"/>
                             <outlet property="delegate" destination="Ruy-xf-MYB" id="cyy-ye-3Ok"/>
@@ -76,7 +96,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="PaceProficiencyCollectionViewController" id="wse-9B-NVs" customClass="PaceProficiencyCollectionViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Xhu-JG-7Jc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Oro-qV-n04" customClass="CenterCellCollectionViewFlowLayout" customModule="Pace" customModuleProvider="target">
@@ -102,7 +122,7 @@
                             <outlet property="delegate" destination="wse-9B-NVs" id="Osg-NV-KFX"/>
                         </connections>
                     </collectionView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2p-lh-aP9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -111,7 +131,7 @@
         <!--Pace Main View Controller-->
         <scene sceneID="DDo-kC-Lm3">
             <objects>
-                <viewController storyboardIdentifier="PaceMainViewController" id="N3t-2w-pcK" customClass="PaceMainViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaceMainViewController" automaticallyAdjustsScrollViewInsets="NO" id="N3t-2w-pcK" customClass="PaceMainViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Au-IJ-7QN"/>
                         <viewControllerLayoutGuide type="bottom" id="Tft-Zc-1oF"/>
@@ -121,7 +141,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pq1-4L-WAG">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <connections>
                                     <segue destination="wse-9B-NVs" kind="embed" identifier="PaceProficiencySegue" id="M3o-i2-np3"/>
                                 </connections>
@@ -131,12 +151,14 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="pq1-4L-WAG" secondAttribute="bottom" id="BeH-dw-VJ6"/>
                             <constraint firstItem="Tft-Zc-1oF" firstAttribute="top" secondItem="pq1-4L-WAG" secondAttribute="bottom" id="m6C-mS-Hqe"/>
+                            <constraint firstItem="Tft-Zc-1oF" firstAttribute="top" secondItem="pq1-4L-WAG" secondAttribute="bottom" id="rcl-8r-uZY"/>
                             <constraint firstAttribute="trailing" secondItem="pq1-4L-WAG" secondAttribute="trailing" id="vlr-a4-8pi"/>
                             <constraint firstItem="pq1-4L-WAG" firstAttribute="top" secondItem="7Au-IJ-7QN" secondAttribute="bottom" id="wgx-BB-OS8"/>
                             <constraint firstItem="pq1-4L-WAG" firstAttribute="leading" secondItem="lva-gs-RiM" secondAttribute="leading" id="wzV-8K-mDU"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="BeH-dw-VJ6"/>
                                 <exclude reference="m6C-mS-Hqe"/>
                             </mask>
                         </variation>
@@ -151,7 +173,7 @@
         <!--Pace Card Collection View Controller-->
         <scene sceneID="mnx-cq-Aha">
             <objects>
-                <collectionViewController storyboardIdentifier="PaceCardCollectionViewController" id="qW9-WN-0xN" customClass="PaceCardCollectionViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PaceCardCollectionViewController" automaticallyAdjustsScrollViewInsets="NO" id="qW9-WN-0xN" customClass="PaceCardCollectionViewController" customModule="Pace" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" id="eBy-ac-MeC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,6 +218,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="AjX-qB-pXZ"/>
                     <connections>
+                        <outlet property="cleanView" destination="Hyh-z8-NV3" id="poV-4u-H0U"/>
                         <outlet property="coverView" destination="Tmk-Kn-Se4" id="Npb-KM-vby"/>
                         <outlet property="levelView" destination="CU0-Q4-Mig" id="cAr-CS-R9U"/>
                     </connections>
@@ -210,6 +233,41 @@
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="Hyh-z8-NV3">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bq-9Q-lGc">
+                            <rect key="frame" x="37" y="120" width="226" height="61"/>
+                            <string key="text">There is no cards in this level.
+Go to Words to add more 
+definition cards.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJK-vj-ys5">
+                            <rect key="frame" x="67" y="71" width="166" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                            <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8V-7l-syv">
+                            <rect key="frame" x="138" y="188" width="25" height="25"/>
+                            <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="WordsTabIconSelected"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="P8V-7l-syv" firstAttribute="top" secondItem="5bq-9Q-lGc" secondAttribute="bottom" constant="7.5" id="7bH-2z-vqs"/>
+                        <constraint firstItem="P8V-7l-syv" firstAttribute="centerX" secondItem="Hyh-z8-NV3" secondAttribute="centerX" id="OJg-ya-wQo"/>
+                        <constraint firstItem="5bq-9Q-lGc" firstAttribute="top" secondItem="CJK-vj-ys5" secondAttribute="bottom" constant="8" id="cBV-oe-q8e"/>
+                        <constraint firstItem="CJK-vj-ys5" firstAttribute="centerX" secondItem="Hyh-z8-NV3" secondAttribute="centerX" id="e7Z-9s-Wbp"/>
+                        <constraint firstItem="5bq-9Q-lGc" firstAttribute="centerX" secondItem="Hyh-z8-NV3" secondAttribute="centerX" id="kvt-GZ-xom"/>
+                        <constraint firstItem="5bq-9Q-lGc" firstAttribute="centerY" secondItem="Hyh-z8-NV3" secondAttribute="centerY" id="svh-Hq-6ZK"/>
+                    </constraints>
                 </view>
             </objects>
             <point key="canvasLocation" x="2568" y="1031.5"/>
@@ -290,6 +348,48 @@ to create new deck</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="tbe-JX-5Rg">
+                            <rect key="frame" x="0.0" y="136" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5y-W9-FkP">
+                                    <rect key="frame" x="198" y="119" width="204.5" height="61"/>
+                                    <string key="text">Use search bar to search and add words
+to increase you vocabulary</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="duC-J9-A3m">
+                                    <rect key="frame" x="266" y="89" width="69" height="22"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-sk-9Qv">
+                                            <rect key="frame" x="0.0" y="0.0" width="23" height="22"/>
+                                            <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="SearchIcon"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DBp-d3-UIm">
+                                            <rect key="frame" x="23" y="0.0" width="23" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ZX-g7-Ce4">
+                                            <rect key="frame" x="46" y="0.0" width="23" height="22"/>
+                                            <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="addIcon"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="P5y-W9-FkP" firstAttribute="centerY" secondItem="tbe-JX-5Rg" secondAttribute="centerY" id="Or7-dz-383"/>
+                                <constraint firstItem="P5y-W9-FkP" firstAttribute="top" secondItem="duC-J9-A3m" secondAttribute="bottom" constant="8" id="PIy-Ur-8q1"/>
+                                <constraint firstItem="duC-J9-A3m" firstAttribute="centerX" secondItem="tbe-JX-5Rg" secondAttribute="centerX" id="aQL-Av-kpd"/>
+                                <constraint firstItem="P5y-W9-FkP" firstAttribute="centerX" secondItem="tbe-JX-5Rg" secondAttribute="centerX" id="zvl-Rb-w0m"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="wordCell" id="Dda-fh-juu">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
@@ -414,14 +514,14 @@ to create new deck</string>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="m9K-yk-ICC"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     <connections>
                                         <outlet property="delegate" destination="p5g-4c-X13" id="Tvc-zA-l4k"/>
                                     </connections>
                                 </textView>
                             </subviews>
-                            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="XfF-nr-ory" firstAttribute="leading" secondItem="Dg5-qN-TGc" secondAttribute="leading" constant="60" id="38G-x1-z4h"/>
                                 <constraint firstAttribute="trailing" secondItem="XfF-nr-ory" secondAttribute="trailing" constant="60" id="3wB-gz-8R1"/>
@@ -442,6 +542,32 @@ to create new deck</string>
                                 <outlet property="partOfSpeechLabel" destination="6JD-Y9-AQQ" id="hLU-Do-ag1"/>
                                 <outlet property="wordLabel" destination="l27-aI-eo1" id="one-eM-HqQ"/>
                             </connections>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="uFK-Ox-m3v">
+                            <rect key="frame" x="0.0" y="162" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQ9-LT-xdu">
+                                    <rect key="frame" x="234" y="129" width="131.5" height="41"/>
+                                    <string key="text">Press + icon
+to add new detail</string>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y16-1D-2Nz">
+                                    <rect key="frame" x="289" y="95" width="22" height="22"/>
+                                    <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" image="addIcon"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="FQ9-LT-xdu" firstAttribute="centerY" secondItem="uFK-Ox-m3v" secondAttribute="centerY" id="5YU-2Y-UFD"/>
+                                <constraint firstItem="FQ9-LT-xdu" firstAttribute="top" secondItem="Y16-1D-2Nz" secondAttribute="bottom" constant="12" id="68C-Mm-Bab"/>
+                                <constraint firstItem="Y16-1D-2Nz" firstAttribute="centerX" secondItem="uFK-Ox-m3v" secondAttribute="centerX" id="NO4-ku-Vjc"/>
+                                <constraint firstItem="FQ9-LT-xdu" firstAttribute="centerX" secondItem="uFK-Ox-m3v" secondAttribute="centerX" id="bvb-y8-q1m"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailCell" rowHeight="33" id="cM4-L8-L9f" customClass="WordDetailTableViewCell" customModule="Pace" customModuleProvider="target">
@@ -473,7 +599,7 @@ to create new deck</string>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="detailLabel" destination="xKV-80-7LZ" id="mIu-af-KNe"/>
                                 </connections>
@@ -500,7 +626,7 @@ to create new deck</string>
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="C9L-Tn-beF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kwE-eR-0we" customClass="CenterCellCollectionViewFlowLayout" customModule="Pace" customModuleProvider="target">
                             <size key="itemSize" width="445" height="455"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -538,8 +664,37 @@ to create new deck</string>
                             <outlet property="delegate" destination="dqO-id-6TG" id="5hv-IF-FRa"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="emptyIndicateView" destination="J3r-QI-0CP" id="ytM-RA-Qpx"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xff-VO-25w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="J3r-QI-0CP">
+                    <rect key="frame" x="0.0" y="0.0" width="330" height="205"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDx-Cd-nnR">
+                            <rect key="frame" x="54" y="82" width="222.5" height="41"/>
+                            <string key="text">Press + icon
+to create new definition card.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WUx-Ax-4Jo">
+                            <rect key="frame" x="154" y="52" width="22" height="22"/>
+                            <color key="tintColor" red="0.82352941180000006" green="0.84313725490000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" image="addIcon"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="BDx-Cd-nnR" firstAttribute="top" secondItem="WUx-Ax-4Jo" secondAttribute="bottom" constant="8" id="NYh-FY-XFX"/>
+                        <constraint firstItem="BDx-Cd-nnR" firstAttribute="centerY" secondItem="J3r-QI-0CP" secondAttribute="centerY" id="a9T-dg-Yds"/>
+                        <constraint firstItem="BDx-Cd-nnR" firstAttribute="centerX" secondItem="J3r-QI-0CP" secondAttribute="centerX" id="lXf-Co-4ta"/>
+                        <constraint firstItem="WUx-Ax-4Jo" firstAttribute="centerX" secondItem="J3r-QI-0CP" secondAttribute="centerX" id="t91-Jx-xSZ"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="1786" y="3366.5"/>
         </scene>
@@ -608,6 +763,7 @@ to create new deck</string>
         <image name="DecksTabIconUnselected" width="26" height="26"/>
         <image name="PaceTabIconSelected" width="25" height="25"/>
         <image name="PaceTabIconUnselected" width="25" height="25"/>
+        <image name="SearchIcon" width="23" height="22"/>
         <image name="WordsTabIconSelected" width="25" height="25"/>
         <image name="WordsTabIconUnselected" width="25" height="25"/>
         <image name="addIcon" width="22" height="22"/>

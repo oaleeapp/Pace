@@ -50,7 +50,7 @@ extension UIColor {
         case LightCardBackgroundColor = "E9D460"
         case LightTextColor = "141414"
         case LightDescribeColor = "D2D7D3"
-        case LightLevelUpColor = "E74C3C"
-        case LightLevelDownColor = "2ECC71"
+        case LightLevelUpColor = "2ECC71"
+        case LightLevelDownColor = "E74C3C"
     }
 }

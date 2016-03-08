@@ -35,7 +35,7 @@ class WordListViewController: UITableViewController {
 
         tableView.registerClass(WordListTableViewCell().dynamicType, forCellReuseIdentifier: cellIdentifier)
 
-        tableView.keyboardDismissMode = .Interactive
+        tableView.keyboardDismissMode = .OnDrag
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.delegate = self
@@ -47,6 +47,7 @@ class WordListViewController: UITableViewController {
         searchController.searchBar.scopeButtonTitles = WordSearchScopeSortType.scopeList()
         searchController.searchBar.alpha = 0.0
         searchController.searchBar.translucent = false
+        searchController.searchBar.placeholder = "Feed me a new word, or search one..."
 
         hideNavigationBar(true)
 
@@ -91,12 +92,6 @@ class WordListViewController: UITableViewController {
 // MARK: - word CRUD func
 extension WordListViewController {
 
-    func enterNewWord(wordString: String) {
-
-        MOModelManager.insertWord(wordString, managedObjectContext: managedObjectContext!)
-
-    }
-
     func insertOrPushToWord(wordString: String) {
 
         let section = fetchedResultsController.sections?.first
@@ -104,9 +99,16 @@ extension WordListViewController {
         if let word = words.filter({word in word.word! == wordString.lowercaseString}).first {
             pushToWord(word)
         } else {
-            enterNewWord(wordString)
+            let word = enterNewWord(wordString)
             searchController.searchBar.text = ""
+            pushToWord(word)
         }
+        
+    }
+
+    func enterNewWord(wordString: String) -> MOWord {
+
+        return MOModelManager.insertWord(wordString, managedObjectContext: managedObjectContext!)
         
     }
 

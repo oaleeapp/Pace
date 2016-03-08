@@ -51,7 +51,7 @@ class PaceProficiencyCollectionViewController: UICollectionViewController {
         let itemWidth = itemHeight * 5.0 / 8.0
         flowLayout.itemSize = CGSize(width:itemWidth, height: itemHeight)
 
-        flowLayout.minimumLineSpacing = 64.0
+        flowLayout.minimumLineSpacing = 48.0
         var insets = collectionView!.contentInset
         let padding = abs((self.view.frame.size.width - flowLayout.itemSize.width) * 0.5)
         insets.left = padding
@@ -91,13 +91,11 @@ extension PaceProficiencyCollectionViewController {
 
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return levelControllers.count
     }
 

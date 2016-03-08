@@ -36,7 +36,6 @@ class CardSelectionTableViewController: UITableViewController {
     let cellNibName = "DeckCardSelectTableViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = deck?.title
         let nib = UINib(nibName: cellNibName, bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
         tableView.rowHeight = UITableViewAutomaticDimension

@@ -18,6 +18,7 @@ protocol WordDefinitionDetailDelegate {
 
 class WordDefinitionsCollectionViewController: UICollectionViewController {
 
+    @IBOutlet var emptyIndicateView: UIView!
     let cellIdentifier = "DefinitionCell"
     var shouldReloadCollectionView = false
     var blockOperation : NSBlockOperation?
@@ -73,11 +74,9 @@ class WordDefinitionsCollectionViewController: UICollectionViewController {
         super.viewDidLayoutSubviews()
         let flowLayout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.itemSize = CGSize(width: (collectionView?.bounds.width)! - 100, height: (collectionView?.bounds.height)! - 16)
-        var insets = collectionView!.contentInset
         let padding = abs((self.view.frame.size.width - flowLayout.itemSize.width) * 0.5)
-        insets.left = padding
-        insets.right = padding
-        collectionView!.contentInset = insets
+        flowLayout.sectionInset = UIEdgeInsets(top: 16.0, left: padding, bottom: 16.0, right: padding)
+
         collectionView!.decelerationRate = UIScrollViewDecelerationRateFast;
     }
 
@@ -131,6 +130,14 @@ extension WordDefinitionsCollectionViewController : NSFetchedResultsControllerDe
     func numberOfRowForSection(section : Int) -> Int {
         guard let sectionData = fetchedResultsController.sections?[section] else {
             return 0
+        }
+        if sectionData.numberOfObjects == 0 {
+            emptyIndicateView.frame = (collectionView?.bounds)!
+            if !(collectionView?.subviews.contains(emptyIndicateView))! {
+                collectionView?.addSubview(emptyIndicateView)
+            }
+        } else {
+            emptyIndicateView.removeFromSuperview()
         }
         return sectionData.numberOfObjects
     }

@@ -145,7 +145,7 @@ extension DeckCardsTableViewController : NSFetchedResultsControllerDelegate{
         cell.wordLabel.text = definitionCard.word?.word
         cell.definitionLabel.text = definitionCard.definition
         cell.partOfSpeechLabel.text = definitionCard.partOfSpeech
-        cell.partOfSpeechIndicateView.backgroundColor = UIColor(hexString: definitionCard.colorHexString!)
+        cell.partOfSpeechLabel.textColor = UIColor(hexString: definitionCard.colorHexString!)
         cell.countLabel.text = "\(definitionCard.checkCount) times"
         cell.levelView.level = definitionCard.level
         return cell

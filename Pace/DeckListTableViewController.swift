@@ -122,8 +122,22 @@ extension DeckListTableViewController {
         deckVC.setUpManagedObjectContect(self.managedObjectContext, deck: deck)
         self.navigationController?.pushViewController(deckVC, animated: true)
 
+    }
 
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
 
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+
+        switch editingStyle {
+        case .Delete :
+            let deck = fetchedResultsController.objectAtIndexPath(indexPath) as! MODeck
+            self.managedObjectContext?.deleteObject(deck)
+        default :
+            return
+
+        }
     }
 }
 

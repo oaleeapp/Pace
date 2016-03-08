@@ -31,7 +31,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="yX8-af-P0I" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3Hg-XK-8Ws"/>
                 <constraint firstItem="yX8-af-P0I" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="6AT-LM-485"/>
