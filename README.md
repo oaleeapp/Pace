@@ -28,3 +28,30 @@ Understand : Able to use the word and understand the general and/or intended mea
 Fluent : Fluent with the word – its use and definition.
 
 Master : Totally Master the meaning.
+
+[header](http://i.imgur.com/jiCdlX8.jpg)
+
+[Go to word](http://i.imgur.com/WH0ouTA.jpg)
+
+[Search](http://i.imgur.com/dC1vsdg.jpg)
+
+[Select definition](http://i.imgur.com/9GvbKdS.jpg)
+
+[Go to Pace](http://i.imgur.com/mwEh2bZ.jpg)
+
+[Check definition](http://i.imgur.com/GGpcdIu.jpg)
+
+[Proficiency](http://i.imgur.com/O9WUuqY.jpg)
+
+[Go to deck](http://i.imgur.com/pM7yBVq.jpg)
+
+[New deck](http://i.imgur.com/R8eiSFV.jpg)
+
+[Edit deck](http://i.imgur.com/fiShhBA.jpg)
+
+
+
+
+
+
+
